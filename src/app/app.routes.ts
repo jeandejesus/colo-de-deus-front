@@ -1,3 +1,32 @@
+// src/app/app.routes.ts
 import { Routes } from '@angular/router';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { IncomesListComponent } from './incomes/incomes-list/incomes-list.component'; // Verifique essa importação
+import { ExpensesListComponent } from './expenses/expenses-list/expenses-list.component';
+import { AuthGuard } from './auth.guard';
+import { IncomeFormComponent } from './incomes/income-form/income-form.component';
+import { ExpenseFormComponent } from './expenses/expense-form/expense-form.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AuthenticatedLayoutComponent } from './shared/authenticated-layout/authenticated-layout.component';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  {
+    path: '',
+    component: AuthenticatedLayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'incomes', component: IncomesListComponent },
+      { path: 'incomes/add', component: IncomeFormComponent },
+      { path: 'incomes/edit/:id', component: IncomeFormComponent }, // Nova rota para edição
+      { path: 'expenses', component: ExpensesListComponent },
+      { path: 'expenses/add', component: ExpenseFormComponent },
+      { path: 'expenses/edit/:id', component: ExpenseFormComponent }, // Nova rota para edição
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+    ],
+  },
+  { path: '**', redirectTo: 'login', pathMatch: 'full' },
+];

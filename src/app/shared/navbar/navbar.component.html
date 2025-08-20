@@ -1,0 +1,19 @@
+<header class="navbar">
+  <a class="nav-brand" routerLink="/dashboard">Colo de Deus</a>
+
+  <button class="hamburger-button" (click)="toggleMenu()">
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+  </button>
+
+  <nav class="nav-links" [ngClass]="{ open: isMenuOpen }">
+    <a class="nav-item" routerLink="/incomes" routerLinkActive="active-link"
+      >Receitas</a
+    >
+    <a class="nav-item" routerLink="/expenses" routerLinkActive="active-link"
+      >Despesas</a
+    >
+    <button class="btn-logout" (click)="onLogout()">Sair</button>
+  </nav>
+</header>

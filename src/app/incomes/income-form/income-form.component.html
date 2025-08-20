@@ -1,0 +1,49 @@
+<div class="form-container">
+  <h2>Adicionar Receita</h2>
+
+  <form [formGroup]="incomeForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="description">Descrição</label>
+      <input id="description" type="text" formControlName="description" />
+      <div
+        *ngIf="
+          incomeForm.get('description')?.invalid &&
+          incomeForm.get('description')?.touched
+        "
+        class="error-message"
+      >
+        Descrição é obrigatória.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="value">Valor</label>
+      <input id="value" type="number" formControlName="value" />
+      <div
+        *ngIf="
+          incomeForm.get('value')?.invalid && incomeForm.get('value')?.touched
+        "
+        class="error-message"
+      >
+        Valor é obrigatório e deve ser um número positivo.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="date">Data</label>
+      <input id="date" type="date" formControlName="date" />
+      <div
+        *ngIf="
+          incomeForm.get('date')?.invalid && incomeForm.get('date')?.touched
+        "
+        class="error-message"
+      >
+        Data é obrigatória.
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="incomeForm.invalid">
+      Salvar Receita
+    </button>
+  </form>
+</div>

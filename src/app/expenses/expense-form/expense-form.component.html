@@ -1,0 +1,49 @@
+<div class="form-container">
+  <h2>Adicionar Despesa</h2>
+
+  <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="description">Descrição</label>
+      <input id="description" type="text" formControlName="description" />
+      <div
+        *ngIf="
+          expenseForm.get('description')?.invalid &&
+          expenseForm.get('description')?.touched
+        "
+        class="error-message"
+      >
+        Descrição é obrigatória.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="value">Valor</label>
+      <input id="value" type="number" formControlName="value" />
+      <div
+        *ngIf="
+          expenseForm.get('value')?.invalid && expenseForm.get('value')?.touched
+        "
+        class="error-message"
+      >
+        Valor é obrigatório e deve ser um número positivo.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="date">Data</label>
+      <input id="date" type="date" formControlName="date" />
+      <div
+        *ngIf="
+          expenseForm.get('date')?.invalid && expenseForm.get('date')?.touched
+        "
+        class="error-message"
+      >
+        Data é obrigatória.
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="expenseForm.invalid">
+      Salvar Despesa
+    </button>
+  </form>
+</div>

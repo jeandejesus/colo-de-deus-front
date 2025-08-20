@@ -1,0 +1,31 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Nome:</label>
+    <input id="name" type="text" formControlName="name" />
+  </div>
+  <div>
+    <label for="email">Email:</label>
+    <input id="email" type="email" formControlName="email" />
+  </div>
+  <div>
+    <label for="password">Senha:</label>
+    <input id="password" type="password" formControlName="password" />
+  </div>
+  <div>
+    <label for="birthDate">Data de Nascimento:</label>
+    <input id="birthDate" type="date" formControlName="birthDate" />
+  </div>
+  <div>
+    <label for="phone">Telefone:</label>
+    <input id="phone" type="text" formControlName="phone" />
+  </div>
+  <div>
+    <label for="address">Endereço:</label>
+    <input id="address" type="text" formControlName="address" />
+  </div>
+  <div>
+    <label for="vocationalYear">Ano Vocacional:</label>
+    <input id="vocationalYear" type="text" formControlName="vocationalYear" />
+  </div>
+  <button type="submit" [disabled]="registerForm.invalid">Cadastrar</button>
+</form>

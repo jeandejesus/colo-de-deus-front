@@ -1,0 +1,31 @@
+<div class="container">
+  <h2>Receitas</h2>
+
+  <button class="add-button" (click)="goToAddIncome()">
+    Adicionar Nova Receita
+  </button>
+
+  <div *ngIf="incomes.length > 0; else noIncomes">
+    <ul>
+      <li *ngFor="let income of incomes">
+        <div class="item-details">
+          <p>Descrição: {{ income.description }}</p>
+          <p>Valor: {{ income.value | currency : "BRL" }}</p>
+          <p>Data: {{ income.date | date : "shortDate" }}</p>
+        </div>
+        <div class="item-actions">
+          <button class="edit-button" (click)="onEditIncome(income._id)">
+            Editar
+          </button>
+          <button class="delete-button" (click)="onDeleteIncome(income._id)">
+            Deletar
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <ng-template #noIncomes>
+    <p class="no-incomes-message">Você ainda não tem receitas cadastradas.</p>
+  </ng-template>
+</div>

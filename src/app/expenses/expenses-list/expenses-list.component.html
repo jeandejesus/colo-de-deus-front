@@ -1,0 +1,31 @@
+<div class="container">
+  <h2>Despesas</h2>
+
+  <button class="add-button" (click)="goToAddExpense()">
+    Adicionar Nova Despesa
+  </button>
+
+  <div *ngIf="expenses.length > 0; else noExpenses">
+    <ul>
+      <li *ngFor="let expense of expenses">
+        <div class="item-details">
+          <p>Descrição: {{ expense.description }}</p>
+          <p>Valor: {{ expense.value | currency : "BRL" }}</p>
+          <p>Data: {{ expense.date | date : "shortDate" }}</p>
+        </div>
+        <div class="item-actions">
+          <button class="edit-button" (click)="onEditExpense(expense._id)">
+            Editar
+          </button>
+          <button class="delete-button" (click)="onDeleteExpense(expense._id)">
+            Deletar
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <ng-template #noExpenses>
+    <p class="no-expenses-message">Você ainda não tem despesas cadastradas.</p>
+  </ng-template>
+</div>
