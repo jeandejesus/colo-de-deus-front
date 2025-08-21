@@ -1,13 +1,33 @@
 <div class="container">
   <h2>Despesas</h2>
 
-  <button class="add-button" (click)="goToAddExpense()">
-    Adicionar Nova Despesa
-  </button>
+  <div class="header-actions">
+    <button class="add-button" (click)="goToAddExpense()">
+      Adicionar Nova Despesa
+    </button>
+  </div>
 
-  <div *ngIf="expenses.length > 0; else noExpenses">
+  <div class="filter-section">
+    <label for="startDate">De:</label>
+    <input
+      type="date"
+      id="startDate"
+      [(ngModel)]="startDate"
+      (change)="onFilter()"
+    />
+
+    <label for="endDate">Até:</label>
+    <input
+      type="date"
+      id="endDate"
+      [(ngModel)]="endDate"
+      (change)="onFilter()"
+    />
+  </div>
+
+  <div *ngIf="filteredExpenses.length > 0; else noExpenses">
     <ul>
-      <li *ngFor="let expense of expenses">
+      <li *ngFor="let expense of filteredExpenses">
         <div class="item-details">
           <p>Descrição: {{ expense.description }}</p>
           <p>Valor: {{ expense.value | currency : "BRL" }}</p>

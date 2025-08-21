@@ -3,7 +3,7 @@
 .dashboard-container {
   max-width: 900px;
   margin: 2rem auto;
-  padding: 2rem;
+  padding: 1rem; // Ajuste para mobile
   background-color: #f0f2f5;
   border-radius: 8px;
 }
@@ -16,15 +16,12 @@ h2 {
 
 .summary-cards {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column; // Padrão empilhado para mobile
   gap: 20px;
-  flex-wrap: wrap;
 }
 
 .card {
-  flex: 1;
-  min-width: 250px;
-  padding: 1.5rem;
+  padding: 1rem; // Ajuste para mobile
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -32,15 +29,15 @@ h2 {
 }
 
 .card-incomes {
-  border-left: 5px solid #2ecc71; // Receitas - verde
+  border-left: 5px solid #2ecc71;
 }
 
 .card-expenses {
-  border-left: 5px solid #e74c3c; // Despesas - vermelho
+  border-left: 5px solid #e74c3c;
 }
 
 .card-balance {
-  border-left: 5px solid #3498db; // Saldo - azul
+  border-left: 5px solid #3498db;
 }
 
 .card h3 {
@@ -50,7 +47,88 @@ h2 {
 }
 
 .card p {
-  font-size: 1.8rem;
+  font-size: 1.5rem; // Tamanho menor para mobile
   font-weight: bold;
   margin: 0;
 }
+
+.chart-section {
+  background-color: #ffffff;
+  padding: 1rem; // Ajuste para mobile
+  margin-top: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  h3 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+}
+
+.no-chart-message {
+  text-align: center;
+  color: #777;
+  font-style: italic;
+}
+
+// Media Query para telas maiores que 768px (tablets e desktops)
+@media (min-width: 768px) {
+  .dashboard-container {
+    padding: 2rem; // Retorna o padding original
+  }
+  .summary-cards {
+    flex-direction: row; // Layout flex-box horizontal
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+  .card {
+    flex: 1;
+    min-width: 250px;
+    padding: 1.5rem; // Retorna o padding original
+  }
+  .card p {
+    font-size: 1.8rem; // Retorna o tamanho original
+  }
+  .chart-section {
+    padding: 2rem; // Retorna o padding original
+  }
+}
+
+.card-general-balance {
+  border-left: 5px solid #8e44ad; // Roxo - para o saldo geral
+}
+
+/* src/app/dashboard/dashboard.component.scss */
+
+// ... (estilos de cards existentes)
+
+.adjust-button {
+  background-color: #8e44ad; // Roxo
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.2s;
+  width: 100%;
+  text-align: center;
+  &:hover {
+    background-color: darken(#8e44ad, 10%);
+  }
+}
+// ... (media query e restante do código)
+.chart-section {
+  background-color: #ffffff;
+  padding: 1rem;
+  margin-top: 2rem; // Garante espaço entre os gráficos
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  h3 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+}
+
+// ... (restante do código)

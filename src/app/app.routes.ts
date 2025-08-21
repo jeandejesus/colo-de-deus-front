@@ -9,6 +9,7 @@ import { IncomeFormComponent } from './incomes/income-form/income-form.component
 import { ExpenseFormComponent } from './expenses/expense-form/expense-form.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthenticatedLayoutComponent } from './shared/authenticated-layout/authenticated-layout.component';
+import { BalanceFormComponent } from './balance-form/balance-form.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -25,6 +26,7 @@ export const routes: Routes = [
       { path: 'expenses', component: ExpensesListComponent },
       { path: 'expenses/add', component: ExpenseFormComponent },
       { path: 'expenses/edit/:id', component: ExpenseFormComponent }, // Nova rota para edição
+      { path: 'balance', component: BalanceFormComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },

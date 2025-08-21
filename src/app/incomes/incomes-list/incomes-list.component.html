@@ -1,13 +1,33 @@
 <div class="container">
   <h2>Receitas</h2>
 
-  <button class="add-button" (click)="goToAddIncome()">
-    Adicionar Nova Receita
-  </button>
+  <div class="header-actions">
+    <button class="add-button" (click)="goToAddIncome()">
+      Adicionar Nova Receita
+    </button>
+  </div>
 
-  <div *ngIf="incomes.length > 0; else noIncomes">
+  <div class="filter-section">
+    <label for="startDate">De:</label>
+    <input
+      type="date"
+      id="startDate"
+      [(ngModel)]="startDate"
+      (change)="onFilter()"
+    />
+
+    <label for="endDate">Até:</label>
+    <input
+      type="date"
+      id="endDate"
+      [(ngModel)]="endDate"
+      (change)="onFilter()"
+    />
+  </div>
+
+  <div *ngIf="filteredIncomes.length > 0; else noIncomes">
     <ul>
-      <li *ngFor="let income of incomes">
+      <li *ngFor="let income of filteredIncomes">
         <div class="item-details">
           <p>Descrição: {{ income.description }}</p>
           <p>Valor: {{ income.value | currency : "BRL" }}</p>

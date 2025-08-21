@@ -12,9 +12,49 @@
       <p>{{ totalExpenses | currency : "BRL" }}</p>
     </div>
 
-    <div class="card card-balance">
-      <h3>Saldo Atual</h3>
-      <p>{{ balance | currency : "BRL" }}</p>
+    <div class="card card-general-balance">
+      <h3>Saldo Geral</h3>
+      <p>{{ generalBalance | currency : "BRL" }}</p>
+      <button class="adjust-button" [routerLink]="['/balance']">
+        Ajustar Saldo
+      </button>
     </div>
+  </div>
+
+  <div class="chart-section">
+    <h3>Distribuição de Despesas</h3>
+    <div *ngIf="expenseChartData.length > 0; else noChartData">
+      <ngx-charts-pie-chart
+        [results]="expenseChartData"
+        [legend]="showLegend"
+        [labels]="showLabels"
+      >
+      </ngx-charts-pie-chart>
+    </div>
+    <ng-template #noChartData>
+      <p class="no-chart-message">Adicione despesas para ver o gráfico.</p>
+    </ng-template>
+  </div>
+
+  <div class="chart-section">
+    <h3>Receitas vs Despesas (por Mês)</h3>
+    <div *ngIf="barChartData.length > 0; else noBarChartData">
+      <ngx-charts-bar-vertical-2d
+        [results]="barChartData"
+        [legend]="showLegend"
+        [xAxis]="showBarXAxis"
+        [yAxis]="showBarYAxis"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        [xAxisLabel]="'Mês'"
+        [yAxisLabel]="'Valor'"
+      >
+      </ngx-charts-bar-vertical-2d>
+    </div>
+    <ng-template #noBarChartData>
+      <p class="no-chart-message">
+        Adicione receitas e despesas para ver o gráfico.
+      </p>
+    </ng-template>
   </div>
 </div>

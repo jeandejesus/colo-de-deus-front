@@ -4,16 +4,20 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IncomesService } from '../../incomes.service';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-incomes-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './incomes-list.component.html',
   styleUrl: './incomes-list.component.scss',
 })
 export class IncomesListComponent implements OnInit {
   incomes: any[] = [];
+  filteredIncomes: any[] = []; // ⬅️ Nova lista para os resultados filtrados
+  startDate: string = ''; // ⬅️ Propriedade para a data de início
+  endDate: string = ''; // ⬅️ Propriedade para a data de fim
 
   constructor(private incomesService: IncomesService, private router: Router) {}
 
@@ -21,10 +25,24 @@ export class IncomesListComponent implements OnInit {
     this.incomesService.findAll().subscribe({
       next: (data) => {
         this.incomes = data;
+        this.filteredIncomes = data; // ⬅️ Inicialmente, exibe todos os itens
       },
       error: (err) => {
         console.error('Erro ao buscar receitas:', err);
       },
+    });
+  }
+
+  onFilter(): void {
+    const start = this.startDate ? new Date(this.startDate) : null;
+    const end = this.endDate ? new Date(this.endDate) : null;
+
+    this.filteredIncomes = this.incomes.filter((income) => {
+      const incomeDate = new Date(income.date);
+      const isAfterStart = start ? incomeDate >= start : true;
+      const isBeforeEnd = end ? incomeDate <= end : true;
+
+      return isAfterStart && isBeforeEnd;
     });
   }
 

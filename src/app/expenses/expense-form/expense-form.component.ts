@@ -8,8 +8,8 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { ExpensesService } from '../../expenses.service'; // Use o serviço de Despesas
-import { ActivatedRoute, Router } from '@angular/router'; // Importe ActivatedRoute
+import { ExpensesService } from '../../expenses.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-expense-form',
@@ -20,14 +20,11 @@ import { ActivatedRoute, Router } from '@angular/router'; // Importe ActivatedRo
 })
 export class ExpenseFormComponent implements OnInit {
   expenseForm!: FormGroup;
-  isEditing = false;
-  itemId: string | null = null;
 
   constructor(
     private fb: FormBuilder,
-    private expensesService: ExpensesService, // Injete o serviço de Despesas
-    private router: Router,
-    private route: ActivatedRoute
+    private expensesService: ExpensesService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -36,52 +33,19 @@ export class ExpenseFormComponent implements OnInit {
       value: ['', [Validators.required, Validators.min(0.01)]],
       date: ['', Validators.required],
     });
-
-    // Verifica se há um ID na URL para saber se é edição
-    this.itemId = this.route.snapshot.paramMap.get('id');
-    if (this.itemId) {
-      this.isEditing = true;
-      this.expensesService.findOne(this.itemId).subscribe({
-        next: (data) => {
-          // Preenche o formulário com os dados do item
-          this.expenseForm.patchValue({
-            description: data.description,
-            value: data.value,
-            date: new Date(data.date).toISOString().split('T')[0], // Formato YYYY-MM-DD
-          });
-        },
-        error: (err) => {
-          console.error('Erro ao carregar despesa:', err);
-        },
-      });
-    }
   }
 
   onSubmit(): void {
     if (this.expenseForm.valid) {
-      if (this.isEditing && this.itemId) {
-        this.expensesService
-          .update(this.itemId, this.expenseForm.value)
-          .subscribe({
-            next: () => {
-              console.log('Despesa atualizada com sucesso!');
-              this.router.navigate(['/expenses']);
-            },
-            error: (err) => {
-              console.error('Erro ao atualizar despesa:', err);
-            },
-          });
-      } else {
-        this.expensesService.create(this.expenseForm.value).subscribe({
-          next: () => {
-            console.log('Despesa adicionada com sucesso!');
-            this.router.navigate(['/expenses']);
-          },
-          error: (err) => {
-            console.error('Erro ao adicionar despesa:', err);
-          },
-        });
-      }
+      this.expensesService.create(this.expenseForm.value).subscribe({
+        next: () => {
+          console.log('Despesa adicionada com sucesso!');
+          this.router.navigate(['/expenses']);
+        },
+        error: (err) => {
+          console.error('Erro ao adicionar despesa:', err);
+        },
+      });
     }
   }
 }

@@ -109,3 +109,87 @@ li {
     background-color: darken(#e74c3c, 10%);
   }
 }
+
+/* src/app/incomes/incomes-list/incomes-list.component.scss */
+
+// Adicione este estilo para organizar o cabeçalho
+.header-actions {
+  display: flex;
+  justify-content: flex-end; // Alinha o botão à direita
+  margin-bottom: 2rem;
+}
+
+// Estilo para a nova seção de filtro
+.filter-section {
+  display: flex;
+  flex-direction: column; // Por padrão, empilha os itens em mobile
+  gap: 10px;
+  margin-bottom: 2rem;
+
+  label {
+    font-weight: bold;
+    color: #555;
+    margin-bottom: -5px; // Ajusta o espaçamento entre a label e o input
+  }
+
+  input[type="date"] {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #333;
+    outline: none; // Remove o contorno padrão
+    &:focus {
+      border-color: #3498db; // Adiciona um contorno azul no foco
+    }
+  }
+}
+
+// Media query para telas maiores, como desktops
+@media (min-width: 768px) {
+  .header-actions {
+    margin-bottom: 1rem;
+  }
+
+  .filter-section {
+    flex-direction: row; // Alinha os itens lado a lado em telas maiores
+    align-items: center;
+    gap: 20px;
+  }
+
+  .filter-section label {
+    margin-bottom: 0; // Remove a margem para alinhamento horizontal
+  }
+}
+
+// Estilos já existentes para a lista de itens
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column; // Empilha itens em mobile
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.item-details {
+  flex-grow: 1;
+}
+
+.item-actions {
+  display: flex;
+  gap: 10px;
+  align-self: flex-end; // Alinha os botões à direita em mobile
+}
+
+// Media
