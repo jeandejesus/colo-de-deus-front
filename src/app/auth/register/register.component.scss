@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh; // ocupa toda a tela
-  background: linear-gradient(135deg, #3f51b5, #673ab7);
+  background: linear-gradient(135deg, #090c1b, #0f081b);
 }
 
 form {
@@ -18,6 +18,7 @@ form {
   gap: 1.2rem;
   max-height: 90vh; // se a tela for pequena, não estoura
   overflow-y: auto; // ativa scroll interno no form
+  margin: 20px;
 
   h2 {
     text-align: center;
@@ -51,7 +52,7 @@ form {
 
   button {
     padding: 0.75rem 1rem;
-    background: #3f51b5;
+    background: #000105;
     color: #fff;
     font-size: 1rem;
     font-weight: bold;

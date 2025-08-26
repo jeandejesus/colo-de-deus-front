@@ -2,22 +2,22 @@
   <h2>Visão Geral</h2>
 
   <div class="summary-cards">
-    <div class="card card-incomes">
-      <h3>Total de Receitas</h3>
-      <p>{{ totalIncomes | currency : "BRL" }}</p>
-    </div>
-
-    <div class="card card-expenses">
-      <h3>Total de Despesas</h3>
-      <p>{{ totalExpenses | currency : "BRL" }}</p>
-    </div>
-
     <div class="card card-general-balance">
       <h3>Saldo Geral</h3>
       <p>{{ generalBalance | currency : "BRL" }}</p>
       <button class="adjust-button" [routerLink]="['/balance']">
         Ajustar Saldo
       </button>
+    </div>
+
+    <div class="card card-incomes" routerLink="/incomes">
+      <h3>Total de Receitas mês</h3>
+      <p>{{ totalIncomes | currency : "BRL" }}</p>
+    </div>
+
+    <div class="card card-expenses" routerLink="/expenses">
+      <h3>Total de Despesas mês</h3>
+      <p>{{ totalExpenses | currency : "BRL" }}</p>
     </div>
   </div>
 

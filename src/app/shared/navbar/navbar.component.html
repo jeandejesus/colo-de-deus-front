@@ -1,21 +1,45 @@
 <header class="navbar">
-  <a class="nav-brand" routerLink="/dashboard">Colo de Deus</a>
+  <a class="nav-brand" routerLink="/dashboard">
+    <img
+      src="assets/LogoColoDeDeus.png"
+      alt="Logo Colo De Deus"
+      class="img-fluid nav-brand"
+      style="max-width: 150px"
+  /></a>
 
-  <button class="hamburger-button" (click)="toggleMenu()">
+  <button class="hamburger-button" (click)="toggleMenu()" #hamburgerButton>
     <div class="line"></div>
     <div class="line"></div>
     <div class="line"></div>
   </button>
 
-  <nav class="nav-links" [ngClass]="{ open: isMenuOpen }">
-    <a class="nav-item" routerLink="/incomes" routerLinkActive="active-link"
+  <nav class="nav-links" [ngClass]="{ open: isMenuOpen }" #navMenu>
+    <a
+      class="nav-item"
+      routerLink="/dashboard"
+      routerLinkActive="active-link"
+      (click)="toggleMenu()"
+      >Visão Geral</a
+    >
+    <a
+      class="nav-item"
+      routerLink="/incomes"
+      routerLinkActive="active-link"
+      (click)="toggleMenu()"
       >Receitas</a
     >
-    <a class="nav-item" routerLink="/expenses" routerLinkActive="active-link"
+    <a
+      class="nav-item"
+      routerLink="/expenses"
+      routerLinkActive="active-link"
+      (click)="toggleMenu()"
       >Despesas</a
     >
 
-    <a class="nav-item" routerLink="/categories">Gerenciar Categorias</a>
+    <a class="nav-item" routerLink="/categories" (click)="toggleMenu()"
+      >Gerenciar Categorias</a
+    >
+
     <button class="btn-logout" (click)="onLogout()">Sair</button>
   </nav>
 </header>
