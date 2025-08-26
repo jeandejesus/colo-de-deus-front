@@ -5,11 +5,12 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CategoriesService } from '../../services/categories.service';
 import { Category } from '../model/categories.model';
+import { CategoryTypePipe } from '../../pipes/category-type.pipe';
 
 @Component({
   selector: 'app-categories-list',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, CategoryTypePipe],
   templateUrl: './categories-list.component.html',
   styleUrl: './categories-list.component.scss',
 })

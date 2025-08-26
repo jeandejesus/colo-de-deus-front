@@ -1,25 +1,42 @@
 <div class="dashboard-container">
-  <h2>Visão Geral</h2>
+  <mat-card appearance="outlined">
+    <mat-card-header>
+      <div class="header-content">
+        <mat-card-subtitle>Saldo Geral</mat-card-subtitle>
+        <p *ngIf="showValues">{{ generalBalance | currency : "BRL" }}</p>
+        <p *ngIf="!showValues">*******</p>
+        <button mat-icon-button (click)="toggleValues()">
+          <mat-icon>{{
+            showValues ? "visibility" : "visibility_off"
+          }}</mat-icon>
+        </button>
+      </div>
+    </mat-card-header>
 
-  <div class="summary-cards">
-    <div class="card card-general-balance">
-      <h3>Saldo Geral</h3>
-      <p>{{ generalBalance | currency : "BRL" }}</p>
-      <button class="adjust-button" [routerLink]="['/balance']">
-        Ajustar Saldo
-      </button>
-    </div>
+    <mat-card-actions>
+      <div class="spacer" [routerLink]="['/incomes']">
+        <mat-icon class="adjust-button up">arrow_circle_up</mat-icon>
+        <div class="valores">
+          <h6>Receitas</h6>
+          <p class="incomes" *ngIf="showValues">
+            {{ totalIncomes | currency : "BRL" }}
+          </p>
+          <p class="incomes" *ngIf="!showValues">*******</p>
+        </div>
+      </div>
 
-    <div class="card card-incomes" routerLink="/incomes">
-      <h3>Total de Receitas mês</h3>
-      <p>{{ totalIncomes | currency : "BRL" }}</p>
-    </div>
-
-    <div class="card card-expenses" routerLink="/expenses">
-      <h3>Total de Despesas mês</h3>
-      <p>{{ totalExpenses | currency : "BRL" }}</p>
-    </div>
-  </div>
+      <div class="spacer" [routerLink]="['/expenses']">
+        <mat-icon class="adjust-button down">arrow_circle_down</mat-icon>
+        <div class="valores">
+          <h6>Despesas</h6>
+          <p class="expenses" *ngIf="showValues">
+            {{ totalExpenses | currency : "BRL" }}
+          </p>
+          <p class="expenses" *ngIf="!showValues">*******</p>
+        </div>
+      </div>
+    </mat-card-actions>
+  </mat-card>
 
   <div class="charts-container">
     <div class="chart-card">

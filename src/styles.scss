@@ -93,5 +93,31 @@ button {
   text-align: center;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+/* src/styles.scss */
+$primary-color: #030303;
+$page-bg-color: #f0f2f5;
+
+html,
+body,
+.mat-sidenav-container {
+  height: 100%;
+  margin: 0;
+}
+
+// 1. Estiliza o conteúdo da página inteira
+.mat-sidenav-content {
+  background-color: $page-bg-color !important;
+}
+
+// 2. Estiliza o painel lateral do menu
+mat-sidenav {
+  background-color: $primary-color !important;
+}

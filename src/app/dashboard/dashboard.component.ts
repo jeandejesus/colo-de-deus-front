@@ -8,11 +8,19 @@ import { ExpensesService } from '../services/expenses.service';
 import { IncomesService } from '../services/incomes.service';
 import { BalanceService } from '../services/balance.service';
 import { RouterModule } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, NgxChartsModule, RouterModule],
+  imports: [
+    CommonModule,
+    NgxChartsModule,
+    RouterModule,
+    MatCardModule,
+    MatIconModule,
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
@@ -36,6 +44,7 @@ export class DashboardComponent implements OnInit {
   showBarLabels = true;
   showBarXAxis = true;
   showBarYAxis = true;
+  showValues: boolean = false;
 
   constructor(
     private incomesService: IncomesService,
@@ -137,5 +146,9 @@ export class DashboardComponent implements OnInit {
 
   private calculateTotal(items: any[]): number {
     return items.reduce((sum, item) => sum + item.value, 0);
+  }
+
+  toggleValues(): void {
+    this.showValues = !this.showValues;
   }
 }

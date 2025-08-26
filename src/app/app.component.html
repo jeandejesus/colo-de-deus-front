@@ -1,1 +1,6 @@
-<router-outlet></router-outlet>
+<app-navbar
+  [showNavigation]="showNavigation"
+  *ngIf="showNavigation"
+></app-navbar>
+
+<router-outlet *ngIf="!showNavigation"></router-outlet>

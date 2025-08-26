@@ -1,13 +1,103 @@
-/* src/app/dashboard/dashboard.component.scss */
-
-/* ------------------- Container principal ------------------- */
 .dashboard-container {
   max-width: 1278px;
-  margin: 2rem auto;
-  padding: 1rem;
   background-color: #f0f2f5;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+  mat-card {
+    border-radius: 0 0 24px 23px;
+    height: 219px;
+    box-shadow: 0 4px 12px #0000000d;
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    .adjust-button {
+      padding: 0;
+      width: 62px;
+      margin: 0;
+    }
+
+    .up {
+      background: #2ecc71;
+      border-radius: 117px;
+      width: 35px;
+      height: 35px;
+      font-size: 34px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .down {
+      background: #e74c3c;
+      border-radius: 117px;
+      width: 35px;
+      height: 35px;
+      font-size: 34px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    mat-card-header {
+      flex-direction: column;
+      padding: 20px;
+
+      button {
+        padding: 0;
+        background: none;
+        color: black;
+      }
+
+      p {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0;
+      }
+
+      .mat-mdc-button-base {
+        margin: 8px 8px 8px 0;
+      }
+    }
+    mat-card-actions {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+
+      .spacer {
+        display: flex;
+        width: 35%;
+        display: flex;
+        justify-content: inherit;
+      }
+
+      .valores {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-left: 10px;
+
+        p {
+          margin: 0;
+          &.incomes {
+            color: #2ecc71;
+          }
+          &.expenses {
+            color: #e74c3c;
+          }
+        }
+        h6 {
+          width: 100%;
+          text-align: left;
+          margin: 0;
+        }
+      }
+    }
+  }
 
   @media (min-width: 768px) {
     padding: 2rem;
@@ -101,7 +191,7 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  margin-top: 2rem;
+  margin: 35px 10px;
 
   @media (min-width: 768px) {
     flex-direction: row;
@@ -167,7 +257,10 @@ ngx-charts-bar-vertical-2d {
 
 /* ------------------- Media Query para Desktop ------------------- */
 @media (min-width: 768px) {
-  // ... (seus estilos existentes para desktop)
+  .dashboard-container {
+    padding: 10px 15rem;
+    max-width: 2000px;
+  }
 
   .charts-container {
     flex-direction: row;
@@ -178,6 +271,10 @@ ngx-charts-bar-vertical-2d {
     flex: 1;
     max-width: 48%;
     padding: 2rem;
+  }
+
+  mat-card-actions {
+    justify-content: space-around;
   }
 
   ngx-charts-pie-chart,
@@ -216,4 +313,29 @@ ngx-charts-bar-vertical-2d {
   text-align: center;
   color: #777;
   font-style: italic;
+}
+
+.card {
+  position: relative;
+  padding: 1.5rem 1rem;
+  background-color: #ffffff;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  text-align: center;
+
+  .icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+}
+
+.card-incomes .icon {
+  color: #2ecc71;
+}
+.card-expenses .icon {
+  color: #e74c3c;
+}
+.card-general-balance .icon {
+  color: #8e44ad;
 }
