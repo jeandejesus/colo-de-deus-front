@@ -1,23 +1,21 @@
 // src/app/expenses/expenses-list/expenses-list.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ExpensesService } from '../../expenses.service';
-import { Router } from '@angular/router';
+import { ExpensesService } from '../../services/expenses.service';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-expenses-list',
   standalone: true,
-  imports: [CommonModule, FormsModule], // ⬅️ Adicione o FormsModule aqui
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './expenses-list.component.html',
-  styleUrl: './expenses-list.component.scss',
+  styleUrls: ['./expenses-list.component.scss'], // ✅ corrigido
 })
 export class ExpensesListComponent implements OnInit {
   expenses: any[] = [];
-  filteredExpenses: any[] = []; // ⬅️ Nova lista para os resultados filtrados
-  startDate: string = ''; // ⬅️ Propriedade para a data de início
-  endDate: string = ''; // ⬅️ Propriedade para a data de fim
+  startDate: string = '';
+  endDate: string = '';
 
   constructor(
     private expensesService: ExpensesService,
@@ -25,15 +23,21 @@ export class ExpensesListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.expensesService.findAll().subscribe({
+    this.loadExpenses();
+  }
+
+  loadExpenses(): void {
+    this.expensesService.findAll(this.startDate, this.endDate).subscribe({
       next: (data) => {
-        this.expenses = data;
-        this.filteredExpenses = data; // ⬅️ Inicialmente, exibe todos os itens
+        this.expenses = [...data]; // ✅ força atualização no Angular
       },
       error: (err) => {
         console.error('Erro ao buscar despesas:', err);
       },
     });
+  }
+
+  onFilter(): void {
     this.loadExpenses();
   }
 
@@ -41,38 +45,11 @@ export class ExpensesListComponent implements OnInit {
     this.router.navigate(['/expenses/add']);
   }
 
-  onFilter(): void {
-    const start = this.startDate ? new Date(this.startDate) : null;
-    const end = this.endDate ? new Date(this.endDate) : null;
-
-    this.filteredExpenses = this.expenses.filter((expense) => {
-      const expenseDate = new Date(expense.date);
-      const isAfterStart = start ? expenseDate >= start : true;
-      const isBeforeEnd = end ? expenseDate <= end : true;
-
-      return isAfterStart && isBeforeEnd;
-    });
-  }
-
-  // Novo método para carregar os dados
-  private loadExpenses(): void {
-    this.expensesService.findAll().subscribe({
-      next: (data) => {
-        this.expenses = data;
-      },
-      error: (err) => {
-        console.error('Erro ao buscar despesas:', err);
-      },
-    });
-  }
-
-  // Novo método para deletar uma despesa
   onDeleteExpense(id: string): void {
     if (confirm('Tem certeza que deseja deletar esta despesa?')) {
       this.expensesService.remove(id).subscribe({
         next: () => {
           console.log('Despesa deletada com sucesso!');
-          // Recarrega a lista para refletir a mudança
           this.loadExpenses();
         },
         error: (err) => {

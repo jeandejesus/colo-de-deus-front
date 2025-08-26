@@ -10,6 +10,8 @@ import { ExpenseFormComponent } from './expenses/expense-form/expense-form.compo
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthenticatedLayoutComponent } from './shared/authenticated-layout/authenticated-layout.component';
 import { BalanceFormComponent } from './balance-form/balance-form.component';
+import { CategoriesFormComponent } from './categories/categories-form/categories-form.component';
+import { CategoriesListComponent } from './categories/categories-list/categories-list.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -27,6 +29,10 @@ export const routes: Routes = [
       { path: 'expenses/add', component: ExpenseFormComponent },
       { path: 'expenses/edit/:id', component: ExpenseFormComponent }, // Nova rota para edição
       { path: 'balance', component: BalanceFormComponent },
+      { path: 'categories', component: CategoriesListComponent }, // ⬅️ Rota para a lista de categorias
+      { path: 'categories/add', component: CategoriesFormComponent }, // ⬅️ Rota para adicionar categoria
+      { path: 'categories/edit/:id', component: CategoriesFormComponent }, // ⬅️ Rota para editar categoria
+
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },

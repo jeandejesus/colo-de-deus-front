@@ -10,7 +10,8 @@ import {
 } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../auth.service';
-import { NotificationsService } from '../../notifications.service';
+import { Router } from '@angular/router';
+import { NotificationsService } from '../../services/notifications.service';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private notificationsService: NotificationsService // Injete o serviço
+    private notificationsService: NotificationsService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -50,7 +52,7 @@ export class LoginComponent implements OnInit {
             access_token
           );
 
-          // TODO: Redirecionar o usuário para a página principal
+          this.router.navigate(['/dashboard']);
         },
         (error) => {
           console.error('Erro no login:', error);

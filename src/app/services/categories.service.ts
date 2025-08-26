@@ -1,0 +1,38 @@
+// src/app/services/categories.service.ts
+
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class CategoriesService {
+  private apiUrl = 'http://localhost:3000/categories';
+
+  constructor(private http: HttpClient) {}
+
+  create(category: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, category);
+  }
+
+  findAll(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
+  }
+
+  findAllByType(type: 'income' | 'expense'): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}?type=${type}`);
+  }
+
+  findOne(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
+
+  update(id: string, category: any): Observable<any> {
+    return this.http.patch<any>(`${this.apiUrl}/${id}`, category);
+  }
+
+  remove(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  }
+}

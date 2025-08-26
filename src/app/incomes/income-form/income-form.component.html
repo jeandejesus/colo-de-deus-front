@@ -42,6 +42,25 @@
       </div>
     </div>
 
+    <div class="form-group">
+      <label for="category">Categoria</label>
+      <select id="category" formControlName="category">
+        <option [ngValue]="null" disabled>Selecione uma categoria</option>
+        <option *ngFor="let category of categories" [ngValue]="category._id">
+          {{ category.name }}
+        </option>
+      </select>
+      <div
+        *ngIf="
+          incomeForm.get('category')?.invalid &&
+          incomeForm.get('category')?.touched
+        "
+        class="error-message"
+      >
+        Categoria é obrigatória.
+      </div>
+    </div>
+
     <button type="submit" [disabled]="incomeForm.invalid">
       Salvar Receita
     </button>

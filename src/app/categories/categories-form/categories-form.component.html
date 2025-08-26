@@ -1,0 +1,47 @@
+<div class="form-container">
+  <h2>{{ isEditing ? "Editar Categoria" : "Adicionar Categoria" }}</h2>
+
+  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Nome da Categoria</label>
+      <input id="name" type="text" formControlName="name" />
+      <div
+        *ngIf="
+          categoryForm.get('name')?.invalid && categoryForm.get('name')?.touched
+        "
+        class="error-message"
+      >
+        Nome é obrigatório.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="type">Tipo</label>
+      <select id="type" formControlName="type">
+        <option [ngValue]="null" disabled>Selecione o tipo</option>
+        <option *ngFor="let type of categoryTypes" [ngValue]="type">
+          {{ type | categoryType }}
+        </option>
+      </select>
+      <div
+        *ngIf="
+          categoryForm.get('type')?.invalid && categoryForm.get('type')?.touched
+        "
+        class="error-message"
+      >
+        Tipo é obrigatório.
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="categoryForm.invalid">
+      {{ isEditing ? "Salvar Alterações" : "Adicionar" }}
+    </button>
+    <button
+      type="button"
+      class="cancel-button"
+      (click)="router.navigate(['/categories'])"
+    >
+      Cancelar
+    </button>
+  </form>
+</div>

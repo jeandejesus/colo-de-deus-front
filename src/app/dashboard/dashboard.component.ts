@@ -4,9 +4,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { forkJoin } from 'rxjs';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { ExpensesService } from '../expenses.service';
-import { IncomesService } from '../incomes.service';
-import { BalanceService } from '../balance.service';
+import { ExpensesService } from '../services/expenses.service';
+import { IncomesService } from '../services/incomes.service';
+import { BalanceService } from '../services/balance.service';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -20,10 +20,14 @@ export class DashboardComponent implements OnInit {
   totalIncomes: number = 0;
   totalExpenses: number = 0;
   balance: number = 0;
-  generalBalance: number = 0; // ⬅️ Nova propriedade para o saldo geral
+  generalBalance: number = 0;
 
   // Propriedades para o gráfico de pizza (despesas)
   expenseChartData: any[] = [];
+
+  // ⬅️ Nova propriedade para o gráfico de receitas
+  incomeChartData: any[] = [];
+
   showLegend = true;
   showLabels = true;
 
@@ -40,19 +44,28 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const now = new Date();
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1)
+      .toISOString()
+      .substring(0, 10);
+    const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0)
+      .toISOString()
+      .substring(0, 10);
+
     forkJoin({
-      incomes: this.incomesService.findAll(),
-      expenses: this.expensesService.findAll(),
-      generalBalanceData: this.balanceService.getBalance(), // ⬅️ Busca o saldo geral
+      incomes: this.incomesService.findAll(startOfMonth, endOfMonth),
+      expenses: this.expensesService.findAll(startOfMonth, endOfMonth),
+      generalBalanceData: this.balanceService.getBalance(),
     }).subscribe({
       next: ({ incomes, expenses, generalBalanceData }) => {
         this.totalIncomes = this.calculateTotal(incomes);
         this.totalExpenses = this.calculateTotal(expenses);
         this.balance = this.totalIncomes - this.totalExpenses;
+        this.generalBalance = generalBalanceData.value;
 
-        this.generalBalance = generalBalanceData.value; // ⬅️ Atribui o valor do saldo geral
-
+        // ⬅️ Cria os dados para os gráficos
         this.expenseChartData = this.formatDataForPieChart(expenses);
+        this.incomeChartData = this.formatDataForPieChart(incomes);
         this.barChartData = this.formatDataForBarChart(incomes, expenses);
       },
       error: (err) => {
@@ -61,21 +74,25 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  private formatDataForPieChart(expenses: any[]): any[] {
+  private formatDataForPieChart(items: any[]): any[] {
     const dataMap = new Map<string, number>();
-    expenses.forEach((expense) => {
-      const description = expense.description;
-      const value = expense.value;
-      if (dataMap.has(description)) {
-        dataMap.set(description, dataMap.get(description)! + value);
-      } else {
-        dataMap.set(description, value);
-      }
+
+    items.forEach((item) => {
+      const categoryName = item.category?.name || 'Sem Categoria';
+      const currentValue = dataMap.get(categoryName) || 0;
+      dataMap.set(categoryName, currentValue + item.value);
     });
-    return Array.from(dataMap).map(([name, value]) => ({ name, value }));
+
+    const formattedData = Array.from(dataMap.entries()).map(
+      ([name, value]) => ({
+        name,
+        value,
+      })
+    );
+
+    return formattedData;
   }
 
-  // Novo método para formatar os dados para o gráfico de barras
   private formatDataForBarChart(incomes: any[], expenses: any[]): any[] {
     const monthlyData = new Map<
       string,

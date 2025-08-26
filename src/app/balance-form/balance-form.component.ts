@@ -3,7 +3,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BalanceService } from '../balance.service';
+import { BalanceService } from '../services/balance.service';
 import { Router } from '@angular/router';
 
 @Component({

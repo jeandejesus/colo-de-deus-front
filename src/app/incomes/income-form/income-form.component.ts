@@ -8,8 +8,9 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { IncomesService } from '../../incomes.service';
-import { ActivatedRoute, Router } from '@angular/router'; // Importe ActivatedRoute
+import { IncomesService } from '../../services/incomes.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CategoriesService } from '../../services/categories.service';
 
 @Component({
   selector: 'app-income-form',
@@ -22,12 +23,14 @@ export class IncomeFormComponent implements OnInit {
   incomeForm!: FormGroup;
   isEditing = false;
   itemId: string | null = null;
+  categories: any[] = []; // Nova propriedade para categorias
 
   constructor(
     private fb: FormBuilder,
     private incomesService: IncomesService,
     private router: Router,
-    private route: ActivatedRoute // Injete ActivatedRoute
+    private route: ActivatedRoute,
+    private categoriesService: CategoriesService
   ) {}
 
   ngOnInit(): void {
@@ -35,9 +38,11 @@ export class IncomeFormComponent implements OnInit {
       description: ['', Validators.required],
       value: ['', [Validators.required, Validators.min(0.01)]],
       date: ['', Validators.required],
+      category: ['', Validators.required], // ⬅️ Adicionado o novo campo de categoria
     });
 
-    // Verifica se há um ID na URL para saber se é edição
+    this.loadCategories();
+
     this.itemId = this.route.snapshot.paramMap.get('id');
     if (this.itemId) {
       this.isEditing = true;
@@ -47,7 +52,8 @@ export class IncomeFormComponent implements OnInit {
           this.incomeForm.patchValue({
             description: data.description,
             value: data.value,
-            date: new Date(data.date).toISOString().split('T')[0], // Formato YYYY-MM-DD
+            date: new Date(data.date).toISOString().split('T')[0],
+            category: data.category?._id, // ⬅️ Popula o campo com o ID da categoria
           });
         },
         error: (err) => {
@@ -55,6 +61,13 @@ export class IncomeFormComponent implements OnInit {
         },
       });
     }
+  }
+
+  loadCategories(): void {
+    this.categoriesService.findAllByType('income').subscribe({
+      next: (data) => (this.categories = data),
+      error: (err) => console.error('Erro ao carregar categorias:', err),
+    });
   }
 
   onSubmit(): void {

@@ -25,9 +25,9 @@
     />
   </div>
 
-  <div *ngIf="filteredExpenses.length > 0; else noExpenses">
+  <div *ngIf="expenses.length > 0; else noExpenses">
     <ul>
-      <li *ngFor="let expense of filteredExpenses">
+      <li *ngFor="let expense of expenses">
         <div class="item-details">
           <p>Descrição: {{ expense.description }}</p>
           <p>Valor: {{ expense.value | currency : "BRL" }}</p>

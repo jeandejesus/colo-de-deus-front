@@ -1,0 +1,159 @@
+/* src/app/categories/categories-list/categories-list.component.scss */
+
+.list-container {
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #34495e;
+}
+
+.add-button {
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  transition: background-color 0.2s ease-in-out;
+  text-align: center;
+
+  &:hover {
+    background-color: #27ae60;
+  }
+}
+
+.no-items-message {
+  text-align: center;
+  color: #7f8c8d;
+  font-style: italic;
+  padding: 20px;
+  background-color: #ecf0f1;
+  border-radius: 4px;
+}
+
+/* ------------------- Estilos Mobile (padrão) ------------------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  thead {
+    display: none; /* Oculta o cabeçalho da tabela no mobile */
+  }
+
+  tr {
+    display: block; /* Transforma cada linha em um bloco */
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+
+  td {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  /* Cria os rótulos de coluna usando o atributo data-label */
+  td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #555;
+    margin-right: 1rem;
+  }
+}
+
+.edit-button,
+.delete-button {
+  width: 48%; /* Botões de ação lado a lado */
+  padding: 8px 0;
+  margin: 0;
+  text-align: center;
+}
+
+/* ------------------- Estilos Desktop ------------------- */
+@media (min-width: 768px) {
+  .list-container {
+    max-width: 800px;
+    margin: 2rem auto;
+  }
+
+  .add-button {
+    width: auto;
+  }
+
+  table {
+    tr {
+      display: table-row; /* Retorna ao layout de tabela */
+      padding: 0;
+      margin-bottom: 0;
+      box-shadow: none;
+    }
+
+    thead {
+      display: table-header-group;
+    }
+
+    td {
+      display: table-cell;
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+
+      &:last-child {
+        border-bottom: 1px solid #ddd;
+      }
+    }
+
+    td::before {
+      content: none; /* Remove os rótulos */
+    }
+
+    .edit-button,
+    .delete-button {
+      width: auto;
+      padding: 6px 10px;
+    }
+  }
+}
+
+.edit-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 8px;
+  transition: background-color 0.2s;
+  &:hover {
+    background-color: #2980b9;
+  }
+}
+
+.delete-button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  &:hover {
+    background-color: #c0392b;
+  }
+}

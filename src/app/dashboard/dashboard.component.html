@@ -21,19 +21,26 @@
     </div>
   </div>
 
-  <div class="chart-section">
-    <h3>Distribuição de Despesas</h3>
-    <div *ngIf="expenseChartData.length > 0; else noChartData">
+  <div class="charts-container">
+    <div class="chart-card">
+      <h3>Despesas por Categoria</h3>
       <ngx-charts-pie-chart
         [results]="expenseChartData"
-        [legend]="showLegend"
-        [labels]="showLabels"
+        [labels]="true"
+        [animations]="true"
       >
       </ngx-charts-pie-chart>
     </div>
-    <ng-template #noChartData>
-      <p class="no-chart-message">Adicione despesas para ver o gráfico.</p>
-    </ng-template>
+
+    <div class="chart-card">
+      <h3>Receitas por Categoria</h3>
+      <ngx-charts-pie-chart
+        [results]="incomeChartData"
+        [labels]="true"
+        [animations]="true"
+      >
+      </ngx-charts-pie-chart>
+    </div>
   </div>
 
   <div class="chart-section">
@@ -41,13 +48,12 @@
     <div *ngIf="barChartData.length > 0; else noBarChartData">
       <ngx-charts-bar-vertical-2d
         [results]="barChartData"
-        [legend]="showLegend"
+        [xAxisLabel]="'Mês'"
+        [yAxisLabel]="'Valor'"
         [xAxis]="showBarXAxis"
         [yAxis]="showBarYAxis"
         [showXAxisLabel]="true"
         [showYAxisLabel]="true"
-        [xAxisLabel]="'Mês'"
-        [yAxisLabel]="'Valor'"
       >
       </ngx-charts-bar-vertical-2d>
     </div>

@@ -25,9 +25,9 @@
     />
   </div>
 
-  <div *ngIf="filteredIncomes.length > 0; else noIncomes">
+  <div *ngIf="incomes.length > 0; else noIncomes">
     <ul>
-      <li *ngFor="let income of filteredIncomes">
+      <li *ngFor="let income of incomes">
         <div class="item-details">
           <p>Descrição: {{ income.description }}</p>
           <p>Valor: {{ income.value | currency : "BRL" }}</p>
