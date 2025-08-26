@@ -31,7 +31,7 @@
         <div class="item-details">
           <p>Descrição: {{ income.description }}</p>
           <p>Valor: {{ income.value | currency : "BRL" }}</p>
-          <p>Data: {{ income.date | date : "shortDate" }}</p>
+          <p>Data: {{ income.date | dateFormat }}</p>
         </div>
         <div class="item-actions">
           <button class="edit-button" (click)="onEditIncome(income._id)">
