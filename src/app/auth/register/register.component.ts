@@ -13,6 +13,7 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select'; // Adicione este import
 import { MatFormFieldModule } from '@angular/material/form-field'; // Adicione este import
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask'; // Importe estes dois
 
 @Component({
   selector: 'app-register',
@@ -24,7 +25,9 @@ import { MatFormFieldModule } from '@angular/material/form-field'; // Adicione e
     ReactiveFormsModule,
     MatSelectModule, // Adicione à lista de imports
     MatFormFieldModule,
+    NgxMaskDirective,
   ],
+  providers: [provideNgxMask()],
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
@@ -47,7 +50,15 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{6,}$/
+          ),
+        ],
+      ],
       birthDate: ['', Validators.required],
       phone: ['', Validators.required],
       address: this.fb.group({

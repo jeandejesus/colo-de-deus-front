@@ -1,7 +1,12 @@
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="name">Nome:</label>
-    <input id="name" type="text" formControlName="name" />
+    <input
+      id="name"
+      type="text"
+      formControlName="name"
+      placeholder="Nome completo"
+    />
     <div
       *ngIf="
         registerForm.get('name')?.invalid &&
@@ -17,7 +22,12 @@
 
   <div class="form-group">
     <label for="email">Email:</label>
-    <input id="email" type="email" formControlName="email" />
+    <input
+      id="email"
+      type="email"
+      formControlName="email"
+      placeholder="user@email.com"
+    />
     <div
       *ngIf="
         registerForm.get('email')?.invalid &&
@@ -36,7 +46,13 @@
 
   <div class="form-group">
     <label for="password">Senha:</label>
-    <input id="password" type="password" formControlName="password" />
+    <input
+      id="password"
+      type="password"
+      formControlName="password"
+      placeholder="xxxxxx"
+    />
+
     <div
       *ngIf="
         registerForm.get('password')?.invalid &&
@@ -48,6 +64,17 @@
       <p *ngIf="registerForm.get('password')?.errors?.['required']">
         Senha é obrigatória.
       </p>
+
+      <div *ngIf="registerForm.get('password')?.errors?.['pattern']">
+        <p>A senha deve:</p>
+        <ul>
+          <li>Ter no mínimo 6 caracteres.</li>
+          <li>Conter pelo menos uma letra maiúscula.</li>
+          <li>Conter pelo menos uma letra minúscula.</li>
+          <li>Conter pelo menos um número.</li>
+          <li>Conter pelo menos um caractere especial.</li>
+        </ul>
+      </div>
     </div>
   </div>
 
@@ -70,7 +97,13 @@
 
   <div class="form-group">
     <label for="phone">Telefone:</label>
-    <input id="phone" type="text" formControlName="phone" />
+    <input
+      id="phone"
+      type="text"
+      formControlName="phone"
+      [mask]="'(00) 00000-0000||(00) 0000-0000'"
+      placeholder="(xx) xxxxx-xxxx"
+    />
     <div
       *ngIf="
         registerForm.get('phone')?.invalid &&
@@ -80,6 +113,10 @@
     >
       <p *ngIf="registerForm.get('phone')?.errors?.['required']">
         Telefone é obrigatório.
+      </p>
+
+      <p *ngIf="registerForm.get('phone')?.errors?.['mask']">
+        O telefone não está no formato correto.
       </p>
     </div>
   </div>
@@ -165,7 +202,12 @@
   </div>
   <div class="form-group">
     <label for="trainer">Formador:</label>
-    <input id="trainer" type="text" formControlName="trainer" />
+    <input
+      id="trainer"
+      type="text"
+      formControlName="trainer"
+      placeholder="Nome do formador"
+    />
     <div
       *ngIf="
         registerForm.get('trainer')?.invalid &&
