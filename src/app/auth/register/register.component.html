@@ -1,31 +1,180 @@
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  <div>
+  <div class="form-group">
     <label for="name">Nome:</label>
     <input id="name" type="text" formControlName="name" />
+    <div
+      *ngIf="
+        registerForm.get('name')?.invalid &&
+        (registerForm.get('name')?.dirty || registerForm.get('name')?.touched)
+      "
+      class="error-message"
+    >
+      <p *ngIf="registerForm.get('name')?.errors?.['required']">
+        Nome é obrigatório.
+      </p>
+    </div>
   </div>
-  <div>
+
+  <div class="form-group">
     <label for="email">Email:</label>
     <input id="email" type="email" formControlName="email" />
+    <div
+      *ngIf="
+        registerForm.get('email')?.invalid &&
+        (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)
+      "
+      class="error-message"
+    >
+      <p *ngIf="registerForm.get('email')?.errors?.['required']">
+        E-mail é obrigatório.
+      </p>
+      <p *ngIf="registerForm.get('email')?.errors?.['email']">
+        E-mail inválido.
+      </p>
+    </div>
   </div>
-  <div>
+
+  <div class="form-group">
     <label for="password">Senha:</label>
     <input id="password" type="password" formControlName="password" />
+    <div
+      *ngIf="
+        registerForm.get('password')?.invalid &&
+        (registerForm.get('password')?.dirty ||
+          registerForm.get('password')?.touched)
+      "
+      class="error-message"
+    >
+      <p *ngIf="registerForm.get('password')?.errors?.['required']">
+        Senha é obrigatória.
+      </p>
+    </div>
   </div>
-  <div>
+
+  <div class="form-group">
     <label for="birthDate">Data de Nascimento:</label>
     <input id="birthDate" type="date" formControlName="birthDate" />
+    <div
+      *ngIf="
+        registerForm.get('birthDate')?.invalid &&
+        (registerForm.get('birthDate')?.dirty ||
+          registerForm.get('birthDate')?.touched)
+      "
+      class="error-message"
+    >
+      <p *ngIf="registerForm.get('birthDate')?.errors?.['required']">
+        Data de nascimento é obrigatória.
+      </p>
+    </div>
   </div>
-  <div>
+
+  <div class="form-group">
     <label for="phone">Telefone:</label>
     <input id="phone" type="text" formControlName="phone" />
+    <div
+      *ngIf="
+        registerForm.get('phone')?.invalid &&
+        (registerForm.get('phone')?.dirty || registerForm.get('phone')?.touched)
+      "
+      class="error-message"
+    >
+      <p *ngIf="registerForm.get('phone')?.errors?.['required']">
+        Telefone é obrigatório.
+      </p>
+    </div>
   </div>
+
+  <div formGroupName="address">
+    <div class="form-group">
+      <label for="street">Rua:</label>
+      <input id="street" type="text" formControlName="street" />
+      <div
+        *ngIf="
+          registerForm.get('address.street')?.invalid &&
+          (registerForm.get('address.street')?.dirty ||
+            registerForm.get('address.street')?.touched)
+        "
+        class="error-message"
+      >
+        <p *ngIf="registerForm.get('address.street')?.errors?.['required']">
+          Rua é obrigatória.
+        </p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="neighborhood">Bairro:</label>
+      <input id="neighborhood" type="text" formControlName="neighborhood" />
+      <div
+        *ngIf="
+          registerForm.get('address.neighborhood')?.invalid &&
+          (registerForm.get('address.neighborhood')?.dirty ||
+            registerForm.get('address.neighborhood')?.touched)
+        "
+        class="error-message"
+      >
+        <p
+          *ngIf="registerForm.get('address.neighborhood')?.errors?.['required']"
+        >
+          Bairro é obrigatório.
+        </p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="city">Cidade:</label>
+      <input id="city" type="text" formControlName="city" />
+      <div
+        *ngIf="
+          registerForm.get('address.city')?.invalid &&
+          (registerForm.get('address.city')?.dirty ||
+            registerForm.get('address.city')?.touched)
+        "
+        class="error-message"
+      >
+        <p *ngIf="registerForm.get('address.city')?.errors?.['required']">
+          Cidade é obrigatória.
+        </p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="state">Estado:</label>
+      <input id="state" type="text" formControlName="state" />
+      <div
+        *ngIf="
+          registerForm.get('address.state')?.invalid &&
+          (registerForm.get('address.state')?.dirty ||
+            registerForm.get('address.state')?.touched)
+        "
+        class="error-message"
+      >
+        <p *ngIf="registerForm.get('address.state')?.errors?.['required']">
+          Estado é obrigatório.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <mat-form-field appearance="outline">
+      <mat-label>Ano Vocacional</mat-label>
+      <mat-select formControlName="vocationalYear">
+        <mat-option *ngFor="let year of vocationalYears" [value]="year">
+          {{ year | titlecase }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
   <div>
-    <label for="address">Endereço:</label>
-    <input id="address" type="text" formControlName="address" />
+    <label for="monthlyContributionDay">
+      Dia do Lembrete de Contribuição:
+    </label>
+    <input
+      id="monthlyContributionDay"
+      type="number"
+      formControlName="monthlyContributionDay"
+      placeholder="1 a 31 "
+    />
   </div>
-  <div>
-    <label for="vocationalYear">Ano Vocacional:</label>
-    <input id="vocationalYear" type="text" formControlName="vocationalYear" />
-  </div>
+
   <button type="submit" [disabled]="registerForm.invalid">Cadastrar</button>
 </form>

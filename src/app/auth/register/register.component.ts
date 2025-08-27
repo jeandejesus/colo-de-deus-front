@@ -10,37 +10,63 @@ import {
 } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
+import { MatSelectModule } from '@angular/material/select'; // Adicione este import
+import { MatFormFieldModule } from '@angular/material/form-field'; // Adicione este import
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatSelectModule, // Adicione à lista de imports
+    MatFormFieldModule,
+  ],
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+  vocationalYears: string[] = [
+    'ano 1',
+    'ano 2',
+    'discipulado',
+    'apostolado',
+    'consagrado',
+  ];
+
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
-      name: ['', Validators.required],
+      name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required]],
       birthDate: ['', Validators.required],
-      phone: [''],
-      address: [''],
-      vocationalYear: [''],
+      phone: ['', Validators.required],
+      address: this.fb.group({
+        street: ['', Validators.required],
+        neighborhood: ['', Validators.required],
+        city: ['', Validators.required],
+        state: ['', Validators.required],
+      }),
+      vocationalYear: ['', Validators.required],
+      monthlyContributionDay: [10, [Validators.min(1), Validators.max(31)]],
     });
   }
 
   onSubmit(): void {
     if (this.registerForm.valid) {
+      console.log('Dados do formulário:', this.registerForm.value);
       this.authService.register(this.registerForm.value).subscribe(
         (response) => {
-          console.log('Cadastro bem-sucedido!', response);
-          // TODO: Redirecionar para a página de login
+          this.router.navigate(['/dashboard']);
         },
         (error) => {
           console.error('Erro no cadastro:', error);
