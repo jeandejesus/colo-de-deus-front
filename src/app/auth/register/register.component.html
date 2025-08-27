@@ -163,6 +163,22 @@
       </mat-select>
     </mat-form-field>
   </div>
+  <div class="form-group">
+    <label for="trainer">Formador:</label>
+    <input id="trainer" type="text" formControlName="trainer" />
+    <div
+      *ngIf="
+        registerForm.get('trainer')?.invalid &&
+        (registerForm.get('trainer')?.dirty ||
+          registerForm.get('trainer')?.touched)
+      "
+      class="error-message"
+    >
+      <p *ngIf="registerForm.get('trainer')?.errors?.['required']">
+        Formador é obrigatório.
+      </p>
+    </div>
+  </div>
 
   <div>
     <label for="monthlyContributionDay">

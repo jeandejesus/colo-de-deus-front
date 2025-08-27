@@ -58,6 +58,7 @@ export class RegisterComponent implements OnInit {
       }),
       vocationalYear: ['', Validators.required],
       monthlyContributionDay: [10, [Validators.min(1), Validators.max(31)]],
+      trainer: ['', Validators.required],
     });
   }
 
