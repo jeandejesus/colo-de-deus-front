@@ -5,12 +5,28 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/users.service';
 import { HttpErrorResponse } from '@angular/common/http';
-
+import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 @Component({
   selector: 'app-manage-permissions',
   templateUrl: './manage-permissions.component.html',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatCardModule,
+    MatTableModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatProgressBarModule,
+    MatIconModule,
+    MatInputModule,
+  ],
 })
 export class ManagePermissionsComponent implements OnInit {
   users: any[] = [];

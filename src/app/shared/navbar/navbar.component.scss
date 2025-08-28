@@ -2,7 +2,9 @@
 $primary-color: #030303;
 $accent-color: #ecf0f1;
 $logout-color: #c0392b;
-
+.main-container {
+  height: 100vh;
+}
 .navbar {
   background-color: $primary-color;
   color: $accent-color;

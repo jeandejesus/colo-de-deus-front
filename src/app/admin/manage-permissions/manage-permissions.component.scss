@@ -1,62 +1,141 @@
-/* app-manage-permissions.component.scss */
+/* src/app/admin/manage-permissions/manage-permissions.component.scss */
 
-:host {
-  display: block;
-  padding: 2rem;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+// Definindo variáveis de cores
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$background-color: #f8f9fa;
+$text-color: #495057;
+$border-color: #e9ecef;
+$error-bg: #f8d7da;
+$error-border: #f5c6cb;
+$error-color: #721c24;
+
+// Estilos base para o card principal
+.permissions-card {
   max-width: 900px;
   margin: 2rem auto;
 }
 
-h2 {
+// Estilos para o título do card
+.mat-card-title h2 {
   text-align: center;
-  color: #343a40;
-  margin-bottom: 2rem;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-bottom: 1.5rem;
+  color: $text-color;
+  font-weight: 600;
 }
 
-/* Estilo da Tabela */
-table {
+.error-message {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid $error-border;
+  background-color: $error-bg;
+  color: $error-color;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.no-users-message {
+  text-align: center;
+  color: $secondary-color;
+  font-style: italic;
+  padding: 20px;
+  background-color: #ecf0f1;
+  border-radius: 4px;
+}
+
+// ------------------- Tabela - Estilos Mobile (Padrão) -------------------
+.mat-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 1rem;
   background-color: #ffffff;
-  border-radius: 8px;
-  overflow: hidden;
-}
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 
-th, td {
-  text-align: left;
-  padding: 1rem;
-  border-bottom: 1px solid #dee2e6;
-}
-
-thead {
-  background-color: #007bff;
-  color: white;
-}
-
-th {
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-/* Estilo do Seletor de Papel */
-select {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  background-color: #f8f9fa;
-  cursor: pointer;
-  transition: border-color 0.3s, box-shadow 0.3s;
-
-  &:hover {
-    border-color: #007bff;
+  .mat-header-row {
+    display: none; // Oculta o cabeçalho no mobile
   }
 
-  &:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 0
+  .mat-row {
+    display: block; // Transforma cada linha em um bloco
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+
+  .mat-cell {
+    display: flex; // Usa flexbox para alinhar conteúdo
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid $border-color;
+
+    // Rótulos (Você precisará de uma div separada para o rótulo no HTML)
+    .label {
+      font-weight: bold;
+      color: $secondary-color;
+      margin-right: 1rem;
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+// Estilo do seletor
+.mat-form-field {
+  width: 100%; // Ocupa todo o espaço disponível no mobile
+}
+
+.mat-select-value {
+  color: $text-color;
+}
+
+.mat-select-disabled {
+  .mat-select-value {
+    opacity: 0.6;
+    background-color: #e9ecef;
+  }
+}
+
+// ------------------- Estilos Desktop (a partir de 768px) -------------------
+@media (min-width: 768px) {
+  .mat-table {
+    .mat-row {
+      display: table-row; // Volta ao layout de tabela
+      padding: 0;
+      margin-bottom: 0;
+      box-shadow: none;
+    }
+
+    .mat-header-row {
+      display: table-row; // Exibe o cabeçalho
+      background-color: $primary-color;
+      color: #fff;
+      height: auto; // Remove a altura padrão do Material
+
+      .mat-header-cell {
+        font-weight: 600;
+        text-transform: uppercase;
+        padding: 1rem;
+        text-align: left;
+      }
+    }
+
+    .mat-cell {
+      display: table-cell;
+      padding: 1rem;
+      border-bottom: 1px solid #ddd;
+
+      // Remove o rótulo do mobile
+      .label {
+        display: none;
+      }
+    }
+
+    // Ocupa menos espaço no desktop
+    .mat-form-field {
+      width: auto;
+    }
+  }
+}
