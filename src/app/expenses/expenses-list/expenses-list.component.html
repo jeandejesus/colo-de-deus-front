@@ -1,7 +1,7 @@
 <div class="container">
   <h2>Despesas</h2>
 
-  <div class="header-actions">
+  <div class="header-actions" *appPermission="['financeiro', 'admin']">
     <button class="add-button" (click)="goToAddExpense()">
       Adicionar Nova Despesa
     </button>
@@ -34,10 +34,18 @@
           <p>Data: {{ expense.date | dateFormat }}</p>
         </div>
         <div class="item-actions">
-          <button class="edit-button" (click)="onEditExpense(expense._id)">
+          <button
+            class="edit-button"
+            (click)="onEditExpense(expense._id)"
+            *appPermission="['financeiro', 'admin']"
+          >
             Editar
           </button>
-          <button class="delete-button" (click)="onDeleteExpense(expense._id)">
+          <button
+            class="delete-button"
+            (click)="onDeleteExpense(expense._id)"
+            *appPermission="['financeiro', 'admin']"
+          >
             Deletar
           </button>
         </div>

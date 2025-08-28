@@ -6,11 +6,18 @@ import { IncomesService } from '../../services/incomes.service';
 import { Router, RouterModule } from '@angular/router'; // ⬅️ Adicionado RouterModule
 import { FormsModule } from '@angular/forms';
 import { DateFormatPipe } from '../../pipes/date-format.pipe';
+import { PermissionDirective } from '../../directives/permission.directive';
 
 @Component({
   selector: 'app-incomes-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, DateFormatPipe], // ⬅️ Adicionado RouterModule
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    DateFormatPipe,
+    PermissionDirective,
+  ], // ⬅️ Adicionado RouterModule
   templateUrl: './incomes-list.component.html',
   styleUrl: './incomes-list.component.scss',
 })

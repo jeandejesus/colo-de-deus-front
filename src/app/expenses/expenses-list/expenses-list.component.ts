@@ -5,11 +5,18 @@ import { ExpensesService } from '../../services/expenses.service';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { DateFormatPipe } from '../../pipes/date-format.pipe';
+import { PermissionDirective } from '../../directives/permission.directive';
 
 @Component({
   selector: 'app-expenses-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, DateFormatPipe],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    DateFormatPipe,
+    PermissionDirective,
+  ],
   templateUrl: './expenses-list.component.html',
   styleUrls: ['./expenses-list.component.scss'], // ✅ corrigido
 })

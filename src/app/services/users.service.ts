@@ -20,7 +20,6 @@ export class UserService {
 
   updateUserRole(userId: string, newRole: string): Observable<any> {
     const body = { role: newRole };
-    // O interceptor adiciona o token automaticamente
     return this.http.patch(`${this.apiUrl}/${userId}/role`, body);
   }
 }

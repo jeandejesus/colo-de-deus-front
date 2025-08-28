@@ -13,6 +13,7 @@ import { BalanceFormComponent } from './balance-form/balance-form.component';
 import { CategoriesFormComponent } from './categories/categories-form/categories-form.component';
 import { CategoriesListComponent } from './categories/categories-list/categories-list.component';
 import { ManagePermissionsComponent } from './admin/manage-permissions/manage-permissions.component';
+import { RolesGuard } from './auth/guards/roles.guard'; // Importe o guard
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -24,20 +25,80 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'incomes', component: IncomesListComponent },
-      { path: 'incomes/add', component: IncomeFormComponent },
-      { path: 'incomes/edit/:id', component: IncomeFormComponent }, // Nova rota para edição
+      {
+        path: 'incomes/add',
+        component: IncomeFormComponent,
+        canActivate: [RolesGuard],
+        data: {
+          roles: ['admin', 'financeiro'],
+        },
+      },
+      {
+        path: 'incomes/edit/:id',
+        component: IncomeFormComponent,
+        canActivate: [RolesGuard],
+        data: {
+          roles: ['admin', 'financeiro'],
+        },
+      },
       { path: 'expenses', component: ExpensesListComponent },
-      { path: 'expenses/add', component: ExpenseFormComponent },
-      { path: 'expenses/edit/:id', component: ExpenseFormComponent }, // Nova rota para edição
-      { path: 'balance', component: BalanceFormComponent },
-      { path: 'categories', component: CategoriesListComponent }, // ⬅️ Rota para a lista de categorias
-      { path: 'categories/add', component: CategoriesFormComponent }, // ⬅️ Rota para adicionar categoria
-      { path: 'categories/edit/:id', component: CategoriesFormComponent }, // ⬅️ Rota para editar categoria
+      {
+        path: 'expenses/add',
+        component: ExpenseFormComponent,
+        canActivate: [RolesGuard],
+        data: {
+          roles: ['admin', 'financeiro'],
+        },
+      },
+      {
+        path: 'expenses/edit/:id',
+        component: ExpenseFormComponent,
+        canActivate: [RolesGuard],
+        data: {
+          roles: ['admin', 'financeiro'],
+        },
+      },
+      {
+        path: 'balance',
+        component: BalanceFormComponent,
+        canActivate: [RolesGuard],
+        data: {
+          roles: ['admin', 'financeiro'],
+        },
+      },
+      {
+        path: 'categories',
+        component: CategoriesListComponent,
+        canActivate: [RolesGuard],
+        data: {
+          roles: ['admin', 'financeiro'],
+        },
+      },
+      {
+        path: 'categories/add',
+        component: CategoriesFormComponent,
+        canActivate: [RolesGuard],
+        data: {
+          roles: ['admin', 'financeiro'],
+        },
+      }, // ⬅️ Rota para adicionar categoria
+      {
+        path: 'categories/edit/:id',
+        component: CategoriesFormComponent,
+        canActivate: [RolesGuard],
+        data: {
+          roles: ['admin', 'financeiro'],
+        },
+      }, // ⬅️ Rota para editar categoria
 
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       {
         path: 'admin/permissions',
         component: ManagePermissionsComponent,
+        canActivate: [RolesGuard],
+        data: {
+          roles: ['admin'],
+        },
       },
     ],
   },

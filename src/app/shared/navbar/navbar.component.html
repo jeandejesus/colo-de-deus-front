@@ -21,10 +21,18 @@
         >
         <a mat-list-item routerLink="/incomes" class="active-link">Receitas</a>
         <a mat-list-item routerLink="/expenses" class="active-link">Despesas</a>
-        <a mat-list-item routerLink="/categories" class="active-link"
+        <a
+          mat-list-item
+          routerLink="/categories"
+          class="active-link"
+          *appPermission="['financeiro', 'admin']"
           >Gerenciar Categorias</a
         >
-        <a mat-list-item routerLink="/admin/permissions" class="active-link"
+        <a
+          mat-list-item
+          routerLink="/admin/permissions"
+          class="active-link"
+          *appPermission="['admin']"
           >Gerenciar Permissões</a
         >
         <button mat-button class="btn-logout" (click)="onLogout()">Sair</button>

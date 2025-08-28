@@ -20,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { PermissionDirective } from '../../directives/permission.directive';
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -33,6 +34,7 @@ import { MatListModule } from '@angular/material/list';
     MatSidenavModule,
     MatListModule,
     RouterOutlet,
+    PermissionDirective,
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',

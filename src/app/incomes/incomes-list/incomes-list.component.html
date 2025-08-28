@@ -2,7 +2,11 @@
   <h2>Receitas</h2>
 
   <div class="header-actions">
-    <button class="add-button" (click)="goToAddIncome()">
+    <button
+      class="add-button"
+      (click)="goToAddIncome()"
+      *appPermission="['financeiro', 'admin']"
+    >
       Adicionar Nova Receita
     </button>
   </div>
@@ -34,10 +38,18 @@
           <p>Data: {{ income.date | dateFormat }}</p>
         </div>
         <div class="item-actions">
-          <button class="edit-button" (click)="onEditIncome(income._id)">
+          <button
+            class="edit-button"
+            (click)="onEditIncome(income._id)"
+            *appPermission="['financeiro', 'admin']"
+          >
             Editar
           </button>
-          <button class="delete-button" (click)="onDeleteIncome(income._id)">
+          <button
+            class="delete-button"
+            (click)="onDeleteIncome(income._id)"
+            *appPermission="['financeiro', 'admin']"
+          >
             Deletar
           </button>
         </div>
