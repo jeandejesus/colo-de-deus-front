@@ -77,7 +77,6 @@ export class IncomeFormComponent implements OnInit {
           .update(this.itemId, this.incomeForm.value)
           .subscribe({
             next: () => {
-              console.log('Receita atualizada com sucesso!');
               this.router.navigate(['/incomes']);
             },
             error: (err) => {
@@ -87,7 +86,6 @@ export class IncomeFormComponent implements OnInit {
       } else {
         this.incomesService.create(this.incomeForm.value).subscribe({
           next: () => {
-            console.log('Receita adicionada com sucesso!');
             this.router.navigate(['/incomes']);
           },
           error: (err) => {

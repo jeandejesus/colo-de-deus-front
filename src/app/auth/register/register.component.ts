@@ -75,7 +75,6 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(): void {
     if (this.registerForm.valid) {
-      console.log('Dados do formulário:', this.registerForm.value);
       this.authService.register(this.registerForm.value).subscribe(
         (response) => {
           this.router.navigate(['/dashboard']);

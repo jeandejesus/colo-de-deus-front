@@ -79,7 +79,6 @@ export class ExpenseFormComponent implements OnInit {
           .update(this.itemId, this.expenseForm.value)
           .subscribe({
             next: () => {
-              console.log('Despesa atualizada com sucesso!');
               this.router.navigate(['/expenses']);
             },
             error: (err) => {
@@ -89,7 +88,6 @@ export class ExpenseFormComponent implements OnInit {
       } else {
         this.expensesService.create(this.expenseForm.value).subscribe({
           next: () => {
-            console.log('Despesa adicionada com sucesso!');
             this.router.navigate(['/expenses']);
           },
           error: (err) => {

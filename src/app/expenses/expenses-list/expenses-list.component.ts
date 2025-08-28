@@ -57,7 +57,6 @@ export class ExpensesListComponent implements OnInit {
     if (confirm('Tem certeza que deseja deletar esta despesa?')) {
       this.expensesService.remove(id).subscribe({
         next: () => {
-          console.log('Despesa deletada com sucesso!');
           this.loadExpenses();
         },
         error: (err) => {

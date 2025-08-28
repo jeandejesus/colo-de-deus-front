@@ -41,12 +41,9 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe(
         (response) => {
-          console.log('Login bem-sucedido!', response);
-
           const { access_token } = response;
           // TODO: Salvar o token em um local seguro (e.g., localStorage)
 
-          // Solicita a inscrição para notificações após o login
           this.notificationsService.requestSubscription(
             response._id,
             access_token

@@ -35,8 +35,6 @@ export class IncomesListComponent implements OnInit {
   loadIncomes(): void {
     this.incomesService.findAll(this.startDate, this.endDate).subscribe({
       next: (data) => {
-        console.log('Receitas carregadas:', data);
-
         this.incomes = [...data];
       },
       error: (err) => {

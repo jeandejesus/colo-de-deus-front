@@ -34,7 +34,6 @@ export class CategoriesListComponent implements OnInit {
     if (confirm('Tem certeza que deseja excluir esta categoria?')) {
       this.categoriesService.remove(id).subscribe(
         () => {
-          console.log('Categoria excluída com sucesso!');
           this.loadCategories(); // Recarrega a lista
         },
         (error) => console.error('Erro ao excluir categoria:', error)

@@ -60,7 +60,6 @@ export class CategoriesFormComponent implements OnInit {
           .update(this.itemId, this.categoryForm.value)
           .subscribe({
             next: () => {
-              console.log('Categoria atualizada com sucesso!');
               this.router.navigate(['/categories']);
             },
             error: (err) => {
@@ -70,7 +69,6 @@ export class CategoriesFormComponent implements OnInit {
       } else {
         this.categoriesService.create(this.categoryForm.value).subscribe({
           next: () => {
-            console.log('Categoria adicionada com sucesso!');
             this.router.navigate(['/categories']);
           },
           error: (err) => {

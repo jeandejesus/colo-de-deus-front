@@ -18,6 +18,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { AuthService } from './auth/auth.service';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { SwPush } from '@angular/service-worker';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -39,7 +40,11 @@ export class AppComponent implements OnInit {
   isMenuOpen = false;
   showNavigation = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private swPush: SwPush
+  ) {}
 
   ngOnInit() {
     this.router.events
@@ -50,6 +55,21 @@ export class AppComponent implements OnInit {
           event.urlAfterRedirects.includes('/register')
         );
       });
+
+    // Código para ouvir e exibir as notificações
+    this.swPush.messages.subscribe(async (message: any) => {
+      const title = message.title;
+      const options = {
+        body: message.body,
+        data: message.data,
+        icon: 'assets/icons/icon-72x72.png',
+      };
+
+      // ➡️ Correção: Use navigator.serviceWorker.ready para acessar o registro
+      navigator.serviceWorker.ready.then((registration) => {
+        registration.showNotification(title, options);
+      });
+    });
   }
 
   @ViewChild('navMenu') navMenu!: ElementRef;

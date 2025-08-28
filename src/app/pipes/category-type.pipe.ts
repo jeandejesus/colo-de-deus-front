@@ -8,7 +8,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CategoryTypePipe implements PipeTransform {
   transform(value: string): string {
-    console.log('Transforming value:', value);
     if (value === 'income') {
       return 'Receita';
     } else if (value === 'expense') {

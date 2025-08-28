@@ -24,7 +24,6 @@ export class PermissionDirective implements OnInit {
 
   ngOnInit(): void {
     const userRole = this.authService.getUserRole();
-    console.log('User Role:', userRole);
 
     // Se o usuário tem um papel e este papel está na lista de papéis permitidos...
     if (userRole && this.allowedRoles.includes(userRole)) {

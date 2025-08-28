@@ -21,8 +21,6 @@ export class NotificationsService {
           serverPublicKey: this.VAPID_PUBLIC_KEY,
         })
         .then((subscription) => {
-          console.log('Inscrição do PWA gerada:', subscription);
-
           this.http
             .post(
               this.apiUrl,
