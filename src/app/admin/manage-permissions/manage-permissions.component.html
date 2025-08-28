@@ -1,0 +1,27 @@
+<h2>Gerenciar Permissões</h2>
+
+<div *ngIf="loading">Carregando usuários...</div>
+<div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+<table *ngIf="!loading && users.length > 0">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>E-mail</th>
+      <th>Papel Atual</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users; trackBy: trackByUser">
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
+      <td>
+        <select [(ngModel)]="user.role" (change)="onRoleChange(user)">
+          <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+        </select>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="!loading && users.length === 0">Nenhum usuário encontrado.</p>

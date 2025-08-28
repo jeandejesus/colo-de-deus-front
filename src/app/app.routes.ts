@@ -12,6 +12,7 @@ import { AuthenticatedLayoutComponent } from './shared/authenticated-layout/auth
 import { BalanceFormComponent } from './balance-form/balance-form.component';
 import { CategoriesFormComponent } from './categories/categories-form/categories-form.component';
 import { CategoriesListComponent } from './categories/categories-list/categories-list.component';
+import { ManagePermissionsComponent } from './admin/manage-permissions/manage-permissions.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -34,6 +35,10 @@ export const routes: Routes = [
       { path: 'categories/edit/:id', component: CategoriesFormComponent }, // ⬅️ Rota para editar categoria
 
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      {
+        path: 'admin/permissions',
+        component: ManagePermissionsComponent,
+      },
     ],
   },
   { path: '**', redirectTo: 'login', pathMatch: 'full' },

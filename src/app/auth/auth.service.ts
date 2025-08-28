@@ -12,6 +12,7 @@ export class AuthService {
   private apiUrl = `${environment.apiUrl}/auth`;
 
   private readonly TOKEN_KEY = 'authToken';
+  private readonly USER_ROLE_KEY = 'userRole';
 
   constructor(private http: HttpClient) {}
 
@@ -23,7 +24,12 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       tap((response: any) => {
         if (response.access_token) {
+          // Salva o token
           this.saveToken(response.access_token);
+          // ➡️ Salva o papel do usuário, que vem no objeto 'user'
+          if (response.user && response.user.role) {
+            this.saveUserRole(response.user.role);
+          }
         }
       })
     );
@@ -33,8 +39,17 @@ export class AuthService {
     localStorage.setItem(this.TOKEN_KEY, token);
   }
 
+  // Novo método para salvar o papel do usuário
+  private saveUserRole(role: string): void {
+    localStorage.setItem(this.USER_ROLE_KEY, role);
+  }
+
   getToken(): string | null {
     return localStorage.getItem(this.TOKEN_KEY);
+  }
+
+  getUserRole(): string | null {
+    return localStorage.getItem(this.USER_ROLE_KEY);
   }
 
   isLoggedIn(): boolean {
@@ -42,7 +57,8 @@ export class AuthService {
   }
 
   logout(): void {
+    // ➡️ Limpa ambos os itens do localStorage
     localStorage.removeItem(this.TOKEN_KEY);
-    // TODO: Redirecionar para a página de login
+    localStorage.removeItem(this.USER_ROLE_KEY);
   }
 }
