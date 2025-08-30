@@ -52,7 +52,9 @@ export class AppComponent implements OnInit {
       .subscribe((event: any) => {
         this.showNavigation = !(
           event.urlAfterRedirects.includes('/login') ||
-          event.urlAfterRedirects.includes('/register')
+          event.urlAfterRedirects.includes('/register') ||
+          event.urlAfterRedirects.includes('/reset-password') ||
+          event.urlAfterRedirects.includes('/reset')
         );
       });
 

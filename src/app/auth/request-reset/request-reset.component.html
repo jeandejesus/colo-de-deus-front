@@ -11,20 +11,6 @@
           formControlName="password"
           placeholder="Mínimo de 6 caracteres"
         />
-        <div
-          *ngIf="
-            resetForm.get('password')?.invalid &&
-            resetForm.get('password')?.touched
-          "
-          class="error-message"
-        >
-          <div *ngIf="resetForm.get('password')?.errors?.['required']">
-            A nova senha é obrigatória.
-          </div>
-          <div *ngIf="resetForm.get('password')?.errors?.['minlength']">
-            A senha deve ter no mínimo 6 caracteres.
-          </div>
-        </div>
       </div>
 
       <div class="form-group">
@@ -44,6 +30,31 @@
           <div *ngIf="resetForm.get('confirmPassword')?.errors?.['required']">
             A confirmação da senha é obrigatória.
           </div>
+        </div>
+      </div>
+
+      <div
+        *ngIf="
+          resetForm.get('password')?.value.length > 5 &&
+          resetForm.get('password')?.invalid &&
+          (resetForm.get('password')?.dirty ||
+            resetForm.get('password')?.touched)
+        "
+        class="error-message"
+      >
+        <p *ngIf="resetForm.get('password')?.errors?.['required']">
+          Senha é obrigatória.
+        </p>
+
+        <div *ngIf="resetForm.get('password')?.errors?.['pattern']">
+          <p>A senha deve:</p>
+          <ul>
+            <li>Ter no mínimo 6 caracteres.</li>
+            <li>Conter pelo menos uma letra maiúscula.</li>
+            <li>Conter pelo menos uma letra minúscula.</li>
+            <li>Conter pelo menos um número.</li>
+            <li>Conter pelo menos um caractere especial.</li>
+          </ul>
         </div>
       </div>
 

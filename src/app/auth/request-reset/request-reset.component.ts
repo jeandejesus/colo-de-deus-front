@@ -47,9 +47,27 @@ export class RequestResetComponent implements OnInit {
 
     // ✅ 2. Criar o formulário com validações
     this.resetForm = this.fb.group({
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{6,}$/
+          ),
+        ],
+      ],
+      confirmPassword: ['', this.passwordsMatchValidator],
     });
+  }
+
+  passwordsMatchValidator(form: FormGroup) {
+    const password = form.get('password')?.value;
+    const confirmPassword = form.get('confirmPassword')?.value;
+
+    if (password !== confirmPassword) {
+      return { passwordsNotMatch: true };
+    }
+    return null;
   }
 
   onSubmit(): void {
