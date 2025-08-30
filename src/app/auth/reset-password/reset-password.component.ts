@@ -53,7 +53,7 @@ export class ResetPasswordComponent implements OnInit {
             this.router.navigate(['/login']);
           },
           (error) => {
-            // Mesmo em caso de erro da API, a mensagem para o usuário deve ser genérica
+            this.errorMessage = error.error.messages;
             this.snackBar.open(
               'Se o e-mail estiver cadastrado, um link de redefinição foi enviado. Verifique sua caixa de entrada.',
               'Fechar',
