@@ -15,6 +15,8 @@ import { MatInputModule } from '@angular/material/input';
 @Component({
   selector: 'app-manage-permissions',
   templateUrl: './manage-permissions.component.html',
+  styleUrl: './manage-permissions.component.scss',
+
   standalone: true,
   imports: [
     CommonModule,

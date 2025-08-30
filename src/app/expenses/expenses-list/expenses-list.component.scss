@@ -149,6 +149,10 @@ li {
 
 // Media query para telas maiores, como desktops
 @media (min-width: 768px) {
+  .container {
+    width: 800px;
+    margin: 10px;
+  }
   .header-actions {
     margin-bottom: 1rem;
   }
@@ -196,6 +200,11 @@ li {
 
 // Media query para o layout da lista em desktops
 @media (min-width: 768px) {
+  .container {
+    width: 800px;
+    margin: 10px;
+  }
+
   li {
     flex-direction: row; // Layout em linha para desktops
     align-items: center;

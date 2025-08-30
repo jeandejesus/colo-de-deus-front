@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Registrar Pagamento</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="outline" style="width: 100%">
+    <mat-label>Valor do pagamento</mat-label>
+    <input matInput type="number" [(ngModel)]="paymentAmount" />
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="onConfirm()">
+    Confirmar
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,65 @@
+<form [formGroup]="resetForm" (ngSubmit)="onSubmit()">
+  <div class="reset-password-container">
+    <div class="form-card">
+      <div class="form-group">
+        <h2>Redefinir Senha</h2>
+
+        <label for="password">Nova Senha</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="Mínimo de 6 caracteres"
+        />
+        <div
+          *ngIf="
+            resetForm.get('password')?.invalid &&
+            resetForm.get('password')?.touched
+          "
+          class="error-message"
+        >
+          <div *ngIf="resetForm.get('password')?.errors?.['required']">
+            A nova senha é obrigatória.
+          </div>
+          <div *ngIf="resetForm.get('password')?.errors?.['minlength']">
+            A senha deve ter no mínimo 6 caracteres.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirmar Senha</label>
+        <input
+          id="confirmPassword"
+          type="password"
+          formControlName="confirmPassword"
+        />
+        <div
+          *ngIf="
+            resetForm.get('confirmPassword')?.invalid &&
+            resetForm.get('confirmPassword')?.touched
+          "
+          class="error-message"
+        >
+          <div *ngIf="resetForm.get('confirmPassword')?.errors?.['required']">
+            A confirmação da senha é obrigatória.
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message general-error">
+        {{ errorMessage }}
+      </div>
+      <div
+        *ngIf="resetForm.errors?.['passwordsNotMatch'] && resetForm.get('confirmPassword')?.touched"
+        class="error-message"
+      >
+        As senhas não coincidem.
+      </div>
+
+      <button type="submit" [disabled]="!resetForm.valid">
+        Redefinir Senha
+      </button>
+    </div>
+  </div>
+</form>

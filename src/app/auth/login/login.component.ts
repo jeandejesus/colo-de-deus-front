@@ -8,9 +8,9 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { NotificationsService } from '../../services/notifications.service';
 
 @Component({
@@ -18,10 +18,12 @@ import { NotificationsService } from '../../services/notifications.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  // ✅ New property to hold the error message
+  errorMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -38,11 +40,14 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
+    // ✅ Clear any previous error message at the start of a new attempt
+    this.errorMessage = null;
+
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe(
         (response) => {
           const { access_token } = response;
-          // TODO: Salvar o token em um local seguro (e.g., localStorage)
+          // TODO: Save the token securely (e.g., localStorage or a service)
 
           this.notificationsService.requestSubscription(
             response._id,
@@ -51,9 +56,12 @@ export class LoginComponent implements OnInit {
 
           this.router.navigate(['/dashboard']);
         },
-        (error) => {
-          console.error('Erro no login:', error);
-          // TODO: Exibir uma mensagem de erro para o usuário
+        (error: HttpErrorResponse) => {
+          if (error.error && error.error.messages) {
+            this.errorMessage = error.error.messages;
+          } else {
+            this.errorMessage = 'Erro ao tentar fazer login. Tente novamente.';
+          }
         }
       );
     }

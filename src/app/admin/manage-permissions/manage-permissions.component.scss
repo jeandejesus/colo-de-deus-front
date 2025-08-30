@@ -14,6 +14,11 @@ $error-color: #721c24;
 .permissions-card {
   max-width: 900px;
   margin: 2rem auto;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
 }
 
 // Estilos para o título do card
@@ -100,6 +105,10 @@ $error-color: #721c24;
 
 // ------------------- Estilos Desktop (a partir de 768px) -------------------
 @media (min-width: 768px) {
+  .permissions-card {
+    width: 800px;
+    margin: 2rem auto;
+  }
   .mat-table {
     .mat-row {
       display: table-row; // Volta ao layout de tabela

@@ -35,6 +35,14 @@
           *appPermission="['admin']"
           >Gerenciar Permissões</a
         >
+
+        <a
+          mat-list-item
+          routerLink="/admin/payments-status"
+          class="active-link"
+          *appPermission="['admin']"
+          >Gerenciar pagamentos</a
+        >
         <button mat-button class="btn-logout" (click)="onLogout()">Sair</button>
       </mat-nav-list>
     </mat-sidenav>
