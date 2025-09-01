@@ -88,6 +88,7 @@ export const routes: Routes = [
         canActivate: [RolesGuard],
         data: { roles: ['admin'] },
       },
+
       {
         path: 'admin/payments-status',
         component: PaymentsManagementComponent,

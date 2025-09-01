@@ -21,6 +21,10 @@
         >
         <a mat-list-item routerLink="/incomes" class="active-link">Receitas</a>
         <a mat-list-item routerLink="/expenses" class="active-link">Despesas</a>
+        <a mat-list-item routerLink="/balance" class="active-link"
+          >Iniciar Saldo</a
+        >
+
         <a
           mat-list-item
           routerLink="/categories"
@@ -43,6 +47,7 @@
           *appPermission="['admin']"
           >Gerenciar pagamentos</a
         >
+
         <button mat-button class="btn-logout" (click)="onLogout()">Sair</button>
       </mat-nav-list>
     </mat-sidenav>

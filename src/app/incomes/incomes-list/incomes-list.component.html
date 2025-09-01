@@ -34,7 +34,7 @@
       <li *ngFor="let income of incomes">
         <div class="item-details">
           <p>Descrição: {{ income.description }}</p>
-          <p>Valor: {{ income.value | currency : "BRL" }}</p>
+          <p>Valor: {{ income.value | currency : "BRL" : "" : "1.2-2" }}</p>
           <p>Data: {{ income.date | dateFormat }}</p>
         </div>
         <div class="item-actions">

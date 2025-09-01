@@ -30,7 +30,7 @@
       <li *ngFor="let expense of expenses">
         <div class="item-details">
           <p>Descrição: {{ expense.description }}</p>
-          <p>Valor: {{ expense.value | currency : "BRL" }}</p>
+          <p>Valor: {{ expense.value | currency : "BRL" : "" : "1.2-2" }}</p>
           <p>Data: {{ expense.date | dateFormat }}</p>
         </div>
         <div class="item-actions">

@@ -3,7 +3,9 @@
     <mat-card-header>
       <div class="header-content">
         <mat-card-subtitle>Saldo Geral</mat-card-subtitle>
-        <p *ngIf="showValues">{{ generalBalance | currency : "BRL" }}</p>
+        <p *ngIf="showValues">
+          {{ generalBalance | currency : "BRL" : "" : "1.2-2" }}
+        </p>
         <p *ngIf="!showValues">*******</p>
         <button mat-icon-button (click)="toggleValues()">
           <mat-icon>{{
@@ -19,7 +21,7 @@
         <div class="valores">
           <h6>Receitas</h6>
           <p class="incomes" *ngIf="showValues">
-            {{ totalIncomes | currency : "BRL" }}
+            {{ totalIncomes | currency : "BRL" : "" : "1.2-2" }}
           </p>
           <p class="incomes" *ngIf="!showValues">*******</p>
         </div>
@@ -30,7 +32,7 @@
         <div class="valores">
           <h6>Despesas</h6>
           <p class="expenses" *ngIf="showValues">
-            {{ totalExpenses | currency : "BRL" }}
+            {{ totalExpenses | currency : "BRL" : "" : "1.2-2" }}
           </p>
           <p class="expenses" *ngIf="!showValues">*******</p>
         </div>

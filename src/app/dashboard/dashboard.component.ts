@@ -1,7 +1,7 @@
 // src/app/dashboard/dashboard.component.ts
 
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { forkJoin } from 'rxjs';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ExpensesService } from '../services/expenses.service';
@@ -10,6 +10,7 @@ import { BalanceService } from '../services/balance.service';
 import { RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { CurrencyMaskPipe } from '../pipes/currency-mask.pipe';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,6 +21,8 @@ import { MatIconModule } from '@angular/material/icon';
     RouterModule,
     MatCardModule,
     MatIconModule,
+    CurrencyMaskPipe,
+    CurrencyPipe,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
