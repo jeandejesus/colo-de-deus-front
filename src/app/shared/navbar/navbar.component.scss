@@ -3,7 +3,7 @@ $primary-color: #030303;
 $accent-color: #ecf0f1;
 $logout-color: #c0392b;
 .main-container {
-  height: 100vh;
+  height: 100%;
 }
 .navbar {
   background-color: $primary-color;
@@ -14,6 +14,10 @@ $logout-color: #c0392b;
   align-items: center;
   position: relative;
   z-index: 1000;
+}
+
+.nav-links {
+  height: 100%;
 }
 
 .nav-brand {
@@ -107,6 +111,7 @@ a:focus::before {
   }
 
   .nav-links {
+    height: 100%;
     transform: none;
     height: 100vh;
     border-top: none;

@@ -18,7 +18,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { AuthService } from './auth/auth.service';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import { SwPush } from '@angular/service-worker';
+import { SwPush, SwUpdate } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -39,12 +41,35 @@ export class AppComponent implements OnInit {
   title = 'colo-de-deus-front';
   isMenuOpen = false;
   showNavigation = false;
+  readonly VAPID_PUBLIC_KEY = environment.vapidPublicKey;
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private swPush: SwPush
-  ) {}
+    private swPush: SwPush,
+    private swUpdate: SwUpdate
+  ) {
+    if (this.swUpdate.isEnabled) {
+      this.swUpdate.versionUpdates.subscribe((event) => {
+        switch (event.type) {
+          case 'VERSION_DETECTED':
+            console.log(`🆕 Nova versão detectada: ${event.version.hash}`);
+            break;
+          case 'VERSION_READY':
+            console.log(`✅ Nova versão pronta: ${event.latestVersion.hash}`);
+            if (confirm('Nova versão disponível. Deseja atualizar agora?')) {
+              this.swUpdate
+                .activateUpdate()
+                .then(() => document.location.reload());
+            }
+            break;
+          case 'VERSION_INSTALLATION_FAILED':
+            console.error('❌ Erro ao instalar nova versão', event.error);
+            break;
+        }
+      });
+    }
+  }
 
   ngOnInit() {
     this.router.events
@@ -58,24 +83,33 @@ export class AppComponent implements OnInit {
         );
       });
 
-    // Código para ouvir e exibir as notificações
-    this.swPush.messages.subscribe(async (message: any) => {
-      const title = message.title;
-      const options = {
-        body: message.body,
-        data: message.data,
-        icon: 'assets/icons/icon-72x72.png',
-      };
-
-      // ➡️ Correção: Use navigator.serviceWorker.ready para acessar o registro
-      navigator.serviceWorker.ready.then((registration) => {
-        registration.showNotification(title, options);
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistration().then((reg) => {
+        if (reg) {
+          reg.addEventListener('updatefound', () => {
+            const newWorker = reg.installing;
+            if (newWorker) {
+              newWorker.addEventListener('statechange', () => {
+                if (
+                  newWorker.state === 'installed' &&
+                  navigator.serviceWorker.controller
+                ) {
+                  const confirmar = confirm(
+                    'Nova versão disponível. Deseja atualizar agora?'
+                  );
+                  if (confirmar) {
+                    newWorker.postMessage({ action: 'skipWaiting' });
+                  }
+                }
+              });
+            }
+          });
+        }
       });
-    });
+    }
   }
 
   @ViewChild('navMenu') navMenu!: ElementRef;
-
   @ViewChild('hamburgerButton') hamburgerButton!: ElementRef;
 
   @HostListener('document:click', ['$event'])
@@ -85,7 +119,7 @@ export class AppComponent implements OnInit {
       !this.navMenu.nativeElement.contains(event.target) &&
       !this.hamburgerButton.nativeElement.contains(event.target)
     ) {
-      this.isMenuOpen = false; // Fecha o menu
+      this.isMenuOpen = false;
     }
   }
 
