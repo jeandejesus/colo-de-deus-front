@@ -39,29 +39,35 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
-    // ✅ Clear any previous error message at the start of a new attempt
+  async onSubmit(): Promise<void> {
     this.errorMessage = null;
 
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe(
-        (response) => {
-          const { access_token } = response;
-          // TODO: Save the token securely (e.g., localStorage or a service)
+        async (response) => {
+          const { access_token, user } = response;
+          localStorage.setItem('access_token', access_token);
+          localStorage.setItem('user_id', user.id);
 
-          this.notificationsService.requestSubscription(
-            response._id,
-            access_token
-          );
+          let permission = await Notification.requestPermission();
+          if (permission !== 'granted') {
+            this.errorMessage =
+              'Você precisa permitir notificações para receber alertas.';
+          }
+
+          if (permission === 'granted') {
+            this.notificationsService.requestSubscription(
+              user.id,
+              access_token
+            );
+          }
 
           this.router.navigate(['/dashboard']);
         },
         (error: HttpErrorResponse) => {
-          if (error.error && error.error.messages) {
-            this.errorMessage = error.error.messages;
-          } else {
-            this.errorMessage = 'Erro ao tentar fazer login. Tente novamente.';
-          }
+          this.errorMessage =
+            error.error?.messages ||
+            'Erro ao tentar fazer login. Tente novamente.';
         }
       );
     }

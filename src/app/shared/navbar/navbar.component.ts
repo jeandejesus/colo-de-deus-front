@@ -5,6 +5,7 @@ import {
   ElementRef,
   HostListener,
   Input,
+  OnInit,
   ViewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -21,6 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { PermissionDirective } from '../../directives/permission.directive';
+import { NotificationsService } from '../../services/notifications.service';
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -39,11 +41,26 @@ import { PermissionDirective } from '../../directives/permission.directive';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   isMenuOpen = false;
   @Input() showNavigation: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  isSubscribed: boolean = false;
+
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private notificationsService: NotificationsService
+  ) {}
+
+  async ngOnInit(): Promise<void> {
+    let permission = await Notification.requestPermission();
+    if (permission == 'granted') {
+      this.isSubscribed = true;
+    } else {
+      this.isSubscribed = false;
+    }
+  }
 
   @ViewChild('navMenu') navMenu!: ElementRef;
 
@@ -67,5 +84,21 @@ export class NavbarComponent {
   onLogout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+
+  async toggleNotifications(): Promise<void> {
+    const userId = localStorage.getItem('user_id') || '';
+    const access_token = localStorage.getItem('access_token') || '';
+
+    let permission = await Notification.requestPermission();
+
+    console.log(permission);
+
+    if (this.isSubscribed) {
+      this.isSubscribed = false;
+    } else {
+      this.notificationsService.requestSubscription(userId, access_token);
+      this.isSubscribed = true;
+    }
   }
 }

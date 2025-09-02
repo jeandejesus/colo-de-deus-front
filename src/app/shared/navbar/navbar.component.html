@@ -3,6 +3,7 @@
     <button mat-icon-button (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
+
     <a class="nav-brand" routerLink="/dashboard">
       <img
         src="assets/LogoColoDeDeus.png"
@@ -11,6 +12,11 @@
         style="max-width: 150px"
       />
     </a>
+    <button mat-icon-button (click)="toggleNotifications()">
+      <mat-icon>{{
+        isSubscribed ? "notifications" : "notifications_off"
+      }}</mat-icon>
+    </button>
   </mat-toolbar>
 
   <mat-sidenav-container class="sidenav-container nav-links">
