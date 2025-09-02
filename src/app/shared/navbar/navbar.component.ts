@@ -44,6 +44,7 @@ import { NotificationsService } from '../../services/notifications.service';
 export class NavbarComponent implements OnInit {
   isMenuOpen = false;
   @Input() showNavigation: boolean = false;
+  access_token = localStorage.getItem('access_token') || '';
 
   isSubscribed: boolean = false;
 
@@ -55,11 +56,22 @@ export class NavbarComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     let permission = await Notification.requestPermission();
-    if (permission == 'granted') {
-      this.isSubscribed = true;
-    } else {
-      this.isSubscribed = false;
-    }
+
+    console.log(permission);
+    this.notificationsService
+      .getNotificationStatus(this.access_token)
+      .subscribe({
+        next: (valor) => {
+          if (valor.subscribed || permission == 'granted') {
+            this.isSubscribed = true;
+          } else {
+            this.isSubscribed = false;
+          }
+        },
+        error: (erro) => {
+          console.error('Erro ao buscar status da notificação:', erro);
+        },
+      });
   }
 
   @ViewChild('navMenu') navMenu!: ElementRef;
@@ -88,16 +100,12 @@ export class NavbarComponent implements OnInit {
 
   async toggleNotifications(): Promise<void> {
     const userId = localStorage.getItem('user_id') || '';
-    const access_token = localStorage.getItem('access_token') || '';
-
-    let permission = await Notification.requestPermission();
-
-    console.log(permission);
 
     if (this.isSubscribed) {
+      this.notificationsService.requestUnsubscription(this.access_token);
       this.isSubscribed = false;
     } else {
-      this.notificationsService.requestSubscription(userId, access_token);
+      this.notificationsService.requestSubscription(userId, this.access_token);
       this.isSubscribed = true;
     }
   }
