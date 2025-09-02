@@ -11,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { UserService } from '../../services/users.service'; // Make sure this is the correct path
+import { format } from 'date-fns';
 
 @Component({
   selector: 'app-perfil',
@@ -79,6 +80,13 @@ export class PerfilComponent implements OnInit {
         next: (userData) => {
           // ✅ Pre-fill the form with the fetched data
           // We use patchValue to avoid errors if some fields are missing
+          if (userData.birthDate) {
+            const date = new Date(userData.birthDate);
+            const year = date.getUTCFullYear();
+            const month = (date.getUTCMonth() + 1).toString().padStart(2, '0');
+            const day = date.getUTCDate().toString().padStart(2, '0');
+            userData.birthDate = `${day}/${month}/${year}`; // dd/MM/yyyy
+          }
           this.registerForm.patchValue(userData);
 
           // We also need to get the user's full address to fill the form
@@ -104,6 +112,27 @@ export class PerfilComponent implements OnInit {
       // Se a senha estiver vazia, remove o campo para não enviar ao backend
       if (!formData.password) {
         delete formData.password;
+      }
+
+      if (formData.birthDate) {
+        let birth = formData.birthDate;
+
+        if (birth.includes('/')) {
+          const [day, month, year] = birth.split('/');
+          formData.birthDate = `${year}-${month.padStart(
+            2,
+            '0'
+          )}-${day.padStart(2, '0')}`;
+        } else if (birth.length === 8) {
+          // ddMMyyyy -> yyyy-MM-dd
+          const day = birth.slice(0, 2);
+          const month = birth.slice(2, 4);
+          const year = birth.slice(4, 8);
+          formData.birthDate = `${year}-${month}-${day}`;
+        } else {
+          console.warn('Formato de birthDate inválido:', birth);
+          delete formData.birthDate;
+        }
       }
 
       this.userService.updateUser(formData).subscribe({

@@ -80,7 +80,14 @@
 
   <div class="form-group">
     <label for="birthDate">Data de Nascimento:</label>
-    <input id="birthDate" type="date" formControlName="birthDate" />
+    <input
+      id="birthDate"
+      type="text"
+      formControlName="birthDate"
+      mask="d0/M0/0000"
+      placeholder="dd/mm/aaaa"
+    />
+
     <div
       *ngIf="
         registerForm.get('birthDate')?.invalid &&

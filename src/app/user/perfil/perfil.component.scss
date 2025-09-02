@@ -26,6 +26,17 @@ form {
     color: #333;
   }
 
+  input[type="date"] {
+    appearance: none; /* para browsers modernos */
+    -webkit-appearance: none; /* Safari/iOS */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 14px;
+    background-color: #fff;
+    width: 100%;
+  }
+
   div {
     display: flex;
     flex-direction: column;
