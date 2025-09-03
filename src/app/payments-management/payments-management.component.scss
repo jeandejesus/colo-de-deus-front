@@ -105,9 +105,13 @@
 
 /* Desktop (>= 1024px) */
 @media (min-width: 1024px) {
+  .container {
+    padding: 0;
+  }
   .payments-container {
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0;
 
     .payments-card {
       padding: 1rem 2rem;

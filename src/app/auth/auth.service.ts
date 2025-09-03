@@ -4,7 +4,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
-
+import { jwtDecode } from 'jwt-decode';
+interface JwtPayload {
+  exp: number;
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -60,5 +63,15 @@ export class AuthService {
     // ➡️ Limpa ambos os itens do localStorage
     localStorage.removeItem(this.TOKEN_KEY);
     localStorage.removeItem(this.USER_ROLE_KEY);
+  }
+
+  isTokenExpired(token: string): boolean {
+    try {
+      const decoded = jwtDecode<JwtPayload>(token);
+      const now = Date.now() / 1000; // segundos
+      return decoded.exp < now;
+    } catch {
+      return true; // se der erro ao decodificar, considera expirado
+    }
   }
 }
