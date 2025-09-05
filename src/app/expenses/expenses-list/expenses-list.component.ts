@@ -1,11 +1,13 @@
 // src/app/expenses/expenses-list/expenses-list.component.ts
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, KeyValuePipe } from '@angular/common';
 import { ExpensesService } from '../../services/expenses.service';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { DateFormatPipe } from '../../pipes/date-format.pipe';
 import { PermissionDirective } from '../../directives/permission.directive';
+import { MatIconModule } from '@angular/material/icon';
+import { DayOfWeekPipe } from '../../pipes/day-of-week.pipe';
 
 @Component({
   selector: 'app-expenses-list',
@@ -16,14 +18,33 @@ import { PermissionDirective } from '../../directives/permission.directive';
     RouterModule,
     DateFormatPipe,
     PermissionDirective,
+    DayOfWeekPipe,
+    KeyValuePipe,
+    MatIconModule,
   ],
   templateUrl: './expenses-list.component.html',
   styleUrls: ['./expenses-list.component.scss'], // ✅ corrigido
 })
 export class ExpensesListComponent implements OnInit {
-  expenses: any[] = [];
   startDate: string = '';
   endDate: string = '';
+  groupedExpenses: Record<string, any[]> = {};
+  months = [
+    { value: 0, name: 'Janeiro' },
+    { value: 1, name: 'Fevereiro' },
+    { value: 2, name: 'Março' },
+    { value: 3, name: 'Abril' },
+    { value: 4, name: 'Maio' },
+    { value: 5, name: 'Junho' },
+    { value: 6, name: 'Julho' },
+    { value: 7, name: 'Agosto' },
+    { value: 8, name: 'Setembro' },
+    { value: 9, name: 'Outubro' },
+    { value: 10, name: 'Novembro' },
+    { value: 11, name: 'Dezembro' },
+  ];
+
+  selectedMonth: number = new Date().getMonth();
 
   constructor(
     private expensesService: ExpensesService,
@@ -35,14 +56,72 @@ export class ExpensesListComponent implements OnInit {
   }
 
   loadExpenses(): void {
-    this.expensesService.findAll(this.startDate, this.endDate).subscribe({
+    const today = new Date();
+    const year = today.getFullYear();
+
+    // Calcula a data de início do mês
+    const startDate = new Date(year, this.selectedMonth, 1).toISOString();
+
+    // Calcula a data de fim do mês
+    const endDate = new Date(
+      year,
+      this.selectedMonth + 1,
+      0,
+      23,
+      59,
+      59,
+      999
+    ).toISOString();
+
+    this.expensesService.findAll(startDate, endDate).subscribe({
       next: (data) => {
-        this.expenses = [...data]; // ✅ força atualização no Angular
+        this.groupedExpenses = this.groupTransactionsByDate(data);
       },
       error: (err) => {
-        console.error('Erro ao buscar despesas:', err);
+        console.error('Erro ao buscar receitas:', err);
       },
     });
+  }
+
+  onMonthChange(): void {
+    this.loadExpenses();
+  }
+
+  previousMonth(): void {
+    // Se for o primeiro mês, volta para o último do ano
+    if (this.selectedMonth === 0) {
+      this.selectedMonth = 11;
+    } else {
+      this.selectedMonth--;
+    }
+    this.loadExpenses();
+  }
+
+  // ✅ Método para avançar um mês
+  nextMonth(): void {
+    // Se for o último mês, avança para o primeiro do próximo ano
+    if (this.selectedMonth === 11) {
+      this.selectedMonth = 0;
+    } else {
+      this.selectedMonth++;
+    }
+    this.loadExpenses();
+  }
+
+  private groupTransactionsByDate(expensess: any[]): Record<string, any[]> {
+    const groupedData: Record<string, any[]> = {};
+
+    expensess.forEach((expenses) => {
+      // Formate a data para usar como chave
+      const date = new Date(expenses.date);
+      const formattedDate = date.toLocaleDateString('pt-BR');
+
+      if (!groupedData[formattedDate]) {
+        groupedData[formattedDate] = [];
+      }
+      groupedData[formattedDate].push(expenses);
+    });
+    return groupedData;
   }
 
   onFilter(): void {
@@ -53,20 +132,26 @@ export class ExpensesListComponent implements OnInit {
     this.router.navigate(['/expenses/add']);
   }
 
-  onDeleteExpense(id: string): void {
-    if (confirm('Tem certeza que deseja deletar esta despesa?')) {
+  onDeleteIncome(id: string): void {
+    if (confirm('Tem certeza que deseja deletar esta receita?')) {
       this.expensesService.remove(id).subscribe({
         next: () => {
           this.loadExpenses();
         },
         error: (err) => {
-          console.error('Erro ao deletar despesa:', err);
+          console.error('Erro ao deletar receita:', err);
         },
       });
     }
   }
 
-  onEditExpense(id: string): void {
+  onEditIncome(id: string): void {
     this.router.navigate(['/expenses/edit', id]);
+  }
+
+  dateOrder(a: any, b: any) {
+    const dateA = new Date(a.key.split('/').reverse().join('-'));
+    const dateB = new Date(b.key.split('/').reverse().join('-'));
+    return dateB.getTime() - dateA.getTime();
   }
 }
