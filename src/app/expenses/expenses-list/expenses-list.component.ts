@@ -8,6 +8,7 @@ import { DateFormatPipe } from '../../pipes/date-format.pipe';
 import { PermissionDirective } from '../../directives/permission.directive';
 import { MatIconModule } from '@angular/material/icon';
 import { DayOfWeekPipe } from '../../pipes/day-of-week.pipe';
+import { LoadingScreenComponent } from '../../shared/loading-screen/loading-screen.component';
 
 @Component({
   selector: 'app-expenses-list',
@@ -21,6 +22,7 @@ import { DayOfWeekPipe } from '../../pipes/day-of-week.pipe';
     DayOfWeekPipe,
     KeyValuePipe,
     MatIconModule,
+    LoadingScreenComponent,
   ],
   templateUrl: './expenses-list.component.html',
   styleUrls: ['./expenses-list.component.scss'], // ✅ corrigido
@@ -29,6 +31,8 @@ export class ExpensesListComponent implements OnInit {
   startDate: string = '';
   endDate: string = '';
   groupedExpenses: Record<string, any[]> = {};
+  isLoading: boolean = true;
+
   months = [
     { value: 0, name: 'Janeiro' },
     { value: 1, name: 'Fevereiro' },
@@ -56,6 +60,7 @@ export class ExpensesListComponent implements OnInit {
   }
 
   loadExpenses(): void {
+    this.isLoading = true;
     const today = new Date();
     const year = today.getFullYear();
 
@@ -76,8 +81,11 @@ export class ExpensesListComponent implements OnInit {
     this.expensesService.findAll(startDate, endDate).subscribe({
       next: (data) => {
         this.groupedExpenses = this.groupTransactionsByDate(data);
+        this.isLoading = false;
       },
       error: (err) => {
+        this.isLoading = false;
+
         console.error('Erro ao buscar receitas:', err);
       },
     });

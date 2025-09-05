@@ -1,4 +1,6 @@
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<app-loading-screen *ngIf="isLoading"></app-loading-screen>
+
+<form *ngIf="!isLoading" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="name">Nome:</label>
     <input

@@ -9,6 +9,7 @@ import { DateFormatPipe } from '../../pipes/date-format.pipe';
 import { PermissionDirective } from '../../directives/permission.directive';
 import { DayOfWeekPipe } from '../../pipes/day-of-week.pipe';
 import { MatIconModule } from '@angular/material/icon';
+import { LoadingScreenComponent } from '../../shared/loading-screen/loading-screen.component';
 
 @Component({
   selector: 'app-incomes-list',
@@ -22,6 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
     DayOfWeekPipe,
     KeyValuePipe,
     MatIconModule,
+    LoadingScreenComponent,
   ], // ⬅️ Adicionado RouterModule
   templateUrl: './incomes-list.component.html',
   styleUrl: './incomes-list.component.scss',
@@ -44,6 +46,7 @@ export class IncomesListComponent implements OnInit {
     { value: 10, name: 'Novembro' },
     { value: 11, name: 'Dezembro' },
   ];
+  isLoading: boolean = true;
 
   selectedMonth: number = new Date().getMonth();
 
@@ -54,6 +57,7 @@ export class IncomesListComponent implements OnInit {
   }
 
   loadIncomes(): void {
+    this.isLoading = true;
     const today = new Date();
     const year = today.getFullYear();
 
@@ -74,8 +78,11 @@ export class IncomesListComponent implements OnInit {
     this.incomesService.findAll(startDate, endDate).subscribe({
       next: (data) => {
         this.groupedIncomes = this.groupTransactionsByDate(data);
+        this.isLoading = false;
       },
       error: (err) => {
+        this.isLoading = false;
+
         console.error('Erro ao buscar receitas:', err);
       },
     });

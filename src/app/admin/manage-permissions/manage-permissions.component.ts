@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { LoadingScreenComponent } from '../../shared/loading-screen/loading-screen.component';
 @Component({
   selector: 'app-manage-permissions',
   templateUrl: './manage-permissions.component.html',
@@ -28,13 +29,14 @@ import { MatInputModule } from '@angular/material/input';
     MatProgressBarModule,
     MatIconModule,
     MatInputModule,
+    LoadingScreenComponent,
   ],
 })
 export class ManagePermissionsComponent implements OnInit {
   users: any[] = [];
   roles = ['admin', 'financeiro', 'membro', 'lideranca'];
   errorMessage: string | null = null;
-  loading = false;
+  isLoading: boolean = true;
 
   constructor(private userService: UserService) {}
 
@@ -43,16 +45,16 @@ export class ManagePermissionsComponent implements OnInit {
   }
 
   fetchUsers(): void {
-    this.loading = true;
+    this.isLoading = true;
     this.errorMessage = null; // Limpa a mensagem de erro
 
     this.userService.getUsers().subscribe({
       next: (data) => {
         this.users = data;
-        this.loading = false;
+        this.isLoading = false;
       },
       error: (error: HttpErrorResponse) => {
-        this.loading = false;
+        this.isLoading = false;
         // ➡️ Lógica para exibir a mensagem do backend
         if (
           error.error &&

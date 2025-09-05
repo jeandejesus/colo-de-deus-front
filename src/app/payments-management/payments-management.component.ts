@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentDialogComponent } from '../dialog/payment-dialog/payment-dialog.component';
+import { LoadingScreenComponent } from '../shared/loading-screen/loading-screen.component';
 
 @Component({
   selector: 'app-payments-management',
@@ -31,6 +32,7 @@ import { PaymentDialogComponent } from '../dialog/payment-dialog/payment-dialog.
     MatChipsModule,
     FormsModule,
     MatFormFieldModule,
+    LoadingScreenComponent,
   ],
   templateUrl: './payments-management.component.html',
   styleUrls: ['./payments-management.component.scss'],

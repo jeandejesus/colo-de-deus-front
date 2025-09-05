@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { CurrencyMaskPipe } from '../pipes/currency-mask.pipe';
+import { LoadingScreenComponent } from '../shared/loading-screen/loading-screen.component'; // ✅ Importe aqui
 
 @Component({
   selector: 'app-dashboard',
@@ -23,13 +24,14 @@ import { CurrencyMaskPipe } from '../pipes/currency-mask.pipe';
     MatIconModule,
     CurrencyMaskPipe,
     CurrencyPipe,
+    LoadingScreenComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit {
   legendPosition: LegendPosition = LegendPosition.Below;
-
+  isLoading: boolean = true;
   totalIncomes: number = 0;
   totalExpenses: number = 0;
   balance: number = 0;
@@ -63,6 +65,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     const now = new Date();
+    this.isLoading = true;
+
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1)
       .toISOString()
       .substring(0, 10);
@@ -85,8 +89,11 @@ export class DashboardComponent implements OnInit {
         this.expenseChartData = this.formatDataForPieChart(expenses);
         this.incomeChartData = this.formatDataForPieChart(incomes);
         this.barChartData = this.formatDataForBarChart(incomes, expenses);
+        this.isLoading = false;
       },
       error: (err) => {
+        this.isLoading = false;
+
         console.error('Erro ao carregar o dashboard:', err);
       },
     });

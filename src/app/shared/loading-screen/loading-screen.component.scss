@@ -1,0 +1,76 @@
+.loading-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f7f9fc; // Fundo cinza claro
+  z-index: 9999;
+  perspective: 1000px; // Adiciona perspectiva para a rotação 3D
+
+  h2 {
+    font-family: "Poppins", sans-serif;
+    color: #555;
+    margin-top: 20px;
+    font-size: 1.2rem;
+  }
+}
+
+// Estilo para a logo
+.logo-loading {
+  width: 127px;
+  height: auto;
+  margin-bottom: 20px;
+  border: black;
+  background: black;
+  border-radius: 50%;
+  padding: 10px;
+  animation: rotate3d 3s linear infinite;
+  transform-style: preserve-3d;
+}
+
+.dot-container {
+  display: flex;
+  gap: 10px;
+}
+
+.dot {
+  width: 15px;
+  height: 15px;
+  background-color: #010b16; // Azul, a cor primária
+  border-radius: 50%;
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+// ✅ Rotação 3D personalizada para a logo
+@keyframes rotate3d {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}

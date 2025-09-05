@@ -1,4 +1,6 @@
-<div class="container">
+<app-loading-screen *ngIf="isLoading"></app-loading-screen>
+
+<div *ngIf="!isLoading" class="container">
   <mat-toolbar color="primary">
     <mat-icon>account_balance_wallet</mat-icon>
     <span>Gerenciar Contribuições Mensais</span>

@@ -1,4 +1,6 @@
-<div class="header">
+<app-loading-screen *ngIf="isLoading"></app-loading-screen>
+
+<div class="header" *ngIf="!isLoading">
   <h2 class="tag-expenses">Despesas</h2>
 
   <div class="month-selector">
@@ -7,7 +9,7 @@
     <button class="nav-button" (click)="nextMonth()">></button>
   </div>
 </div>
-<div class="container">
+<div class="container" *ngIf="!isLoading">
   <div *ngIf="groupedExpenses | keyvalue : dateOrder as groups">
     <div *ngFor="let group of groups">
       <h4 class="date-header">
