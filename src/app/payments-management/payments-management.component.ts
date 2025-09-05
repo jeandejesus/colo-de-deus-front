@@ -39,6 +39,7 @@ export class PaymentsManagementComponent implements OnInit {
   displayedColumns: string[] = ['name', 'status', 'actions']; // Colunas para a MatTable
   users: any[] = [];
   isLoading = true;
+  errorMessage: string | null = null;
 
   constructor(
     private paymentsService: PaymentsService,
@@ -59,7 +60,8 @@ export class PaymentsManagementComponent implements OnInit {
         this.isLoading = false;
       },
       (error) => {
-        console.error('Erro ao buscar usuários:', error);
+        this.errorMessage = error.error.messages;
+
         this.snackBar.open('Erro ao carregar usuários.', 'Fechar', {
           duration: 3000,
         });
@@ -85,7 +87,6 @@ export class PaymentsManagementComponent implements OnInit {
           });
         },
         (error) => {
-          console.error(error);
           this.snackBar.open('Falha ao registrar o pagamento.', 'Fechar', {
             duration: 3000,
           });

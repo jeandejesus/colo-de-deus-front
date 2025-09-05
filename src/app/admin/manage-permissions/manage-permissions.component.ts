@@ -32,7 +32,7 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class ManagePermissionsComponent implements OnInit {
   users: any[] = [];
-  roles = ['admin', 'financeiro', 'membro'];
+  roles = ['admin', 'financeiro', 'membro', 'lideranca'];
   errorMessage: string | null = null;
   loading = false;
 

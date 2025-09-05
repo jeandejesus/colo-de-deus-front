@@ -20,7 +20,7 @@ export class RolesGuard implements CanActivate {
     state: RouterStateSnapshot
   ): boolean {
     const requiredRoles = route.data['roles'] as string[];
-    const userRole = this.authService.getUserRole();
+    const userRole = this.authService.getRoleFromToken();
 
     // Se a rota não exige papéis específicos, permite o acesso
     if (!requiredRoles || requiredRoles.length === 0) {

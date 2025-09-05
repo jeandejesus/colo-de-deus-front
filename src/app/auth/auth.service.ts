@@ -55,6 +55,24 @@ export class AuthService {
     return localStorage.getItem(this.USER_ROLE_KEY);
   }
 
+  getRoleFromToken(): string | null {
+    const token = localStorage.getItem(this.TOKEN_KEY); // O nome da sua chave
+
+    if (!token) {
+      return null;
+    }
+
+    try {
+      const decodedToken: any = jwtDecode(token);
+      console.log(decodedToken);
+      return decodedToken.role;
+    } catch (error) {
+      // Se o token for inválido, o jwtDecode lançará um erro
+      console.error('Erro ao decodificar o token:', error);
+      return null;
+    }
+  }
+
   isLoggedIn(): boolean {
     return !!this.getToken();
   }

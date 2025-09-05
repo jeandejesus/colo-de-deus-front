@@ -1,3 +1,12 @@
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$background-color: #f8f9fa;
+$text-color: #495057;
+$border-color: #e9ecef;
+$error-bg: #f8d7da;
+$error-border: #f5c6cb;
+$error-color: #721c24;
+
 .payments-container {
   display: flex;
   flex-direction: column;
@@ -101,6 +110,17 @@
       }
     }
   }
+}
+
+.error-message {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid $error-border;
+  background-color: $error-bg;
+  color: $error-color;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: bold;
 }
 
 /* Desktop (>= 1024px) */
