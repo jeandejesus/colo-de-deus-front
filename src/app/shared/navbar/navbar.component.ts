@@ -57,7 +57,6 @@ export class NavbarComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     let permission = await Notification.requestPermission();
 
-    console.log(permission);
     this.notificationsService
       .getNotificationStatus(this.access_token)
       .subscribe({
@@ -99,7 +98,7 @@ export class NavbarComponent implements OnInit {
   }
 
   async toggleNotifications(): Promise<void> {
-    const userId = localStorage.getItem('user_id') || '';
+    const userId = this.authService.getUserFromToken() || '';
 
     if (this.isSubscribed) {
       this.notificationsService.requestUnsubscription(this.access_token);

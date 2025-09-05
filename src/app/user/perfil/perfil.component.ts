@@ -13,6 +13,7 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { UserService } from '../../services/users.service'; // Make sure this is the correct path
 import { format } from 'date-fns';
 import { LoadingScreenComponent } from '../../shared/loading-screen/loading-screen.component';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-perfil',
@@ -45,7 +46,8 @@ export class PerfilComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -75,7 +77,7 @@ export class PerfilComponent implements OnInit {
     });
 
     // ✅ Get the user ID from localStorage
-    this.userId = localStorage.getItem('user_id');
+    this.userId = this.authService.getUserFromToken();
 
     if (this.userId) {
       // ✅ Fetch the user data from the backend

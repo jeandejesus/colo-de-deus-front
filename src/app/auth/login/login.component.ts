@@ -46,8 +46,6 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.loginForm.value).subscribe(
         async (response) => {
           const { access_token, user } = response;
-          localStorage.setItem('access_token', access_token);
-          localStorage.setItem('user_id', user.id);
 
           let permission = await Notification.requestPermission();
           if (permission !== 'granted') {
