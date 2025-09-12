@@ -1,59 +1,63 @@
-<div class="container">
-  <h2>Despesas</h2>
+<div class="header">
+  <h2 class="tag-expenses">Despesas</h2>
 
-  <div class="header-actions" *appPermission="['financeiro', 'admin']">
-    <button class="add-button" (click)="goToAddExpense()">
-      Adicionar Nova Despesa
+  <div class="month-selector">
+    <button class="nav-button" (click)="previousMonth()"><</button>
+    <span class="current-month">{{ months[selectedMonth].name }}</span>
+    <button class="nav-button" (click)="nextMonth()">></button>
+  </div>
+</div>
+<div class="container">
+  <div *ngIf="groupedExpenses | keyvalue : dateOrder as groups">
+    <div *ngFor="let group of groups">
+      <h4 class="date-header">
+        {{ group.key | dayOfWeek }}
+      </h4>
+
+      <div *ngFor="let expense of group.value" class="income-item">
+        <div class="description">
+          <p>{{ expense.description }}</p>
+          <p class="category">{{ expense?.category?.name }}</p>
+        </div>
+        <div class="actions">
+          <p class="income">R$ {{ expense.value | number : "1.2-2" }}</p>
+          <div class="item-actions">
+            <mat-icon
+              class="action-icon edit-icon"
+              (click)="onEditIncome(expense._id)"
+              *appPermission="['financeiro', 'admin']"
+              >edit</mat-icon
+            >
+
+            <mat-icon
+              class="action-icon delete-icon"
+              (click)="onDeleteIncome(expense._id)"
+              *appPermission="['financeiro', 'admin']"
+              >delete</mat-icon
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p
+    class="empty"
+    *ngIf="!groupedExpenses || (groupedExpenses | keyvalue).length === 0"
+  >
+    Nenhuma Despesa encontrada.
+  </p>
+
+  <div class="add-income">
+    <button
+      mat-fab
+      color="primary"
+      aria-label="Adicionar Despesa"
+      class="add-button"
+      (click)="goToAddExpense()"
+      *appPermission="['financeiro', 'admin']"
+    >
+      <mat-icon>add</mat-icon>
     </button>
   </div>
-
-  <div class="filter-section">
-    <label for="startDate">De:</label>
-    <input
-      type="date"
-      id="startDate"
-      [(ngModel)]="startDate"
-      (change)="onFilter()"
-    />
-
-    <label for="endDate">Até:</label>
-    <input
-      type="date"
-      id="endDate"
-      [(ngModel)]="endDate"
-      (change)="onFilter()"
-    />
-  </div>
-
-  <div *ngIf="expenses.length > 0; else noExpenses">
-    <ul>
-      <li *ngFor="let expense of expenses">
-        <div class="item-details">
-          <p>Descrição: {{ expense.description }}</p>
-          <p>Valor: {{ expense.value | currency : "BRL" : "" : "1.2-2" }}</p>
-          <p>Data: {{ expense.date | dateFormat }}</p>
-        </div>
-        <div class="item-actions">
-          <button
-            class="edit-button"
-            (click)="onEditExpense(expense._id)"
-            *appPermission="['financeiro', 'admin']"
-          >
-            Editar
-          </button>
-          <button
-            class="delete-button"
-            (click)="onDeleteExpense(expense._id)"
-            *appPermission="['financeiro', 'admin']"
-          >
-            Deletar
-          </button>
-        </div>
-      </li>
-    </ul>
-  </div>
-
-  <ng-template #noExpenses>
-    <p class="no-expenses-message">Você ainda não tem despesas cadastradas.</p>
-  </ng-template>
 </div>

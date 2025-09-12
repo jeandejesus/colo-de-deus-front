@@ -3,7 +3,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { forkJoin } from 'rxjs';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { LegendPosition, NgxChartsModule } from '@swimlane/ngx-charts';
 import { ExpensesService } from '../services/expenses.service';
 import { IncomesService } from '../services/incomes.service';
 import { BalanceService } from '../services/balance.service';
@@ -28,6 +28,8 @@ import { CurrencyMaskPipe } from '../pipes/currency-mask.pipe';
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit {
+  legendPosition: LegendPosition = LegendPosition.Below;
+
   totalIncomes: number = 0;
   totalExpenses: number = 0;
   balance: number = 0;
@@ -49,6 +51,10 @@ export class DashboardComponent implements OnInit {
   showBarYAxis = true;
   showValues: boolean = false;
 
+  colorScheme = [
+    { name: 'Despesas', value: 'rgb(168, 56, 93)' },
+    { name: 'Receitas', value: 'rgba(78, 168, 56, 1)' },
+  ];
   constructor(
     private incomesService: IncomesService,
     private expensesService: ExpensesService,

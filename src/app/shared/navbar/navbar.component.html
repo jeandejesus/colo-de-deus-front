@@ -3,6 +3,7 @@
     <button mat-icon-button (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
+
     <a class="nav-brand" routerLink="/dashboard">
       <img
         src="assets/LogoColoDeDeus.png"
@@ -11,6 +12,11 @@
         style="max-width: 150px"
       />
     </a>
+    <button mat-icon-button (click)="toggleNotifications()">
+      <mat-icon>{{
+        isSubscribed ? "notifications" : "notifications_off"
+      }}</mat-icon>
+    </button>
   </mat-toolbar>
 
   <mat-sidenav-container class="sidenav-container nav-links">
@@ -21,8 +27,12 @@
         >
         <a mat-list-item routerLink="/incomes" class="active-link">Receitas</a>
         <a mat-list-item routerLink="/expenses" class="active-link">Despesas</a>
-        <a mat-list-item routerLink="/balance" class="active-link"
-          >Iniciar Saldo</a
+        <a
+          mat-list-item
+          routerLink="/balance"
+          class="active-link"
+          *appPermission="['admin']"
+          >Ajuste de Saldo</a
         >
 
         <a
@@ -47,6 +57,8 @@
           *appPermission="['admin']"
           >Gerenciar pagamentos</a
         >
+
+        <a mat-list-item routerLink="/perfil" class="active-link">Meu Perfil</a>
 
         <button mat-button class="btn-logout" (click)="onLogout()">Sair</button>
       </mat-nav-list>

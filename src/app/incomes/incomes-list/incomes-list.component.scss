@@ -1,36 +1,136 @@
-/* src/app/incomes/incomes-list/incomes-list.component.scss */
+$red: #e74c3c;
+$green: #2ec64e;
 
+.header {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  .tag-sucess {
+    background-color: $green;
+    width: 102px;
+    padding: 5px;
+    border-radius: 9999px;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    font-size: 16px;
+    margin: 10px;
+    color: white;
+  }
+
+  .month-selector {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    align-items: center;
+    font-family: "Poppins", sans-serif;
+
+    .nav-button {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      color: #333;
+    }
+  }
+}
 .container {
   max-width: 800px;
-  margin: 10px;
-
-  padding: 2rem;
-  background-color: #ffffff;
+  margin: 0;
+  padding: 27px;
+  height: 100vh;
+  background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px #333;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+  margin-top: 19px;
+  background: #030303f2;
+  color: white;
+
+  .empty {
+    margin: 0;
+    font-size: 1rem;
+    color: #555;
+    justify-content: center;
+    display: flex;
+    color: white;
+  }
+  .add-income {
+    display: flex;
+    justify-content: center;
+    .add-button {
+      position: fixed; /* Posiciona o botão em relação à viewport */
+      bottom: 20px; /* Distância da parte inferior da tela */
+      z-index: 1000; /* Garante que o botão fique acima de outros elementos */
+      width: 50px;
+      border-radius: 50px;
+      margin-bottom: 10px;
+      mat-icon {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        height: 27px;
+      }
+    }
+  }
+
+  .date-header {
+    margin-bottom: 1rem;
+  }
+  .income-item {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    height: 70px;
+
+    .description {
+      p {
+        color: white;
+      }
+      .category {
+        font-size: 14px;
+        color: #736f6f;
+      }
+    }
+    .income {
+      color: $green;
+    }
+
+    .item-actions {
+      display: flex;
+      gap: 8px; /* Espaço entre os ícones */
+      margin-top: 4px; /* Pequeno espaçamento abaixo do valor */
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+      justify-content: center;
+    }
+
+    .action-icon {
+      font-size: 16px; /* Tamanho pequeno */
+      height: 16px;
+      width: 16px;
+      cursor: pointer;
+      color: #616161; /* Cor padrão */
+      transition: color 0.2s ease-in-out; /* Transição suave na cor */
+    }
+
+    .edit-icon {
+      color: #007bff; /* Azul ao passar o mouse */
+    }
+
+    .delete-icon {
+      color: $red; /* Vermelho ao passar o mouse */
+    }
+  }
 }
 
 h2 {
   text-align: center;
   margin-bottom: 1.5rem;
   color: #333;
-}
-
-button {
-  display: block;
-  width: 100%;
-  padding: 0.75rem;
-  font-size: 1.1rem;
-  font-weight: bold;
-  border-radius: 4px;
-  background-color: #2ecc71; // Cor de sucesso
-  color: white;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  &:hover {
-    background-color: darken(#2ecc71, 10%);
-  }
 }
 
 ul {
@@ -82,7 +182,7 @@ li {
 }
 
 .add-button {
-  background-color: #2ecc71;
+  background-color: $green;
 }
 
 .edit-button {
@@ -99,7 +199,7 @@ li {
 }
 
 .delete-button {
-  background-color: #e74c3c; // Cor de exclusão (vermelho)
+  background-color: $red; // Cor de exclusão (vermelho)
   color: white;
   border: none;
   padding: 8px 12px;
@@ -107,7 +207,7 @@ li {
   cursor: pointer;
   transition: background-color 0.2s;
   &:hover {
-    background-color: darken(#e74c3c, 10%);
+    background-color: darken($red, 10%);
   }
 }
 

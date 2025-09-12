@@ -22,4 +22,14 @@ export class UserService {
     const body = { role: newRole };
     return this.http.patch(`${this.apiUrl}/${userId}/role`, body);
   }
+
+  getUserById(userId: string): Observable<any> {
+    const url = `${this.apiUrl}/${userId}`;
+    return this.http.get<any>(url);
+  }
+
+  updateUser(updatedUser: any): Observable<any> {
+    const url = `${this.apiUrl}/me`;
+    return this.http.patch(url, updatedUser);
+  }
 }

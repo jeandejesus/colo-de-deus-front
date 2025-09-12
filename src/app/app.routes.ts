@@ -19,6 +19,7 @@ import { PaymentsManagementComponent } from './payments-management/payments-mana
 import { NoAuthGuard } from './auth/no-auth.guard';
 import { RequestResetComponent } from './auth/request-reset/request-reset.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { PerfilComponent } from './user/perfil/perfil.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
@@ -33,6 +34,7 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'incomes', component: IncomesListComponent },
+      { path: 'perfil', component: PerfilComponent },
       {
         path: 'incomes/add',
         component: IncomeFormComponent,
