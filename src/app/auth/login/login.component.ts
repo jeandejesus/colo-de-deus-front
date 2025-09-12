@@ -46,6 +46,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.loginForm.value).subscribe(
         async (response) => {
           const { access_token, user } = response;
+          this.router.navigate(['/dashboard']);
 
           let permission = await Notification.requestPermission();
           if (permission !== 'granted') {
@@ -59,8 +60,6 @@ export class LoginComponent implements OnInit {
               access_token
             );
           }
-
-          this.router.navigate(['/dashboard']);
         },
         (error: HttpErrorResponse) => {
           this.errorMessage =

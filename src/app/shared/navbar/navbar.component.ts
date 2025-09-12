@@ -55,9 +55,8 @@ export class NavbarComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    let permission = await Notification.requestPermission();
-
     const registration = await navigator.serviceWorker.ready;
+
     const subscription = await registration.pushManager.getSubscription();
     this.notificationsService
       .getNotificationStatus(this.access_token, subscription?.endpoint || '')

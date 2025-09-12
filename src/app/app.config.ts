@@ -17,10 +17,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([AuthInterceptor])),
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     provideServiceWorker('sw.js', {
-      enabled: true,
-      registrationStrategy: 'registerWhenStable:30000',
-    }),
-    provideServiceWorker('sw.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000',
     }),
