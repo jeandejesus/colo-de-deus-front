@@ -2,22 +2,25 @@
 FROM node:20-alpine AS build
 
 WORKDIR /app
+
+# Copiar package.json e instalar dependências
 COPY package*.json ./
 RUN npm ci
+
+# Copiar todo o código e buildar
 COPY . .
 RUN npm run build -- --configuration production
 
 # Etapa 2: Servir com Nginx
 FROM nginx:alpine
 
-# Copia os arquivos buildados (ajuste para incluir /browser)
+# Copiar build Angular para a pasta do nginx
 COPY --from=build /app/dist/colo-de-deus-front/browser /usr/share/nginx/html
 
-# Remove configuração default do Nginx
+# Remover configuração default do nginx (opcional)
 RUN rm /etc/nginx/conf.d/default.conf
 
-# Copia configuração customizada do Nginx
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-
+# Expor porta (o nginx-proxy vai cuidar das portas externas)
 EXPOSE 80
+
 CMD ["nginx", "-g", "daemon off;"]
