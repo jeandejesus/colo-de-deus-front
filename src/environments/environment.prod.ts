@@ -1,5 +1,1 @@
-export const environment = {
-  production: true,
-  apiUrl: '',
-  vapidPublicKey: '',
-};
+export const environment = {};

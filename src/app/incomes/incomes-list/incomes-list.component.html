@@ -1,63 +1,63 @@
-<div class="container">
-  <h2>Receitas</h2>
+<div class="header">
+  <h2 class="tag-sucess">Receitas</h2>
 
-  <div class="header-actions">
+  <div class="month-selector">
+    <button class="nav-button" (click)="previousMonth()"><</button>
+    <span class="current-month">{{ months[selectedMonth].name }}</span>
+    <button class="nav-button" (click)="nextMonth()">></button>
+  </div>
+</div>
+<div class="container">
+  <div *ngIf="groupedIncomes | keyvalue : dateOrder as groups">
+    <div *ngFor="let group of groups">
+      <h4 class="date-header">
+        {{ group.key | dayOfWeek }}
+      </h4>
+
+      <div *ngFor="let income of group.value" class="income-item">
+        <div class="description">
+          <p>{{ income.description }}</p>
+          <p class="category">{{ income.category.name }}</p>
+        </div>
+        <div class="actions">
+          <p class="income">R$ {{ income.value | number : "1.2-2" }}</p>
+          <div class="item-actions">
+            <mat-icon
+              class="action-icon edit-icon"
+              (click)="onEditIncome(income._id)"
+              *appPermission="['financeiro', 'admin']"
+              >edit</mat-icon
+            >
+
+            <mat-icon
+              class="action-icon delete-icon"
+              (click)="onDeleteIncome(income._id)"
+              *appPermission="['financeiro', 'admin']"
+              >delete</mat-icon
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p
+    class="empty"
+    *ngIf="!groupedIncomes || (groupedIncomes | keyvalue).length === 0"
+  >
+    Nenhuma receita encontrada.
+  </p>
+
+  <div class="add-income">
     <button
+      mat-fab
+      color="primary"
+      aria-label="Adicionar receita"
       class="add-button"
-      (click)="goToAddIncome()"
       *appPermission="['financeiro', 'admin']"
+      (click)="goToAddIncome()"
     >
-      Adicionar Nova Receita
+      <mat-icon>add</mat-icon>
     </button>
   </div>
-
-  <div class="filter-section">
-    <label for="startDate">De:</label>
-    <input
-      type="date"
-      id="startDate"
-      [(ngModel)]="startDate"
-      (change)="onFilter()"
-    />
-
-    <label for="endDate">Até:</label>
-    <input
-      type="date"
-      id="endDate"
-      [(ngModel)]="endDate"
-      (change)="onFilter()"
-    />
-  </div>
-
-  <div *ngIf="incomes.length > 0; else noIncomes">
-    <ul>
-      <li *ngFor="let income of incomes">
-        <div class="item-details">
-          <p>Descrição: {{ income.description }}</p>
-          <p>Valor: {{ income.value | currency : "BRL" : "" : "1.2-2" }}</p>
-          <p>Data: {{ income.date | dateFormat }}</p>
-        </div>
-        <div class="item-actions">
-          <button
-            class="edit-button"
-            (click)="onEditIncome(income._id)"
-            *appPermission="['financeiro', 'admin']"
-          >
-            Editar
-          </button>
-          <button
-            class="delete-button"
-            (click)="onDeleteIncome(income._id)"
-            *appPermission="['financeiro', 'admin']"
-          >
-            Deletar
-          </button>
-        </div>
-      </li>
-    </ul>
-  </div>
-
-  <ng-template #noIncomes>
-    <p class="no-incomes-message">Você ainda não tem receitas cadastradas.</p>
-  </ng-template>
 </div>
