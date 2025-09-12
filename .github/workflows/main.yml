@@ -53,6 +53,9 @@ jobs:
           script: |
             cd /home/ubuntu/apps/docker-compose
 
+            # Garante que a rede exista
+            docker network create web || true
+
             # Atualiza imagem do frontend
             docker-compose pull frontend
 
@@ -62,5 +65,7 @@ jobs:
             # Sobe frontend
             docker-compose up -d frontend
 
-            # Reinicia nginx-proxy para detectar novos hosts e emitir HTTPS
-            docker restart nginx-proxy
+            # Reinicia nginx-proxy somente se existir
+            if [ "$(docker ps -q -f name=nginx-proxy)" ]; then
+              docker restart nginx-proxy
+            fi
