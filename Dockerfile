@@ -17,8 +17,8 @@ FROM nginx:alpine
 # Copiar build Angular para a pasta do nginx
 COPY --from=build /app/dist/colo-de-deus-front/browser /usr/share/nginx/html
 
-# Remover configuração default do nginx (opcional)
-RUN rm /etc/nginx/conf.d/default.conf
+# Copiar configuração customizada do Nginx para servir Angular corretamente
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expor porta (o nginx-proxy vai cuidar das portas externas)
 EXPOSE 80
