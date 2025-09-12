@@ -1,0 +1,23 @@
+# Node modules e cache
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Builds locais
+/dist
+/tmp
+/out-tsc
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# IDEs e configs locais
+.vscode
+.idea
+*.swp
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db

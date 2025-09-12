@@ -10,7 +10,7 @@ RUN npm run build -- --configuration production
 # Etapa 2: Servir com Nginx
 FROM nginx:alpine
 
-# Copia os arquivos buildados para a pasta do Nginx
+# Copia os arquivos buildados para a pasta  Nginx
 COPY --from=build /app/dist/colo-de-deus-front /usr/share/nginx/html
 
 # Remove configuração default do Nginx
