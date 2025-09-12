@@ -57,12 +57,13 @@ export class NavbarComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     let permission = await Notification.requestPermission();
 
-    console.log(permission);
+    const registration = await navigator.serviceWorker.ready;
+    const subscription = await registration.pushManager.getSubscription();
     this.notificationsService
-      .getNotificationStatus(this.access_token)
+      .getNotificationStatus(this.access_token, subscription?.endpoint || '')
       .subscribe({
         next: (valor) => {
-          if (valor.subscribed || permission == 'granted') {
+          if (valor.subscribed) {
             this.isSubscribed = true;
           } else {
             this.isSubscribed = false;
@@ -99,10 +100,15 @@ export class NavbarComponent implements OnInit {
   }
 
   async toggleNotifications(): Promise<void> {
-    const userId = localStorage.getItem('user_id') || '';
+    const userId = this.authService.getUserFromToken() || '';
 
     if (this.isSubscribed) {
-      this.notificationsService.requestUnsubscription(this.access_token);
+      const registration = await navigator.serviceWorker.ready;
+      const subscription = await registration.pushManager.getSubscription();
+      this.notificationsService.requestUnsubscription(
+        subscription,
+        this.access_token
+      );
       this.isSubscribed = false;
     } else {
       this.notificationsService.requestSubscription(userId, this.access_token);

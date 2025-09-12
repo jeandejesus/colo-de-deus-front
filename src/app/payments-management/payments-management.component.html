@@ -1,4 +1,6 @@
-<div class="container">
+<app-loading-screen *ngIf="isLoading"></app-loading-screen>
+
+<div *ngIf="!isLoading" class="container">
   <mat-toolbar color="primary">
     <mat-icon>account_balance_wallet</mat-icon>
     <span>Gerenciar Contribuições Mensais</span>
@@ -18,6 +20,10 @@
           <p>Carregando usuários...</p>
         </div>
 
+        <div *ngIf="errorMessage" class="error-message mat-elevation-z1">
+          <mat-icon color="warn">error</mat-icon>
+          {{ errorMessage }}
+        </div>
         <div *ngIf="!isLoading && users.length === 0" class="no-users-message">
           <p>Nenhum usuário encontrado.</p>
         </div>

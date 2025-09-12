@@ -1,20 +1,24 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="email">Email</label>
-    <input id="email" type="email" formControlName="email" />
-  </div>
-  <div>
-    <label for="password">Password</label>
-    <input id="password" type="password" formControlName="password" />
-  </div>
+<div class="content">
+  <img src="assets/logo.png" alt="Colo de Deus Curitiba" class="logo-loading" />
+  <h3>Missão Curitiba</h3>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" />
+    </div>
+    <div>
+      <label for="password">Password</label>
+      <input id="password" type="password" formControlName="password" />
+    </div>
 
-  <div *ngIf="errorMessage" class="error-message">
-    {{ errorMessage }}
-  </div>
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
 
-  <button type="submit" [disabled]="!loginForm.valid">Login</button>
+    <button type="submit" [disabled]="!loginForm.valid">Login</button>
 
-  <div class="back-link">
-    <a [routerLink]="['/reset']">Recuperar Senha</a>
-  </div>
-</form>
+    <div class="back-link">
+      <a [routerLink]="['/reset']">Recuperar Senha</a>
+    </div>
+  </form>
+</div>

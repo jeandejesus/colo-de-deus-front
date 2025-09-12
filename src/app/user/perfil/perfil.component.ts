@@ -12,6 +12,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { UserService } from '../../services/users.service'; // Make sure this is the correct path
 import { format } from 'date-fns';
+import { LoadingScreenComponent } from '../../shared/loading-screen/loading-screen.component';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-perfil',
@@ -24,12 +26,14 @@ import { format } from 'date-fns';
     MatSelectModule,
     MatFormFieldModule,
     NgxMaskDirective,
+    LoadingScreenComponent,
   ],
   providers: [provideNgxMask()],
 })
 export class PerfilComponent implements OnInit {
   registerForm!: FormGroup;
   userId: string | null = null; // Changed to allow null
+  isLoading: boolean = true;
 
   vocationalYears: string[] = [
     'ano 1',
@@ -42,7 +46,8 @@ export class PerfilComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -72,12 +77,13 @@ export class PerfilComponent implements OnInit {
     });
 
     // ✅ Get the user ID from localStorage
-    this.userId = localStorage.getItem('user_id');
+    this.userId = this.authService.getUserFromToken();
 
     if (this.userId) {
       // ✅ Fetch the user data from the backend
       this.userService.getUserById(this.userId).subscribe({
         next: (userData) => {
+          this.isLoading = true;
           // ✅ Pre-fill the form with the fetched data
           // We use patchValue to avoid errors if some fields are missing
           if (userData.birthDate) {
@@ -94,12 +100,11 @@ export class PerfilComponent implements OnInit {
 
           // The password field should not be pre-filled for security
           this.registerForm.get('password')?.patchValue('');
-
-          console.log('Dados do usuário carregados:', userData);
+          this.isLoading = false;
         },
         error: (err) => {
           console.error('Erro ao buscar dados do usuário:', err);
-          // TODO: Redirect or show an error message
+          this.isLoading = false;
         },
       });
     }

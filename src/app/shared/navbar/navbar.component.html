@@ -25,8 +25,20 @@
         <a mat-list-item routerLink="/dashboard" class="active-link"
           >Visão Geral</a
         >
-        <a mat-list-item routerLink="/incomes" class="active-link">Receitas</a>
-        <a mat-list-item routerLink="/expenses" class="active-link">Despesas</a>
+        <a
+          mat-list-item
+          routerLink="/incomes"
+          class="active-link"
+          *appPermission="['financeiro', 'admin', 'lideranca']"
+          >Receitas</a
+        >
+        <a
+          mat-list-item
+          routerLink="/expenses"
+          class="active-link"
+          *appPermission="['financeiro', 'admin', 'lideranca']"
+          >Despesas</a
+        >
         <a
           mat-list-item
           routerLink="/balance"

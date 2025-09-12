@@ -29,10 +29,6 @@ export class AuthService {
         if (response.access_token) {
           // Salva o token
           this.saveToken(response.access_token);
-          // ➡️ Salva o papel do usuário, que vem no objeto 'user'
-          if (response.user && response.user.role) {
-            this.saveUserRole(response.user.role);
-          }
         }
       })
     );
@@ -42,17 +38,46 @@ export class AuthService {
     localStorage.setItem(this.TOKEN_KEY, token);
   }
 
-  // Novo método para salvar o papel do usuário
-  private saveUserRole(role: string): void {
-    localStorage.setItem(this.USER_ROLE_KEY, role);
-  }
-
   getToken(): string | null {
     return localStorage.getItem(this.TOKEN_KEY);
   }
 
   getUserRole(): string | null {
     return localStorage.getItem(this.USER_ROLE_KEY);
+  }
+
+  getRoleFromToken(): string | null {
+    const token = localStorage.getItem(this.TOKEN_KEY); // O nome da sua chave
+
+    if (!token) {
+      return null;
+    }
+
+    try {
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken.role;
+    } catch (error) {
+      // Se o token for inválido, o jwtDecode lançará um erro
+      console.error('Erro ao decodificar o token:', error);
+      return null;
+    }
+  }
+
+  getUserFromToken(): string | null {
+    const token = localStorage.getItem(this.TOKEN_KEY); // O nome da sua chave
+
+    if (!token) {
+      return null;
+    }
+
+    try {
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken.sub;
+    } catch (error) {
+      // Se o token for inválido, o jwtDecode lançará um erro
+      console.error('Erro ao decodificar o token:', error);
+      return null;
+    }
   }
 
   isLoggedIn(): boolean {

@@ -6,6 +6,23 @@
   background: linear-gradient(135deg, #090c1b, #0f081b);
 }
 
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h3 {
+    color: white;
+  }
+  .logo-loading {
+    width: 131px;
+    height: auto;
+    border-radius: 50%;
+    margin-bottom: 4px;
+  }
+}
+
 form {
   background: #fff;
   padding: 2rem;

@@ -33,7 +33,12 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'incomes', component: IncomesListComponent },
+      {
+        path: 'incomes',
+        component: IncomesListComponent,
+        canActivate: [RolesGuard],
+        data: { roles: ['admin', 'financeiro', 'lideranca'] },
+      },
       { path: 'perfil', component: PerfilComponent },
       {
         path: 'incomes/add',
@@ -47,7 +52,12 @@ export const routes: Routes = [
         canActivate: [RolesGuard],
         data: { roles: ['admin', 'financeiro'] },
       },
-      { path: 'expenses', component: ExpensesListComponent },
+      {
+        path: 'expenses',
+        component: ExpensesListComponent,
+        canActivate: [RolesGuard],
+        data: { roles: ['admin', 'financeiro', 'lideranca'] },
+      },
       {
         path: 'expenses/add',
         component: ExpenseFormComponent,

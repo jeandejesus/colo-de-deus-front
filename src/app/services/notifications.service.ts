@@ -39,24 +39,35 @@ export class NotificationsService {
     }
   }
 
-  requestUnsubscription(token: string) {
+  requestUnsubscription(subscription: any, token: string) {
     this.http
-      .post(`${this.apiUrl}/unsubscribe`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .post(
+        `${this.apiUrl}/unsubscribe`,
+        {
+          subscription,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
       .subscribe(
-        () => console.log('Inscrição enviada com sucesso!'),
+        () => console.log('Inscrição removida com sucesso!'),
         (error) => console.error('Erro ao enviar inscrição:', error)
       );
   }
 
-  getNotificationStatus(token: string): Observable<any> {
+  getNotificationStatus(token: string, endpoint: string): Observable<any> {
     // ✅ Retorne o tipo 'any' ou a estrutura de dados que seu backend envia
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
 
     // ✅ Retorne o Observable diretamente, sem se inscrever nele aqui
-    return this.http.get(`${this.apiUrl}/get-status-notification`, { headers });
+    return this.http.get(
+      `${this.apiUrl}/get-status-notification/${encodeURIComponent(endpoint)}`,
+      {
+        headers,
+      }
+    );
   }
 }
