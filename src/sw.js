@@ -4,9 +4,9 @@ self.addEventListener("push", function (event) {
   event.waitUntil(
     self.registration.showNotification(data.title, {
       body: data.body,
-      icon: "src/assets/logo.png",
+      icon: "/assets/logo.png",
       data: {
-        url: data.url,
+        url: data.data?.url, // agora pega a URL do payload
       }, // <- Corrigido: estava com parênteses errados aqui
     })
   );
@@ -25,14 +25,23 @@ self.addEventListener("notificationclick", function (event) {
       clients
         .matchAll({ type: "window", includeUncontrolled: true })
         .then(function (clientList) {
-          for (const client of clientList) {
-            if (client.url === urlToOpen && "focus" in client) {
-              return client.focus();
-            }
-          }
+          const isInternal = urlToOpen.startsWith(self.location.origin);
 
-          if (clients.openWindow) {
-            return clients.openWindow(urlToOpen);
+          if (isInternal) {
+            // Se for URL do mesmo domínio, tenta focar ou abrir dentro do PWA
+            for (const client of clientList) {
+              if (client.url === urlToOpen && "focus" in client) {
+                return client.focus();
+              }
+            }
+            if (clients.openWindow) {
+              return clients.openWindow(urlToOpen);
+            }
+          } else {
+            // Se for URL externa, sempre abre no navegador
+            if (clients.openWindow) {
+              return clients.openWindow(urlToOpen);
+            }
           }
         })
     );
