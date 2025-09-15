@@ -83,6 +83,10 @@ export class AppComponent implements OnInit {
       });
 
     if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        window.location.reload();
+      });
+
       navigator.serviceWorker.getRegistration().then((reg) => {
         if (reg) {
           reg.addEventListener('updatefound', () => {
