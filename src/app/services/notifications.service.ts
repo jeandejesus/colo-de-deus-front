@@ -16,6 +16,7 @@ export class NotificationsService {
   constructor(private swPush: SwPush, private http: HttpClient) {}
 
   async requestSubscription(userId: string, token: string) {
+    console.log('Iniciando requisição de subscrição...', this.VAPID_PUBLIC_KEY);
     if (this.swPush.isEnabled) {
       try {
         const subscription = await this.swPush.requestSubscription({
