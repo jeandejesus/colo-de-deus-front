@@ -16,11 +16,6 @@ export class NotificationsService {
   constructor(private swPush: SwPush, private http: HttpClient) {}
 
   async requestSubscription(userId: string, token: string) {
-    console.log('Iniciando requestSubscription para userId:', userId);
-    console.log('Service Worker habilitado:', this.swPush.isEnabled);
-    console.log('Chave VAPID:', this.VAPID_PUBLIC_KEY);
-    console.log('URL do backend:', `${this.apiUrl}/subscribe`);
-
     if (this.swPush.isEnabled) {
       try {
         const subscription = await this.swPush.requestSubscription({
