@@ -57,21 +57,25 @@ export class NavbarComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     const registration = await navigator.serviceWorker.ready;
 
-    const subscription = await registration.pushManager.getSubscription();
-    this.notificationsService
-      .getNotificationStatus(this.access_token, subscription?.endpoint || '')
-      .subscribe({
-        next: (valor) => {
-          if (valor.subscribed) {
-            this.isSubscribed = true;
-          } else {
-            this.isSubscribed = false;
-          }
-        },
-        error: (erro) => {
-          console.error('Erro ao buscar status da notificação:', erro);
-        },
-      });
+    // Verifica se o usuário já permitiu notificações
+    if (Notification.permission === 'granted') {
+      const subscription = await registration.pushManager.getSubscription();
+
+      if (subscription) {
+        this.notificationsService
+          .getNotificationStatus(this.access_token, subscription.endpoint)
+          .subscribe({
+            next: (valor) => {
+              this.isSubscribed = valor.subscribed;
+            },
+            error: (erro) => {
+              console.error('Erro ao buscar status da notificação:', erro);
+            },
+          });
+      }
+    } else {
+      console.log('Notificações ainda não foram autorizadas.');
+    }
   }
 
   @ViewChild('navMenu') navMenu!: ElementRef;
