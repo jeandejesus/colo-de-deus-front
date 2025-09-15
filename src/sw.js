@@ -54,6 +54,10 @@ self.addEventListener("message", (event) => {
   }
 });
 
-navigator.serviceWorker.addEventListener("controllerchange", () => {
-  window.location.reload();
+self.addEventListener("install", (event) => {
+  self.skipWaiting();
+});
+
+self.addEventListener("activate", (event) => {
+  event.waitUntil(clients.claim());
 });
