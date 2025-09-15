@@ -2,5 +2,5 @@ export const environment = {
   apiUrl: 'https://api.colodedeuscwb.com.br',
   production: true,
   vapidPublicKey:
-    'BODD-W0-GH3GOhbgqjNhPBSLQW6q5YohLi3Wq7dTCgyevsp5uQwri8SW9p0vt0ccL2WNpzimJ3oGX6JnrRWqoUM',
+    'BEUXW2oW5TxjlgGX29ZcCI-6UDbbfIOSrCLu_rXvUS4mpjbZ9_LWEVKzMZQsxnekK_ogsQZtP4MiK1j0oOb5V_o',
 };
