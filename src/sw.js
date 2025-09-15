@@ -53,3 +53,7 @@ self.addEventListener("message", (event) => {
     self.skipWaiting();
   }
 });
+
+navigator.serviceWorker.addEventListener("controllerchange", () => {
+  window.location.reload();
+});
