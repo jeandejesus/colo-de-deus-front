@@ -18,7 +18,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { AuthService } from './auth/auth.service';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import { SwPush, SwUpdate } from '@angular/service-worker';
+import { SwUpdate } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
 @Component({
@@ -46,7 +46,6 @@ export class AppComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private swPush: SwPush,
     private swUpdate: SwUpdate
   ) {
     if (this.swUpdate.isEnabled) {
