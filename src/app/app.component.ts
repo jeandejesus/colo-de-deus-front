@@ -52,15 +52,12 @@ export class AppComponent implements OnInit {
       this.swUpdate.versionUpdates.subscribe((event) => {
         switch (event.type) {
           case 'VERSION_DETECTED':
-            console.log(`🆕 Nova versão detectada: ${event.version.hash}`);
             break;
           case 'VERSION_READY':
-            console.log(`✅ Nova versão pronta: ${event.latestVersion.hash}`);
-            if (confirm('Nova versão disponível. Deseja atualizar agora?')) {
-              this.swUpdate
-                .activateUpdate()
-                .then(() => document.location.reload());
-            }
+            this.swUpdate
+              .activateUpdate()
+              .then(() => document.location.reload());
+
             break;
           case 'VERSION_INSTALLATION_FAILED':
             console.error('❌ Erro ao instalar nova versão', event.error);
