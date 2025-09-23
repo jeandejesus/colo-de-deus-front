@@ -20,6 +20,7 @@ import { NoAuthGuard } from './auth/no-auth.guard';
 import { RequestResetComponent } from './auth/request-reset/request-reset.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { PerfilComponent } from './user/perfil/perfil.component';
+import { PixComponent } from './pix/pix.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
@@ -33,6 +34,8 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'pix', component: PixComponent },
+
       {
         path: 'incomes',
         component: IncomesListComponent,
