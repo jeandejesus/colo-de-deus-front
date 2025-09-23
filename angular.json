@@ -37,7 +37,8 @@
           },
           "configurations": {
             "production": {
-              "serviceWorker": "ngsw-config.json"
+              "serviceWorker": "ngsw-config.json",
+              "outputHashing": "all"
             },
             "development": {}
           },
