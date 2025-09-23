@@ -50,18 +50,16 @@ export class AppComponent implements OnInit {
   ) {
     if (this.swUpdate.isEnabled) {
       this.swUpdate.versionUpdates.subscribe((event) => {
-        switch (event.type) {
-          case 'VERSION_DETECTED':
-            break;
-          case 'VERSION_READY':
-            this.swUpdate
-              .activateUpdate()
-              .then(() => document.location.reload());
+        if (event.type === 'VERSION_READY') {
+          // Avança o SW para a nova versão imediatamente
+          if (navigator.serviceWorker.controller) {
+            navigator.serviceWorker.controller.postMessage({
+              action: 'skipWaiting',
+            });
+          }
 
-            break;
-          case 'VERSION_INSTALLATION_FAILED':
-            console.error('❌ Erro ao instalar nova versão', event.error);
-            break;
+          // Ativa a atualização Angular e recarrega o app
+          this.swUpdate.activateUpdate().then(() => document.location.reload());
         }
       });
     }
