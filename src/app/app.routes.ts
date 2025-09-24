@@ -21,6 +21,7 @@ import { RequestResetComponent } from './auth/request-reset/request-reset.compon
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { PerfilComponent } from './user/perfil/perfil.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { EventFormComponent } from './event-form/event-form.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
@@ -35,7 +36,8 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'agenda', component: CalendarComponent },
-
+      { path: 'agenda/event', component: EventFormComponent },
+      { path: 'agenda/event/:id', component: EventFormComponent },
       {
         path: 'incomes',
         component: IncomesListComponent,
@@ -103,7 +105,6 @@ export const routes: Routes = [
         canActivate: [RolesGuard],
         data: { roles: ['admin'] },
       },
-
       {
         path: 'admin/payments-status',
         component: PaymentsManagementComponent,
@@ -111,10 +112,10 @@ export const routes: Routes = [
         data: { roles: ['admin', 'financeiro'] },
       },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      // Adicione a rota catch-all aqui
+      { path: '**', redirectTo: 'dashboard' },
     ],
   },
-
-  // ---
-
+  // A rota catch-all para o caso de o usuário não estar logado
   { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];
