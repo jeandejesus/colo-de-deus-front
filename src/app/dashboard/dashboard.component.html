@@ -16,6 +16,19 @@
         </button>
       </div>
     </mat-card-header>
+    <mat-form-field
+      subscriptSizing="dynamic"
+      *appPermission="['financeiro', 'admin', 'lideranca']"
+    >
+      <mat-select
+        [(ngModel)]="selectedMonth"
+        (selectionChange)="onRoleChange()"
+      >
+        <mat-option *ngFor="let month of months" [value]="month.value">
+          {{ month.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
     <mat-card-actions>
       <div class="spacer" [routerLink]="['/incomes']">
