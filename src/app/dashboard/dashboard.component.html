@@ -16,10 +16,7 @@
         </button>
       </div>
     </mat-card-header>
-    <mat-form-field
-      subscriptSizing="dynamic"
-      *appPermission="['financeiro', 'admin', 'lideranca']"
-    >
+    <mat-form-field subscriptSizing="dynamic">
       <mat-select
         [(ngModel)]="selectedMonth"
         (selectionChange)="onRoleChange()"
