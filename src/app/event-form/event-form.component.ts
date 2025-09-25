@@ -61,7 +61,7 @@ export class EventFormComponent implements OnInit {
         end: this.formatDateForInput(
           navState.end.dateTime ?? navState.end.date
         ),
-        status: navState.status,
+        status: navState.statusMongo,
         typeMission: navState.typeMission,
         googleEventId: navState.googleEventId,
       });

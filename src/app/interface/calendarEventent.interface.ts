@@ -11,7 +11,7 @@ export interface ICalendarEvent {
     dateTime?: string; // Horário de término (ISO string)
     date?: string; // Caso seja evento o dia todo
   };
-  status?: string; // Ex.: "confirmado"
+  statusMongo?: string; // Ex.: "confirmado"
   typeMission?: string; // Tipo do evento
   colorId?: string; // ID de cor do Google Calendar
 }

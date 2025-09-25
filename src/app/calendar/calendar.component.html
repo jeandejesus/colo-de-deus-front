@@ -3,6 +3,14 @@
 <div class="calendar-container" *ngIf="!loading && !error">
   <h2 class="calendar-title">Próximos Eventos</h2>
 
+  <div class="month-selector">
+    <button class="nav-button" (click)="previousMonth()"><</button>
+    <span class="current-month">{{ months[selectedMonth - 1].name }}</span>
+    <button class="nav-button" (click)="nextMonth()">></button>
+  </div>
+
+  <p class="sem-evento" *ngIf="!events.length">Não há eventos registrados</p>
+
   <div class="event-card" *ngFor="let event of events">
     <div class="datas" [ngStyle]="{ 'border-right': getBorderColor(event) }">
       <p class="event-dates">

@@ -13,8 +13,10 @@ export class CalendarService {
 
   constructor(private http: HttpClient) {}
 
-  getEvents(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/events`, {});
+  getEvents(month: number, year: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/events`, {
+      params: { month, year },
+    });
   }
 
   createEvent(event: Partial<ICalendarEvent>): Observable<ICalendarEvent> {

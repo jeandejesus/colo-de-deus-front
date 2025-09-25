@@ -157,7 +157,34 @@
   }
 }
 
+.sem-evento {
+  text-align: center;
+}
+
+.month-selector {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+
+  .nav-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    color: #333;
+  }
+}
+
 @media (min-width: 768px) {
+  .calendar-container {
+    min-width: 500px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
   .event-details {
     flex-direction: row;
   }
