@@ -30,6 +30,7 @@
   background-color: #f0f2f5;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  height: 100%;
 
   .current-month {
     font-weight: 700;
@@ -44,6 +45,10 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+
+    @media (min-width: 768px) {
+      min-width: 700px;
+    }
 
     .adjust-button {
       padding: 0;
@@ -319,8 +324,9 @@ ngx-charts-bar-vertical-2d {
   }
 
   .dashboard-container {
-    padding: 10px 15rem;
+    padding: 0px 15rem;
     max-width: 2000px;
+    height: 100%;
   }
 
   .charts-container {
