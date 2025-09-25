@@ -22,7 +22,7 @@ export class CategoriesService {
   }
 
   findAllByType(type: 'income' | 'expense'): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}?type=${type}`);
+    return this.http.get<any[]>(`${this.apiUrl}/tipo?type=${type}`);
   }
 
   findOne(id: string): Observable<any> {
