@@ -34,7 +34,7 @@ import { LoadingScreenComponent } from '../../shared/loading-screen/loading-scre
 })
 export class ManagePermissionsComponent implements OnInit {
   users: any[] = [];
-  roles = ['admin', 'financeiro', 'membro', 'lideranca'];
+  roles = ['admin', 'financeiro', 'membro', 'lideranca', 'agenda'];
   errorMessage: string | null = null;
   isLoading: boolean = true;
 
