@@ -15,6 +15,11 @@ html {
   text-rendering: optimizeLegibility;
   font-size: 100%;
 }
+input,
+textarea,
+select {
+  font-size: 16px;
+}
 
 .mat-mdc-option.mdc-list-item {
   background-color: #fff !important; /* força o branco */
