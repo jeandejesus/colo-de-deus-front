@@ -12,6 +12,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { NotificationsService } from '../../services/notifications.service';
+import { SwPush } from '@angular/service-worker';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +30,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private notificationsService: NotificationsService,
-    private router: Router
+    private router: Router,
+    private swPush: SwPush
   ) {}
 
   ngOnInit(): void {
@@ -46,21 +48,25 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.loginForm.value).subscribe(
         async (response) => {
           const { access_token, user } = response;
+          const subscription =
+            await this.notificationsService.getExistingSubscription();
 
-          let permission = await Notification.requestPermission();
-          if (permission !== 'granted') {
-            this.errorMessage =
-              'Você precisa permitir notificações para receber alertas.';
+          if (this.swPush.isEnabled && !subscription) {
+            const permission = await Notification.requestPermission();
+
+            if (permission === 'granted') {
+              await this.notificationsService.requestSubscription(
+                user.id,
+                access_token
+              );
+              this.router.navigate(['/dashboard']);
+            } else {
+              this.errorMessage =
+                'Você precisa permitir notificações para receber alertas.';
+            }
+          } else {
+            this.router.navigate(['/dashboard']);
           }
-
-          if (permission === 'granted') {
-            this.notificationsService.requestSubscription(
-              user.id,
-              access_token
-            );
-          }
-
-          this.router.navigate(['/dashboard']);
         },
         (error: HttpErrorResponse) => {
           this.errorMessage =

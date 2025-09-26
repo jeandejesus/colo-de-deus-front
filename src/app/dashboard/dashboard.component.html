@@ -16,6 +16,16 @@
         </button>
       </div>
     </mat-card-header>
+    <mat-form-field subscriptSizing="dynamic">
+      <mat-select
+        [(ngModel)]="selectedMonth"
+        (selectionChange)="onRoleChange()"
+      >
+        <mat-option *ngFor="let month of months" [value]="month.value">
+          {{ month.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
     <mat-card-actions>
       <div class="spacer" [routerLink]="['/incomes']">
@@ -66,7 +76,7 @@
     </div>
   </div>
 
-  <div class="chart-section" *ngIf="barChartData">
+  <div class="chart-section" *ngIf="barChartData.length > 0">
     <h3>Receitas vs Despesas (por Mês)</h3>
     <div *ngIf="barChartData.length > 0; else noBarChartData">
       <ngx-charts-bar-vertical-2d
@@ -87,4 +97,8 @@
       </p>
     </ng-template>
   </div>
+
+  <p class="no-chart-message" *ngIf="totalIncomes === 0 && totalExpenses === 0">
+    Nâo há dados disponíveis.
+  </p>
 </div>

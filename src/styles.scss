@@ -16,6 +16,10 @@ html {
   font-size: 100%;
 }
 
+.mat-mdc-option.mdc-list-item {
+  background-color: #fff !important; /* força o branco */
+}
+
 @media (min-width: 768px) {
   app-authenticated-layout {
     width: 100%;

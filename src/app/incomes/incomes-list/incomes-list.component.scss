@@ -39,7 +39,7 @@ $green: #2ec64e;
   max-width: 800px;
   margin: 0;
   padding: 27px;
-  height: 100vh;
+  min-height: 100%;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 12px #333;
@@ -61,12 +61,15 @@ $green: #2ec64e;
     display: flex;
     justify-content: center;
     .add-button {
-      position: fixed; /* Posiciona o botão em relação à viewport */
-      bottom: 20px; /* Distância da parte inferior da tela */
-      z-index: 1000; /* Garante que o botão fique acima de outros elementos */
-      width: 50px;
-      border-radius: 50px;
+      position: fixed;
+      bottom: 20px;
+      z-index: 1000;
+      font-size: 50px;
       margin-bottom: 10px;
+      height: auto;
+      width: auto;
+      color: $green;
+
       mat-icon {
         display: flex;
         width: 100%;
@@ -179,10 +182,6 @@ li {
 .item-actions {
   display: flex;
   gap: 10px;
-}
-
-.add-button {
-  background-color: $green;
 }
 
 .edit-button {

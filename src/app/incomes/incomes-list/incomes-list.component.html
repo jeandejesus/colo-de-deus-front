@@ -51,15 +51,21 @@
   </p>
 
   <div class="add-income">
-    <button
+    <!-- <button
       mat-fab
-      color="primary"
       aria-label="Adicionar receita"
       class="add-button"
       *appPermission="['financeiro', 'admin']"
       (click)="goToAddIncome()"
     >
-      <mat-icon>add</mat-icon>
-    </button>
+
+    </button> -->
+
+    <mat-icon
+      *appPermission="['financeiro', 'admin']"
+      class="add-button"
+      (click)="goToAddIncome()"
+      >add_circle</mat-icon
+    >
   </div>
 </div>

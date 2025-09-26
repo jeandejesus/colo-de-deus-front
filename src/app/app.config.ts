@@ -20,9 +20,5 @@ export const appConfig: ApplicationConfig = {
       enabled: true,
       registrationStrategy: 'registerWhenStable:30000',
     }),
-    provideServiceWorker('sw.js', {
-      enabled: !isDevMode(),
-      registrationStrategy: 'registerWhenStable:30000',
-    }),
   ],
 };

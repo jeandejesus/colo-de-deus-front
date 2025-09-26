@@ -18,7 +18,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { AuthService } from './auth/auth.service';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import { SwPush, SwUpdate } from '@angular/service-worker';
+import { SwUpdate } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
 @Component({
@@ -46,26 +46,20 @@ export class AppComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private swPush: SwPush,
     private swUpdate: SwUpdate
   ) {
     if (this.swUpdate.isEnabled) {
       this.swUpdate.versionUpdates.subscribe((event) => {
-        switch (event.type) {
-          case 'VERSION_DETECTED':
-            console.log(`🆕 Nova versão detectada: ${event.version.hash}`);
-            break;
-          case 'VERSION_READY':
-            console.log(`✅ Nova versão pronta: ${event.latestVersion.hash}`);
-            if (confirm('Nova versão disponível. Deseja atualizar agora?')) {
-              this.swUpdate
-                .activateUpdate()
-                .then(() => document.location.reload());
-            }
-            break;
-          case 'VERSION_INSTALLATION_FAILED':
-            console.error('❌ Erro ao instalar nova versão', event.error);
-            break;
+        if (event.type === 'VERSION_READY') {
+          // Avança o SW para a nova versão imediatamente
+          if (navigator.serviceWorker.controller) {
+            navigator.serviceWorker.controller.postMessage({
+              action: 'skipWaiting',
+            });
+          }
+
+          // Ativa a atualização Angular e recarrega o app
+          this.swUpdate.activateUpdate().then(() => document.location.reload());
         }
       });
     }
@@ -84,6 +78,10 @@ export class AppComponent implements OnInit {
       });
 
     if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        window.location.reload();
+      });
+
       navigator.serviceWorker.getRegistration().then((reg) => {
         if (reg) {
           reg.addEventListener('updatefound', () => {

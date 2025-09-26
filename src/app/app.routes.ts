@@ -22,6 +22,7 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
 import { PerfilComponent } from './user/perfil/perfil.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { EventFormComponent } from './event-form/event-form.component';
+import { PixComponent } from './pix/pix.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
@@ -38,6 +39,8 @@ export const routes: Routes = [
       { path: 'agenda', component: CalendarComponent },
       { path: 'agenda/event', component: EventFormComponent },
       { path: 'agenda/event/:id', component: EventFormComponent },
+      { path: 'pix', component: PixComponent },
+
       {
         path: 'incomes',
         component: IncomesListComponent,

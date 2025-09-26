@@ -1,0 +1,70 @@
+<div class="conteiner">
+  <mat-card class="pix-card" aria-label="Informações para pagamento via PIX">
+    <div class="card-top">
+      <div class="brand">
+        <div class="logo-r" aria-hidden="true">Pix</div>
+        <div class="brand-text">
+          <div class="title">Dados para pagamento</div>
+          <div class="subtitle" *ngIf="pixInfo?.keyType">
+            {{ pixInfo.keyType }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="row">
+        <div class="left">
+          <div class="label">Favorecido</div>
+          <div class="value">{{ pixInfo?.holderName }}</div>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="pixInfo?.taxId">
+        <div class="left">
+          <div class="label">Nome</div>
+          <div class="value">{{ pixInfo?.taxId }}</div>
+        </div>
+      </div>
+
+      <div class="row key-row">
+        <div class="left">
+          <div class="label">Chave PIX</div>
+          <div class="pix-key monospace">{{ pixInfo?.key }}</div>
+        </div>
+        <div class="right actions">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="copy(pixInfo?.key, 'Chave PIX copiada')"
+          >
+            <mat-icon>qr_code</mat-icon>
+            <span>Copiar chave</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <button mat-flat-button color="accent" (click)="toggleQr()">
+          <mat-icon>qr_code_2</mat-icon> {{ showQr ? "Ocultar" : "Ver QR" }}
+        </button>
+        <div class="qr" *ngIf="showQr">
+          <qrcode
+            [qrdata]="brCode"
+            [width]="240"
+            [errorCorrectionLevel]="'M'"
+          ></qrcode>
+          <div class="hint">
+            Escaneie com o app do banco ou copie a chave para pagar.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="card-footer">
+      <div class="hint">Abra o app do banco, cole a chave e confirme.</div>
+    </div>
+  </mat-card>
+</div>

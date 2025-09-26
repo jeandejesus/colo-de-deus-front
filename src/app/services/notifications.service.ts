@@ -15,27 +15,30 @@ export class NotificationsService {
 
   constructor(private swPush: SwPush, private http: HttpClient) {}
 
-  requestSubscription(userId: string, token: string) {
+  async requestSubscription(userId: string, token: string) {
     if (this.swPush.isEnabled) {
-      this.swPush
-        .requestSubscription({
+      try {
+        const subscription = await this.swPush.requestSubscription({
           serverPublicKey: this.VAPID_PUBLIC_KEY,
-        })
-        .then((subscription) => {
-          this.http
-            .post(
-              `${this.apiUrl}/subscribe`,
-              { userId, subscription },
-              {
-                headers: { Authorization: `Bearer ${token}` },
-              }
-            )
-            .subscribe(
-              () => console.log('Inscrição enviada com sucesso!'),
-              (error) => console.error('Erro ao enviar inscrição:', error)
-            );
-        })
-        .catch(console.error);
+        });
+        console.log('Subscrição obtida:', subscription);
+
+        const payload = { userId, subscription };
+        console.log('Enviando requisição para o backend:', payload);
+        this.http
+          .post(`${this.apiUrl}/subscribe`, payload, {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+          .subscribe({
+            next: () => console.log('Inscrição enviada com sucesso!'),
+            error: (error) =>
+              console.error('Erro ao enviar inscrição:', error.message, error),
+          });
+      } catch (err) {
+        console.error('Erro ao obter subscrição:', err);
+      }
+    } else {
+      console.error('Service Worker não está habilitado');
     }
   }
 
@@ -69,5 +72,13 @@ export class NotificationsService {
         headers,
       }
     );
+  }
+
+  async getExistingSubscription(): Promise<PushSubscription | null> {
+    if (!this.swPush.isEnabled) return null;
+
+    const registration = await navigator.serviceWorker.ready;
+    const subscription = await registration.pushManager.getSubscription();
+    return subscription;
   }
 }
