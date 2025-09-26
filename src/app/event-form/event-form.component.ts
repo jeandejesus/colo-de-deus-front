@@ -47,6 +47,7 @@ export class EventFormComponent implements OnInit {
       end: ['', Validators.required],
       status: ['confirmado'],
       typeMission: [''],
+      location: [''],
     });
 
     const navState = history.state.event as ICalendarEvent | undefined;
@@ -64,6 +65,7 @@ export class EventFormComponent implements OnInit {
         status: navState.statusMongo,
         typeMission: navState.typeMission,
         googleEventId: navState.googleEventId,
+        location: navState.location,
       });
     }
 
@@ -82,6 +84,13 @@ export class EventFormComponent implements OnInit {
 
     this.loading = true;
     const formValue = this.eventForm.value as Partial<ICalendarEvent>;
+
+    const { start, end } = this.eventForm.value;
+    if (new Date(end) <= new Date(start)) {
+      this.error = 'A data de término deve ser maior que a data de início';
+      this.loading = false;
+      return;
+    }
 
     if (this.eventId) {
       // Atualizar evento

@@ -14,4 +14,5 @@ export interface ICalendarEvent {
   statusMongo?: string; // Ex.: "confirmado"
   typeMission?: string; // Tipo do evento
   colorId?: string; // ID de cor do Google Calendar
+  location?: string; // Local do evento
 }
