@@ -36,12 +36,14 @@
     height: auto;
     width: auto;
     color: #039be5;
+    background: transparent;
 
     mat-icon {
       display: flex;
       width: 100%;
       justify-content: center;
-      height: 27px;
+      height: 40px;
+      font-size: 43px;
     }
   }
 }
@@ -188,6 +190,10 @@
     padding: 2rem;
   }
 
+  .event-card {
+    margin: 0px 41px;
+  }
+
   .event-details {
     flex-direction: row;
   }
@@ -195,8 +201,8 @@
   .add-income {
     height: 0px;
     display: flex;
-    justify-content: center;
-    width: 465px;
+    justify-content: flex-start;
+    width: 100%;
     align-items: center;
     background: transparent;
   }
