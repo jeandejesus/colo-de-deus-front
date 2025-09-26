@@ -37,8 +37,18 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'agenda', component: CalendarComponent },
-      { path: 'agenda/event', component: EventFormComponent },
-      { path: 'agenda/event/:id', component: EventFormComponent },
+      {
+        path: 'agenda/event',
+        component: EventFormComponent,
+        canActivate: [RolesGuard],
+        data: { roles: ['admin', 'financeiro', 'lideranca'] },
+      },
+      {
+        path: 'agenda/event/:id',
+        component: EventFormComponent,
+        canActivate: [RolesGuard],
+        data: { roles: ['admin', 'financeiro', 'lideranca'] },
+      },
       { path: 'pix', component: PixComponent },
 
       {
