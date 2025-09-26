@@ -41,13 +41,13 @@ export const routes: Routes = [
         path: 'agenda/event',
         component: EventFormComponent,
         canActivate: [RolesGuard],
-        data: { roles: ['admin', 'financeiro', 'lideranca'] },
+        data: { roles: ['admin', 'agenda'] },
       },
       {
         path: 'agenda/event/:id',
         component: EventFormComponent,
         canActivate: [RolesGuard],
-        data: { roles: ['admin', 'financeiro', 'lideranca'] },
+        data: { roles: ['admin', 'agenda'] },
       },
       { path: 'pix', component: PixComponent },
 

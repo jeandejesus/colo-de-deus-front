@@ -7,6 +7,8 @@ import { Router, RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { PermissionDirective } from '../directives/permission.directive';
 import { AuthService } from '../auth/auth.service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-calendar',
@@ -19,6 +21,8 @@ import { AuthService } from '../auth/auth.service';
     LoadingScreenComponent,
     MatIcon,
     RouterLink,
+    MatButtonModule,
+    MatMenuModule,
   ],
 })
 export class CalendarComponent implements OnInit {
@@ -27,6 +31,8 @@ export class CalendarComponent implements OnInit {
   error = '';
   selectedMonth: number = new Date().getMonth() + 1;
   selectYear: number = new Date().getFullYear();
+  viewUserMode: boolean = false;
+  tipoView: string = 'Modo Usuario';
 
   months = [
     { value: 1, name: 'Janeiro' },
@@ -105,7 +111,6 @@ export class CalendarComponent implements OnInit {
   }
 
   getBorderColor(event: any): string {
-    console.log('Status do evento:', event.status);
     if (!event.typeMission) return '3px solid #ccc'; // borda padrão
     if (event.typeMission.toLowerCase().includes('prod'))
       return '3px solid rgb(3 148 77)'; // vermelho claro
@@ -128,5 +133,10 @@ export class CalendarComponent implements OnInit {
       next: () => this.loadEvents(), // recarrega a lista
       error: (err) => console.error('Erro ao deletar:', err),
     });
+  }
+
+  userViewMode(): void {
+    this.viewUserMode = !this.viewUserMode;
+    this.tipoView = this.viewUserMode ? 'Modo Admin' : 'Modo Usuario';
   }
 }
