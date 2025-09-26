@@ -1,0 +1,67 @@
+<app-loading-screen *ngIf="loading"></app-loading-screen>
+
+<div class="calendar-container" *ngIf="!loading && !error">
+  <h2 class="calendar-title">Próximos Eventos</h2>
+
+  <div class="month-selector">
+    <mat-icon class="nav-button" (click)="previousMonth()"
+      >arrow_back_ios</mat-icon
+    >
+
+    <span class="current-month">{{ months[selectedMonth - 1].name }}</span>
+
+    <mat-icon class="nav-button" (click)="nextMonth()"
+      >arrow_forward_ios</mat-icon
+    >
+  </div>
+
+  <p class="sem-evento" *ngIf="!events.length">Não há eventos registrados</p>
+
+  <div class="event-card" *ngFor="let event of events">
+    <div class="datas" [ngStyle]="{ 'border-right': getBorderColor(event) }">
+      <p class="event-dates">
+        <span class="start">
+          {{ event.start.dateTime ?? event.start.date | date : "shortDate" }}
+        </span>
+      </p>
+      <p class="event-dates">
+        <span class="end">
+          {{ event.end.dateTime ?? event.end.date | date : "shortDate" }}
+        </span>
+      </p>
+    </div>
+
+    <div class="event-details">
+      <h3 class="event-title">{{ event.summary }}</h3>
+
+      <!-- Botões de ação -->
+      <div class="event-actions">
+        <button
+          class="edit-btn action-btn"
+          (click)="editEvent(event)"
+          *appPermission="['agenda', 'admin']"
+        >
+          <mat-icon>edit</mat-icon>
+          <span>Editar</span>
+        </button>
+
+        <button
+          class="delete-btn action-btn"
+          (click)="deleteEvent(event._id)"
+          *appPermission="['agenda', 'admin']"
+        >
+          <mat-icon>delete</mat-icon>
+          <span>Excluir</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="add-income">
+  <mat-icon
+    *appPermission="['agenda', 'admin']"
+    class="add-button"
+    [routerLink]="['/agenda/event']"
+    >add_circle</mat-icon
+  >
+</div>

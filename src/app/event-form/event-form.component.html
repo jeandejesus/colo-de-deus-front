@@ -1,0 +1,60 @@
+<app-loading-screen *ngIf="loading"></app-loading-screen>
+
+<div class="event-form-container" *ngIf="!loading">
+  <h2>{{ eventId ? "Editar Evento" : "Adicionar Evento" }}</h2>
+
+  <form [formGroup]="eventForm" (ngSubmit)="submit()">
+    <label>
+      Título
+      <input formControlName="summary" placeholder="Título do evento" />
+    </label>
+
+    <label>
+      Descrição
+      <textarea
+        formControlName="description"
+        placeholder="Descrição"
+      ></textarea>
+    </label>
+
+    <label>
+      Início
+      <input type="datetime-local" formControlName="start" />
+    </label>
+
+    <label>
+      Fim
+      <input type="datetime-local" formControlName="end" />
+    </label>
+
+    <label>
+      Status
+      <select formControlName="status">
+        <option *ngFor="let s of ['confirmado', 'pendente']" [value]="s">
+          {{ s | titlecase }}
+        </option>
+      </select>
+    </label>
+
+    <label>
+      Local
+      <input formControlName="location" placeholder="Local do evento" />
+    </label>
+
+    <label>
+      Tipo
+      <select formControlName="typeMission">
+        <option value="">Selecione o tipo</option>
+        <option *ngFor="let type of eventTypes" [value]="type.value">
+          {{ type.label }}
+        </option>
+      </select>
+    </label>
+
+    <button type="submit" [disabled]="eventForm.invalid">
+      {{ eventId ? "Atualizar" : "Adicionar" }}
+    </button>
+  </form>
+
+  <div *ngIf="error" class="error">{{ error }}</div>
+</div>

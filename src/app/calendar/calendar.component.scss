@@ -1,0 +1,203 @@
+:host {
+  display: block;
+  color: #333;
+}
+
+/* Mensagens de loading e erro */
+.loading,
+.error {
+  text-align: center;
+  font-weight: 600;
+  margin: 2rem 0;
+  font-size: 1.1rem;
+}
+
+.error {
+  color: #e74c3c;
+}
+
+.add-income {
+  display: flex;
+  justify-content: center;
+
+  position: fixed;
+  bottom: 20px;
+  z-index: 1000;
+  width: 100%;
+  background: black;
+  height: 46px;
+
+  .add-button {
+    position: fixed;
+    bottom: 20px;
+    z-index: 1000;
+    font-size: 50px;
+    margin-bottom: 10px;
+    height: auto;
+    width: auto;
+    color: #039be5;
+
+    mat-icon {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      height: 27px;
+    }
+  }
+}
+
+/* Base (mobile first) */
+.calendar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 50px;
+  padding: 1rem;
+
+  .calendar-title {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+  }
+}
+
+.event-card {
+  background-color: #f7f7f7;
+  padding: 0.8rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: row;
+  gap: 0.8rem;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  .datas {
+    display: flex;
+    flex-direction: column;
+    padding-right: 1rem;
+    border-right: 4px solid #039be5;
+    margin-right: 1rem;
+
+    .event-dates {
+      font-size: 0.9rem;
+      color: #333;
+      margin: 0;
+
+      .start,
+      .end {
+        display: block;
+      }
+    }
+  }
+
+  .event-details {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    .event-title {
+      margin: 0 0 0.5rem 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1f2937;
+      text-align: center;
+    }
+
+    .event-description {
+      font-size: 0.85rem;
+      color: #4b5563;
+    }
+
+    .event-actions {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      justify-content: center;
+
+      .action-btn {
+        display: flex;
+        align-items: center;
+        padding: 0.3rem 0.6rem;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+        font-size: 0.85rem;
+        font-weight: 500;
+        transition: background 0.2s;
+
+        mat-icon {
+          font-size: 1rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        &.edit-btn {
+          background: #039be5;
+          color: white;
+
+          &:hover {
+            background: #0288d1;
+          }
+        }
+
+        &.delete-btn {
+          background: #f44336;
+          color: white;
+
+          &:hover {
+            background: #d32f2f;
+          }
+        }
+      }
+    }
+  }
+}
+
+.sem-evento {
+  text-align: center;
+}
+
+.month-selector {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+
+  .nav-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    color: #333;
+  }
+}
+
+@media (min-width: 768px) {
+  .calendar-container {
+    min-width: 500px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .event-details {
+    flex-direction: row;
+  }
+
+  .add-income {
+    height: 0px;
+    display: flex;
+    justify-content: center;
+    width: 465px;
+    align-items: center;
+    background: transparent;
+  }
+}

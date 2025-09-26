@@ -25,6 +25,14 @@
         <a mat-list-item routerLink="/dashboard" class="active-link"
           >Visão Geral</a
         >
+
+        <a
+          mat-list-item
+          routerLink="/agenda"
+          class="active-link"
+          *appPermission="['financeiro', 'admin', 'lideranca']"
+          >Agenda</a
+        >
         <a mat-list-item routerLink="/pix" class="active-link">Pix</a>
         <a
           mat-list-item
