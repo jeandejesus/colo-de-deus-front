@@ -4,9 +4,15 @@
   <h2 class="calendar-title">Próximos Eventos</h2>
 
   <div class="month-selector">
-    <button class="nav-button" (click)="previousMonth()"><</button>
+    <mat-icon class="nav-button" (click)="previousMonth()"
+      >arrow_back_ios</mat-icon
+    >
+
     <span class="current-month">{{ months[selectedMonth - 1].name }}</span>
-    <button class="nav-button" (click)="nextMonth()">></button>
+
+    <mat-icon class="nav-button" (click)="nextMonth()"
+      >arrow_forward_ios</mat-icon
+    >
   </div>
 
   <p class="sem-evento" *ngIf="!events.length">Não há eventos registrados</p>
@@ -52,14 +58,10 @@
   </div>
 </div>
 <div class="add-income">
-  <button
-    mat-fab
-    color="primary"
-    aria-label="Adicionar Despesa"
+  <mat-icon
+    *appPermission="['agenda', 'admin']"
     class="add-button"
     [routerLink]="['/agenda/event']"
-    *appPermission="['agenda', 'admin']"
+    >add_circle</mat-icon
   >
-    <mat-icon>add</mat-icon>
-  </button>
 </div>

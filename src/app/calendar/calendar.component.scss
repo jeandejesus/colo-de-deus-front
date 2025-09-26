@@ -28,12 +28,15 @@
   height: 46px;
 
   .add-button {
-    position: fixed; /* Posiciona o botão em relação à viewport */
-    bottom: 20px; /* Distância da parte inferior da tela */
-    z-index: 1000; /* Garante que o botão fique acima de outros elementos */
-    width: 50px;
-    border-radius: 50px;
+    position: fixed;
+    bottom: 20px;
+    z-index: 1000;
+    font-size: 50px;
     margin-bottom: 10px;
+    height: auto;
+    width: auto;
+    color: #039be5;
+
     mat-icon {
       display: flex;
       width: 100%;
@@ -163,7 +166,7 @@
 
 .month-selector {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 100%;
   align-items: center;
   font-family: "Poppins", sans-serif;
