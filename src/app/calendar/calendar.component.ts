@@ -35,6 +35,13 @@ export class CalendarComponent implements OnInit {
   tipoView: string = 'Modo Usuario';
   openedEventId: string | null = null;
 
+  eventTypes = [
+    { value: 'prod', label: 'Prod' },
+    { value: 'geral', label: 'Geral' },
+    { value: 'local', label: 'Missão local (Curitiba)' },
+    { value: 'local_externo', label: 'Missão local (Externo)' },
+  ];
+
   months = [
     { value: 1, name: 'Janeiro' },
     { value: 2, name: 'Fevereiro' },
@@ -112,6 +119,11 @@ export class CalendarComponent implements OnInit {
 
   viewEvent(event: any) {
     this.openedEventId = this.openedEventId === event.id ? null : event.id;
+  }
+
+  getEventTypeLabel(value: string): string {
+    const type = this.eventTypes.find((t) => t.value === value);
+    return type ? type.label : value;
   }
 
   getBorderColor(event: any): string {
