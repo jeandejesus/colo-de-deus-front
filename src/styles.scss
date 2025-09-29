@@ -164,6 +164,8 @@ input[type="datetime-local"] {
   padding: 10px;
   width: 100%;
   font-size: 16px;
+  padding: 10px; // aumenta espaço interno
+  height: 44px; // altura mínima (igual botão padrão iOS)
 }
 
 /* Adicionar ícone de seta customizada no select */
