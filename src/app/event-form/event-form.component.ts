@@ -27,7 +27,8 @@ export class EventFormComponent implements OnInit {
   eventTypes = [
     { value: 'prod', label: 'Prod' },
     { value: 'geral', label: 'Geral' },
-    { value: 'local', label: 'Local' },
+    { value: 'local', label: 'Missão local (Curitiba)' },
+    { value: 'local_externo', label: 'Missão local (Externo)' },
   ];
 
   constructor(
@@ -75,8 +76,17 @@ export class EventFormComponent implements OnInit {
   formatDateForInput(dateStr?: string): string {
     if (!dateStr) return '';
     const date = new Date(dateStr);
-    const iso = date.toISOString(); // "2025-09-24T20:58:00.000Z"
-    return iso.substring(0, 16); // "YYYY-MM-DDTHH:mm"
+
+    const pad = (n: number) => String(n).padStart(2, '0');
+
+    const year = date.getFullYear();
+    const month = pad(date.getMonth() + 1);
+    const day = pad(date.getDate());
+    const hours = pad(date.getHours());
+    const minutes = pad(date.getMinutes());
+
+    // datetime-local espera "YYYY-MM-DDTHH:mm"
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
   }
 
   submit() {

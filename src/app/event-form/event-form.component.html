@@ -30,7 +30,10 @@
     <label>
       Status
       <select formControlName="status">
-        <option *ngFor="let s of ['confirmado', 'pendente']" [value]="s">
+        <option
+          *ngFor="let s of ['Confirmado', 'Pendente', 'Pré Agendado']"
+          [value]="s"
+        >
           {{ s | titlecase }}
         </option>
       </select>

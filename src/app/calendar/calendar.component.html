@@ -31,8 +31,27 @@
       </p>
     </div>
 
-    <div class="event-details">
+    <div class="event-details" (click)="viewEvent(event)">
       <h3 class="event-title">{{ event.summary }}</h3>
+
+      <p
+        class="event-description"
+        *ngIf="openedEventId === event.id && event.description"
+      >
+        <strong>Sobre: </strong> {{ event.description }}
+      </p>
+      <p
+        class="event-location"
+        *ngIf="openedEventId === event.id && event.location"
+      >
+        <strong>Local:</strong> {{ event.location }}
+      </p>
+      <p
+        class="event-type"
+        *ngIf="openedEventId === event.id && event.typeMission"
+      >
+        <strong>Tipo de Missão:</strong> {{ event.typeMission }}
+      </p>
 
       <!-- Botões de ação -->
       <div class="event-actions" *ngIf="viewUserMode === false">
@@ -73,11 +92,4 @@
       <span>{{ tipoView }}</span>
     </button>
   </mat-menu>
-
-  <!-- <mat-icon
-    *appPermission="['agenda', 'admin']"
-    class="add-button"
-    [routerLink]="['/agenda/event']"
-    >add_circle</mat-icon
-  > -->
 </div>
