@@ -27,7 +27,8 @@ export class EventFormComponent implements OnInit {
   eventTypes = [
     { value: 'prod', label: 'Prod' },
     { value: 'geral', label: 'Geral' },
-    { value: 'local', label: 'Local' },
+    { value: 'local', label: 'Missão local (Curitiba)' },
+    { value: 'local_externo', label: 'Missão local (Externo)' },
   ];
 
   constructor(
