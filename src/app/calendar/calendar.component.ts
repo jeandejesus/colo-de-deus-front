@@ -76,7 +76,8 @@ export class CalendarComponent implements OnInit {
         next: (events) => {
           const userRole = this.authService.getRoleFromToken();
           this.openedEventId = null; // Fecha qualquer evento aberto ao carregar novos eventos
-          if (userRole === 'membro') {
+
+          if (userRole === 'membro' || this.viewUserMode) {
             this.events = events.filter(
               (event: any) => event.statusMongo == 'Confirmado'
             );
@@ -154,5 +155,6 @@ export class CalendarComponent implements OnInit {
   userViewMode(): void {
     this.viewUserMode = !this.viewUserMode;
     this.tipoView = this.viewUserMode ? 'Modo Admin' : 'Modo Usuario';
+    this.loadEvents();
   }
 }
