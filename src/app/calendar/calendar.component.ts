@@ -33,6 +33,7 @@ export class CalendarComponent implements OnInit {
   selectYear: number = new Date().getFullYear();
   viewUserMode: boolean = false;
   tipoView: string = 'Modo Usuario';
+  openedEventId: string | null = null;
 
   months = [
     { value: 1, name: 'Janeiro' },
@@ -67,11 +68,10 @@ export class CalendarComponent implements OnInit {
       .subscribe({
         next: (events) => {
           const userRole = this.authService.getRoleFromToken();
-          console.log('User Role:', userRole);
-          if (userRole !== 'admin' && userRole !== 'agenda') {
+          this.openedEventId = null; // Fecha qualquer evento aberto ao carregar novos eventos
+          if (userRole === 'membro') {
             this.events = events.filter(
-              (event: any) =>
-                event.status !== 'cancelled' && event.status !== 'pendente'
+              (event: any) => event.statusMongo == 'Confirmado'
             );
           } else {
             this.events = events;
@@ -108,6 +108,10 @@ export class CalendarComponent implements OnInit {
       this.selectedMonth--;
     }
     this.loadEvents();
+  }
+
+  viewEvent(event: any) {
+    this.openedEventId = this.openedEventId === event.id ? null : event.id;
   }
 
   getBorderColor(event: any): string {
