@@ -149,3 +149,27 @@ body,
 mat-sidenav {
   background-color: $primary-color !important;
 }
+
+/* Remove aparência nativa */
+select,
+input[type="date"],
+input[type="datetime-local"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+  width: 100%;
+  font-size: 16px;
+}
+
+/* Adicionar ícone de seta customizada no select */
+select {
+  background: #fff
+    url("data:image/svg+xml;utf8,<svg fill='gray' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>")
+    no-repeat right 10px center;
+  background-size: 16px;
+}
