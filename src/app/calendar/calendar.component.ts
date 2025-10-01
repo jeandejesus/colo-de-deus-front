@@ -36,10 +36,23 @@ export class CalendarComponent implements OnInit {
   openedEventId: string | null = null;
 
   eventTypes = [
-    { value: 'prod', label: 'Prod' },
-    { value: 'geral', label: 'Geral' },
-    { value: 'local', label: 'Missão local (Curitiba)' },
-    { value: 'local_externo', label: 'Missão local (Externo)' },
+    { value: 'prod', label: 'Prod', borderColor: '3px solid #ff0e0eff' },
+    { value: 'geral', label: 'Geral', borderColor: '3px solid #20d356ff' },
+    {
+      value: 'local',
+      label: 'Missão local (Curitiba)',
+      borderColor: '3px solid #095bd6ff',
+    },
+    {
+      value: 'local_externo',
+      label: 'Missão local (Externo)',
+      borderColor: '3px solid #961a8bff',
+    },
+    {
+      value: 'arquidiocese',
+      label: 'Arquidiocese',
+      borderColor: '3px solid #ecde19ff',
+    },
   ];
 
   months = [
@@ -128,12 +141,10 @@ export class CalendarComponent implements OnInit {
   }
 
   getBorderColor(event: any): string {
-    if (!event.typeMission) return '3px solid #ccc'; // borda padrão
-    if (event.typeMission.toLowerCase().includes('prod'))
-      return '3px solid rgb(3 148 77)'; // vermelho claro
-    if (event.typeMission.toLowerCase().includes('geral'))
-      return '3px solid rgb(180 101 101)';
-    return '3px solid rgb(105 101 180)'; // azul claro
+    return (
+      this.eventTypes.find((t) => t.value === event.typeMission)?.borderColor ||
+      '3px solid #000'
+    );
   }
 
   editEvent(event: any) {

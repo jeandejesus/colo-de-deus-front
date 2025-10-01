@@ -29,6 +29,7 @@ export class EventFormComponent implements OnInit {
     { value: 'geral', label: 'Geral' },
     { value: 'local', label: 'Missão local (Curitiba)' },
     { value: 'local_externo', label: 'Missão local (Externo)' },
+    { value: 'arquidiocese', label: 'Arquidiocese' },
   ];
 
   constructor(
