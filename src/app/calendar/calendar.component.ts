@@ -35,6 +35,26 @@ export class CalendarComponent implements OnInit {
   tipoView: string = 'Modo Usuario';
   openedEventId: string | null = null;
 
+  eventTypes = [
+    { value: 'prod', label: 'Prod', borderColor: '3px solid #ff0e0eff' },
+    { value: 'geral', label: 'Geral', borderColor: '3px solid #20d356ff' },
+    {
+      value: 'local',
+      label: 'Missão local (Curitiba)',
+      borderColor: '3px solid #095bd6ff',
+    },
+    {
+      value: 'local_externo',
+      label: 'Missão local (Externo)',
+      borderColor: '3px solid #961a8bff',
+    },
+    {
+      value: 'arquidiocese',
+      label: 'Arquidiocese',
+      borderColor: '3px solid #ecde19ff',
+    },
+  ];
+
   months = [
     { value: 1, name: 'Janeiro' },
     { value: 2, name: 'Fevereiro' },
@@ -69,7 +89,8 @@ export class CalendarComponent implements OnInit {
         next: (events) => {
           const userRole = this.authService.getRoleFromToken();
           this.openedEventId = null; // Fecha qualquer evento aberto ao carregar novos eventos
-          if (userRole === 'membro') {
+
+          if (userRole === 'membro' || this.viewUserMode) {
             this.events = events.filter(
               (event: any) => event.statusMongo == 'Confirmado'
             );
@@ -114,13 +135,16 @@ export class CalendarComponent implements OnInit {
     this.openedEventId = this.openedEventId === event.id ? null : event.id;
   }
 
+  getEventTypeLabel(value: string): string {
+    const type = this.eventTypes.find((t) => t.value === value);
+    return type ? type.label : value;
+  }
+
   getBorderColor(event: any): string {
-    if (!event.typeMission) return '3px solid #ccc'; // borda padrão
-    if (event.typeMission.toLowerCase().includes('prod'))
-      return '3px solid rgb(3 148 77)'; // vermelho claro
-    if (event.typeMission.toLowerCase().includes('geral'))
-      return '3px solid rgb(180 101 101)';
-    return '3px solid rgb(105 101 180)'; // azul claro
+    return (
+      this.eventTypes.find((t) => t.value === event.typeMission)?.borderColor ||
+      '3px solid #000'
+    );
   }
 
   editEvent(event: any) {
@@ -142,5 +166,6 @@ export class CalendarComponent implements OnInit {
   userViewMode(): void {
     this.viewUserMode = !this.viewUserMode;
     this.tipoView = this.viewUserMode ? 'Modo Admin' : 'Modo Usuario';
+    this.loadEvents();
   }
 }

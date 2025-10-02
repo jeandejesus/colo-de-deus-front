@@ -50,7 +50,8 @@
         class="event-type"
         *ngIf="openedEventId === event.id && event.typeMission"
       >
-        <strong>Tipo de Missão:</strong> {{ event.typeMission }}
+        <strong>Tipo de Missão:</strong>
+        {{ getEventTypeLabel(event.typeMission) }}
       </p>
 
       <!-- Botões de ação -->
