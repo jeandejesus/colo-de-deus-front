@@ -1,0 +1,23 @@
+<div class="user-event-list">
+  <h2>Eventos Disponíveis</h2>
+
+  <div *ngFor="let e of events" class="event-card">
+    <h3>{{ e.title }}</h3>
+    <p>{{ e.description }}</p>
+    <p><b>Início:</b> {{ e.startDate | date : "short" }}</p>
+    <p><b>Fim:</b> {{ e.endDate | date : "short" }}</p>
+    <p><b>Local:</b> {{ e.location }}</p>
+
+    <!-- Se não inscrito -->
+    <button *ngIf="!isRegistered(e._id!)" (click)="register(e)">
+      Inscrever-se
+    </button>
+
+    <button
+      *ngIf="isRegistered(e._id!)"
+      [routerLink]="['/events/my-event', e._id, 'qr']"
+    >
+      Ver QR Code
+    </button>
+  </div>
+</div>

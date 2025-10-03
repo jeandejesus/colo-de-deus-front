@@ -1,0 +1,19 @@
+<div class="checkin-container">
+  <h2>Leitor de QR Code - Check-in</h2>
+
+  <zxing-scanner
+    [formats]="allowedFormats"
+    (scanSuccess)="onCodeResult($event)"
+  >
+  </zxing-scanner>
+
+  <div class="result" *ngIf="qrResult">
+    <p><strong>QR Capturado:</strong> {{ qrResult }}</p>
+  </div>
+
+  <div class="status" *ngIf="checkinMessage">
+    <p>{{ checkinMessage }}</p>
+  </div>
+
+  <div *ngIf="loading">Validando...</div>
+</div>

@@ -1,0 +1,34 @@
+<div class="event-form-container">
+  <h2>{{ isEditMode ? "Editar Evento" : "Criar Novo Evento" }}</h2>
+
+  <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="title">Título</label>
+      <input id="title" type="text" formControlName="title" />
+    </div>
+
+    <div class="form-group">
+      <label for="description">Descrição</label>
+      <textarea id="description" formControlName="description"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="startDate">Data Início</label>
+      <input id="startDate" type="datetime-local" formControlName="startDate" />
+    </div>
+
+    <div class="form-group">
+      <label for="endDate">Data Fim</label>
+      <input id="endDate" type="datetime-local" formControlName="endDate" />
+    </div>
+
+    <div class="form-group">
+      <label for="location">Local</label>
+      <input id="location" type="text" formControlName="location" />
+    </div>
+
+    <button type="submit" [disabled]="eventForm.invalid">
+      {{ isEditMode ? "Salvar Alterações" : "Criar Evento" }}
+    </button>
+  </form>
+</div>

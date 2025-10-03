@@ -24,6 +24,7 @@
     "@angular/service-worker": "^19.2.0",
     "@angular/ssr": "^19.2.3",
     "@swimlane/ngx-charts": "^22.0.0",
+    "@zxing/ngx-scanner": "^20.0.0",
     "angularx-qrcode": "^19.0.0",
     "d3": "^7.9.0",
     "date-fns": "^4.1.0",

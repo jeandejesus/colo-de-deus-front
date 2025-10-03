@@ -1,0 +1,10 @@
+<div class="qr-page" *ngIf="qrCode">
+  <h2>{{ eventTitle }}</h2>
+  <p>Mostre este QR Code na entrada do evento:</p>
+
+  <qrcode [qrdata]="qrCode" [width]="250" [errorCorrectionLevel]="'M'"></qrcode>
+</div>
+
+<div *ngIf="!qrCode">
+  <p>QR Code não disponível.</p>
+</div>
