@@ -30,6 +30,7 @@
         <a mat-list-item routerLink="/pix" class="active-link">Pix</a>
 
         <!-- ROTAS DE EVENTOS -->
+
         <a
           mat-list-item
           routerLink="/events"
@@ -37,6 +38,14 @@
           *appPermission="['admin']"
         >
           Eventos Disponíveis
+        </a>
+        <a
+          mat-list-item
+          routerLink="/events/create"
+          class="active-link"
+          *appPermission="['admin']"
+        >
+          Criar Evento
         </a>
         <a
           mat-list-item
