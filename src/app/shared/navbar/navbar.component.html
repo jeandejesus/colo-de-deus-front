@@ -28,6 +28,34 @@
 
         <a mat-list-item routerLink="/agenda" class="active-link">Agenda</a>
         <a mat-list-item routerLink="/pix" class="active-link">Pix</a>
+
+        <!-- ROTAS DE EVENTOS -->
+        <a
+          mat-list-item
+          routerLink="/events"
+          class="active-link"
+          *appPermission="['admin']"
+        >
+          Eventos Disponíveis
+        </a>
+        <a
+          mat-list-item
+          routerLink="/events/list"
+          class="active-link"
+          *appPermission="['admin']"
+        >
+          Meus Eventos
+        </a>
+        <a
+          mat-list-item
+          routerLink="/events/checkin"
+          class="active-link"
+          *appPermission="['admin']"
+        >
+          Check-in de Eventos
+        </a>
+        <!-- FIM ROTAS DE EVENTOS -->
+
         <a
           mat-list-item
           routerLink="/incomes"
