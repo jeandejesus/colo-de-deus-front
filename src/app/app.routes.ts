@@ -23,6 +23,7 @@ import { PerfilComponent } from './user/perfil/perfil.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { EventFormComponent } from './event-form/event-form.component';
 import { PixComponent } from './pix/pix.component';
+import { EVENT_ROUTES } from './events/event.routes';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
@@ -35,6 +36,7 @@ export const routes: Routes = [
     component: AuthenticatedLayoutComponent,
     canActivate: [AuthGuard],
     children: [
+      { path: 'events', children: EVENT_ROUTES },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'agenda', component: CalendarComponent },
       {
@@ -125,8 +127,6 @@ export const routes: Routes = [
         data: { roles: ['admin', 'financeiro'] },
       },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      // Adicione a rota catch-all aqui
-      { path: '**', redirectTo: 'dashboard' },
     ],
   },
   // A rota catch-all para o caso de o usuário não estar logado

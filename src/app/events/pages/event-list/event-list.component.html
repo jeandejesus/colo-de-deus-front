@@ -1,0 +1,14 @@
+<div class="event-list-container">
+  <h2>Eventos</h2>
+
+  <div *ngFor="let e of events" class="event-card">
+    <h3>{{ e.title }}</h3>
+    <p>{{ e.description }}</p>
+    <p><b>Início:</b> {{ e.startDate | date : "short" }}</p>
+    <p><b>Fim:</b> {{ e.endDate | date : "short" }}</p>
+    <p><b>Local:</b> {{ e.location }}</p>
+
+    <button (click)="editEvent(e._id!)">Editar</button>
+    <button (click)="deleteEvent(e._id!)">Excluir</button>
+  </div>
+</div>
