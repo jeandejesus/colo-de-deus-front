@@ -64,10 +64,11 @@ export class EventService {
     );
   }
 
-  checkIn(eventId: string, userId: string): Observable<Registration> {
-    return this.http.post<Registration>(`${this.apiUrl}/${eventId}/checkin`, {
-      userId,
-    });
+  checkIn(eventId: string, qrCode: string): Observable<Registration> {
+    return this.http.post<Registration>(
+      `${this.apiUrl}/${eventId}/checkin/${qrCode}`,
+      {}
+    );
   }
 
   getUserEventQRCode(eventId: string, userId: string) {
