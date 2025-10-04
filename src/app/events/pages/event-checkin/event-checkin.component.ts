@@ -20,6 +20,7 @@ export class EventCheckinComponent {
   qrResult: string | null = null;
   checkinMessage: string = '';
   loading = false;
+  checkinValidado = false;
 
   onCodeResult(result: string) {
     this.qrResult = result;
@@ -39,6 +40,7 @@ export class EventCheckinComponent {
       next: (res) => {
         this.checkinMessage = 'Check-in realizado com sucesso!';
         this.loading = false;
+        this.checkinValidado = true;
       },
       error: (err) => {
         this.checkinMessage = err.error?.message || 'Falha ao validar QR Code';

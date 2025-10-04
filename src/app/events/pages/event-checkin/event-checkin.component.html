@@ -2,6 +2,7 @@
   <h2>Leitor de QR Code - Check-in</h2>
 
   <zxing-scanner
+    *ngIf="!checkinValidado"
     [formats]="allowedFormats"
     (scanSuccess)="onCodeResult($event)"
   >
