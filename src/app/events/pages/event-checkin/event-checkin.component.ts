@@ -13,6 +13,7 @@ import { BarcodeFormat } from '@zxing/library';
 })
 export class EventCheckinComponent {
   private eventService = inject(EventService);
+
   allowedFormats = [BarcodeFormat.QR_CODE];
   qrResult: string | null = null;
   checkinMessage: string = '';
@@ -20,21 +21,40 @@ export class EventCheckinComponent {
 
   onCodeResult(result: string) {
     this.qrResult = result;
-    this.checkin(result);
+
+    // 🔥 Extrair o ID do evento da URL escaneada
+    const eventId = this.extractEventId(result);
+
+    if (eventId) {
+      this.checkin(eventId, result);
+    } else {
+      this.checkinMessage = 'QR Code inválido';
+    }
   }
 
-  checkin(qrCode: string) {
+  private extractEventId(url: string): string | null {
+    try {
+      const u = new URL(url);
+      // caminho: /events/my-event/:id/qr
+      const parts = u.pathname.split('/');
+      // exemplo: ["", "events", "my-event", "68e08ccff23bd961e6dc3523", "qr"]
+      return parts[3] || null;
+    } catch {
+      return null;
+    }
+  }
+
+  checkin(eventId: string, qrCode: string) {
     this.loading = true;
-    // supondo que você tenha o ID do evento fixo ou passado via rota
-    const eventId = 'ID_DO_EVENTO';
 
     this.eventService.checkIn(eventId, qrCode).subscribe({
-      next: (res) => {
-        this.checkinMessage = 'Check-in realizado com sucesso!';
+      next: () => {
+        this.checkinMessage = '✅ Check-in realizado com sucesso!';
         this.loading = false;
       },
       error: (err) => {
-        this.checkinMessage = err.error?.message || 'Falha ao validar QR Code';
+        this.checkinMessage =
+          err.error?.message || '❌ Falha ao validar QR Code';
         this.loading = false;
       },
     });

@@ -11,7 +11,7 @@ export const EVENT_ROUTES: Routes = [
   { path: '', component: EventListComponent },
   { path: 'list', component: UserEventListComponent },
   { path: 'my-event/:id/qr', component: UserEventQRCodeComponent },
-  { path: 'checkin', component: EventCheckinComponent }, // rota do leitor QR
+  { path: 'checkin/:id', component: EventCheckinComponent },
   { path: 'create', component: EventFormComponent },
   { path: 'edit/:id', component: EventFormComponent },
   { path: ':id/register', component: EventRegisterComponent },
