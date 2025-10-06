@@ -1,0 +1,21 @@
+<div class="registrations-container">
+  <h2>Participantes do Evento</h2>
+
+  <div *ngIf="!participants.length" class="empty">
+    Nenhum participante inscrito ainda.
+  </div>
+
+  <div class="participant-list">
+    <div
+      class="participant-card"
+      *ngFor="let p of participants"
+      [ngClass]="{ checked: p.checkedIn, pending: !p.checkedIn }"
+    >
+      <span class="name">{{ p.user.name || p.user }}</span>
+      <span class="status">
+        {{ p.checkedIn ? "Presente ✅" : "Pendente ⏳" }}
+      </span>
+      <span class="qr">{{ p.qrCode }}</span>
+    </div>
+  </div>
+</div>

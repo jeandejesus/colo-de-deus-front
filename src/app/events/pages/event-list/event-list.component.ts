@@ -1,12 +1,25 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { EventService, EventModel } from '../../../services/event.service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { PermissionDirective } from '../../../directives/permission.directive';
+import { LoadingScreenComponent } from '../../../shared/loading-screen/loading-screen.component';
 
 @Component({
   selector: 'app-event-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    PermissionDirective,
+    CommonModule,
+    LoadingScreenComponent,
+    MatIcon,
+    RouterLink,
+    MatButtonModule,
+    MatMenuModule,
+  ],
   templateUrl: './event-list.component.html',
   styleUrls: ['./event-list.component.scss'],
 })

@@ -1,0 +1,64 @@
+.registrations-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #f7f8fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+
+  h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+
+  .empty {
+    text-align: center;
+    color: #777;
+    font-style: italic;
+  }
+
+  .participant-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+
+    .participant-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+
+      &.checked {
+        border-left: 5px solid #4caf50;
+        background: #e8f5e9;
+      }
+
+      &.pending {
+        border-left: 5px solid #ff9800;
+        background: #fff8e1;
+      }
+
+      .name {
+        font-weight: 600;
+        color: #333;
+      }
+
+      .status {
+        font-weight: 500;
+        font-size: 0.9rem;
+        color: #555;
+      }
+
+      .qr {
+        font-family: monospace;
+        font-size: 0.8rem;
+        color: #888;
+      }
+    }
+  }
+}

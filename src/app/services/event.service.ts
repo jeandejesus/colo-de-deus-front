@@ -12,6 +12,11 @@ export interface EventModel {
   location: string;
 }
 
+export interface RegistrationResponse {
+  msg: string;
+  qrCode: string;
+}
+
 export interface Registration {
   _id?: string;
   eventId: string;
@@ -24,8 +29,9 @@ export interface Registration {
   providedIn: 'root',
 })
 export class EventService {
-  private http = inject(HttpClient);
   private apiUrl = `${environment.apiUrl}/events`;
+
+  constructor(private http: HttpClient) {}
 
   // ---------- EVENTOS ----------
   getEvents(): Observable<EventModel[]> {
@@ -49,12 +55,10 @@ export class EventService {
   }
 
   // ---------- INSCRIÇÕES ----------
-  registerToEvent(eventId: string, userId: string): Observable<Registration> {
-    return this.http.post<Registration>(
+  registerToEvent(eventId: string, userId: string): Observable<any> {
+    return this.http.post<any>(
       `${this.apiUrl}/${eventId}/subscribe/${userId}`,
-      {
-        userId,
-      }
+      {}
     );
   }
 
@@ -62,6 +66,10 @@ export class EventService {
     return this.http.get<Registration[]>(
       `${this.apiUrl}/${eventId}/registrations`
     );
+  }
+
+  getParticipants(eventId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/${eventId}/participants`);
   }
 
   checkIn(eventId: string, qrCode: string): Observable<Registration> {

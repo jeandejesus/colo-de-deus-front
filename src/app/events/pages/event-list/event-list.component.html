@@ -8,7 +8,21 @@
     <p><b>Fim:</b> {{ e.endDate | date : "short" }}</p>
     <p><b>Local:</b> {{ e.location }}</p>
 
-    <button (click)="editEvent(e._id!)">Editar</button>
-    <button (click)="deleteEvent(e._id!)">Excluir</button>
+    <div class="botton">
+      <button (click)="editEvent(e._id!)">Editar</button>
+      <button (click)="deleteEvent(e._id!)">Excluir</button>
+    </div>
+  </div>
+
+  <div class="add-income" *appPermission="['agenda', 'admin']">
+    <button class="add-button" matIconButton [matMenuTriggerFor]="menu">
+      <mat-icon>add_circle</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [routerLink]="['/events/create']">
+        <mat-icon>add_ad</mat-icon>
+        <span>Novo Evento</span>
+      </button>
+    </mat-menu>
   </div>
 </div>

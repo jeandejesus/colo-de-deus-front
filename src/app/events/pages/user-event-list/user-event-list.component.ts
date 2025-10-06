@@ -71,12 +71,16 @@ export class UserEventListComponent implements OnInit {
   register(event: EventModel) {
     this.eventService.registerToEvent(event._id!, this.userId).subscribe({
       next: (res) => {
+        // Atualiza o QR Code retornado
         this.registeredQrCodes[event._id!] = res.qrCode || '';
-        alert(`Inscrição realizada no evento: ${event.title}`);
+
+        // Marca este evento como inscrito no Set
+        this.registeredEvents.add(event._id!);
+
+        console.log('Inscrição realizada:', res);
       },
       error: (err) => {
         console.error(err);
-        alert('Erro ao se inscrever.');
       },
     });
   }

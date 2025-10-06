@@ -46,6 +46,9 @@ export class EventFormComponent implements OnInit {
   loadEvent(id: string) {
     this.eventService.getEventById(id).subscribe({
       next: (event) => {
+        event.startDate = this.formatDateForInput(event.startDate);
+        event.endDate = this.formatDateForInput(event.endDate);
+
         this.eventForm.patchValue(event);
       },
       error: (err) => {
@@ -85,5 +88,21 @@ export class EventFormComponent implements OnInit {
         },
       });
     }
+  }
+
+  formatDateForInput(dateStr?: string): string {
+    if (!dateStr) return '';
+    const date = new Date(dateStr);
+
+    const pad = (n: number) => String(n).padStart(2, '0');
+
+    const year = date.getFullYear();
+    const month = pad(date.getMonth() + 1);
+    const day = pad(date.getDate());
+    const hours = pad(date.getHours());
+    const minutes = pad(date.getMinutes());
+
+    // datetime-local espera "YYYY-MM-DDTHH:mm"
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
   }
 }
