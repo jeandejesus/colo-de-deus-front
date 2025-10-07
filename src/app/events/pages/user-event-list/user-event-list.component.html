@@ -2,7 +2,7 @@
   <h2>Eventos Disponíveis</h2>
 
   <div *ngFor="let e of events" class="event-card">
-    <h3 [routerLink]="['/events/my-event', e._id, 'participants']">
+    <h3>
       {{ e.title }}
     </h3>
     <p>{{ e.description }}</p>
@@ -31,6 +31,16 @@
           check-in
         </button>
       </div>
+    </div>
+
+    <div class="container-participant" *appPermission="['admin', 'checkin']">
+      <button
+        class="paticipant"
+        *ngIf="isRegistered(e._id!)"
+        [routerLink]="['/events/my-event', e._id, 'participants']"
+      >
+        Ver participantes
+      </button>
     </div>
   </div>
 </div>

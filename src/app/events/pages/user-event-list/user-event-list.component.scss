@@ -21,6 +21,15 @@
       gap: 0.5rem;
     }
 
+    .container-participant {
+      display: flex;
+      justify-content: center;
+      .paticipant {
+        width: 100%;
+        background: green;
+      }
+    }
+
     h3 {
       margin-top: 0;
     }
