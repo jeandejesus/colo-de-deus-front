@@ -43,6 +43,7 @@ export class EventRegistrationsComponent implements OnInit, OnDestroy {
 
   loadParticipants() {
     this.eventService.getParticipants(this.eventId).subscribe((res) => {
+      console.log(res);
       this.participants = res;
     });
   }

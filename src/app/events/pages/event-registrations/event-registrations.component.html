@@ -11,7 +11,7 @@
       *ngFor="let p of participants"
       [ngClass]="{ checked: p.checkedIn, pending: !p.checkedIn }"
     >
-      <span class="name">{{ p.user.name || p.user }}</span>
+      <span class="name">{{ p.userName }}</span>
       <span class="status">
         {{ p.checkedIn ? "Presente ✅" : "Pendente ⏳" }}
       </span>
