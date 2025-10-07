@@ -23,12 +23,14 @@
         Ver QR Code
       </button>
 
-      <button
-        *ngIf="isRegistered(e._id!)"
-        [routerLink]="['/events/checkin/', e._id]"
-      >
-        check-in
-      </button>
+      <div *appPermission="['admin', 'checkin']">
+        <button
+          *ngIf="isRegistered(e._id!)"
+          [routerLink]="['/events/checkin/', e._id]"
+        >
+          check-in
+        </button>
+      </div>
     </div>
   </div>
 </div>

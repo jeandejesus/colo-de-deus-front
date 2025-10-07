@@ -4,11 +4,12 @@ import { EventService, EventModel } from '../../../services/event.service';
 import { QRCodeComponent } from 'angularx-qrcode';
 import { AuthService } from '../../../auth/auth.service';
 import { RouterModule } from '@angular/router';
+import { PermissionDirective } from '../../../directives/permission.directive';
 
 @Component({
   selector: 'app-user-event-list',
   standalone: true,
-  imports: [CommonModule, QRCodeComponent, RouterModule],
+  imports: [CommonModule, QRCodeComponent, RouterModule, PermissionDirective],
   templateUrl: './user-event-list.component.html',
   styleUrls: ['./user-event-list.component.scss'],
 })

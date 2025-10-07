@@ -6,14 +6,30 @@ import { UserEventListComponent } from './pages/user-event-list/user-event-list.
 import { UserEventQRCodeComponent } from './pages/user-event-qr/user-event-qr.component';
 import { EventCheckinComponent } from './pages/event-checkin/event-checkin.component';
 import { EventRegistrationsComponent } from './pages/event-registrations/event-registrations.component';
+import { RolesGuard } from '../auth/guards/roles.guard';
 
 export const EVENT_ROUTES: Routes = [
   { path: '', component: EventListComponent },
   { path: 'list', component: UserEventListComponent },
   { path: 'my-event/:id/qr', component: UserEventQRCodeComponent },
   { path: 'checkin/:id', component: EventCheckinComponent },
-  { path: 'my-event/:id/participants', component: EventRegistrationsComponent },
-  { path: 'create', component: EventFormComponent },
-  { path: 'edit/:id', component: EventFormComponent },
+  {
+    path: 'my-event/:id/participants',
+    component: EventRegistrationsComponent,
+    canActivate: [RolesGuard],
+    data: { roles: ['admin', 'checkin'] },
+  },
+  {
+    path: 'create',
+    component: EventFormComponent,
+    canActivate: [RolesGuard],
+    data: { roles: ['admin', 'eventos'] },
+  },
+  {
+    path: 'edit/:id',
+    component: EventFormComponent,
+    canActivate: [RolesGuard],
+    data: { roles: ['admin', 'eventos'] },
+  },
   { path: ':id', component: EventDetailComponent }, // genérica SEMPRE por último
 ];
