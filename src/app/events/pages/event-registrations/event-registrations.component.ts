@@ -32,6 +32,7 @@ export class EventRegistrationsComponent implements OnInit, OnDestroy {
     this.loadParticipants();
 
     this.sub = this.socketService.onParticipantsUpdate().subscribe((data) => {
+      console.log('Atualização recebida via WebSocket:', data);
       this.participants = data;
     });
   }
