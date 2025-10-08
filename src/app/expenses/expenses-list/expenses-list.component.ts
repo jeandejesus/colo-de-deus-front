@@ -153,7 +153,7 @@ export class ExpensesListComponent implements OnInit {
     }
   }
 
-  onEditIncome(id: string): void {
+  onEditExpenses(id: string): void {
     this.router.navigate(['/expenses/edit', id]);
   }
 

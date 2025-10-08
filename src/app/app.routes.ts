@@ -26,18 +26,23 @@ import { PixComponent } from './pix/pix.component';
 import { EVENT_ROUTES } from './events/event.routes';
 
 export const routes: Routes = [
+  // Rotas públicas
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
   { path: 'register', component: RegisterComponent },
   { path: 'reset', component: ResetPasswordComponent },
   { path: 'reset-password', component: RequestResetComponent },
 
+  // Rotas autenticadas
   {
     path: '',
     component: AuthenticatedLayoutComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: 'events', children: EVENT_ROUTES },
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'perfil', component: PerfilComponent },
+      { path: 'pix', component: PixComponent },
+
+      // Agenda / Eventos
       { path: 'agenda', component: CalendarComponent },
       {
         path: 'agenda/event',
@@ -51,15 +56,15 @@ export const routes: Routes = [
         canActivate: [RolesGuard],
         data: { roles: ['admin', 'agenda'] },
       },
-      { path: 'pix', component: PixComponent },
+      { path: 'events', children: EVENT_ROUTES },
 
+      // Entradas (Incomes)
       {
         path: 'incomes',
         component: IncomesListComponent,
         canActivate: [RolesGuard],
         data: { roles: ['admin', 'financeiro', 'lideranca'] },
       },
-      { path: 'perfil', component: PerfilComponent },
       {
         path: 'incomes/add',
         component: IncomeFormComponent,
@@ -72,6 +77,8 @@ export const routes: Routes = [
         canActivate: [RolesGuard],
         data: { roles: ['admin', 'financeiro'] },
       },
+
+      // Despesas (Expenses)
       {
         path: 'expenses',
         component: ExpensesListComponent,
@@ -87,15 +94,11 @@ export const routes: Routes = [
       {
         path: 'expenses/edit/:id',
         component: ExpenseFormComponent,
-        canActivate: [RolesGuard],
-        data: { roles: ['admin', 'financeiro'] },
+        // canActivate: [RolesGuard],
+        // data: { roles: ['admin', 'financeiro'] },
       },
-      {
-        path: 'balance',
-        component: BalanceFormComponent,
-        canActivate: [RolesGuard],
-        data: { roles: ['admin', 'financeiro'] },
-      },
+
+      // Categorias
       {
         path: 'categories',
         component: CategoriesListComponent,
@@ -114,6 +117,16 @@ export const routes: Routes = [
         canActivate: [RolesGuard],
         data: { roles: ['admin', 'financeiro'] },
       },
+
+      // Balanço
+      {
+        path: 'balance',
+        component: BalanceFormComponent,
+        canActivate: [RolesGuard],
+        data: { roles: ['admin', 'financeiro'] },
+      },
+
+      // Administração
       {
         path: 'admin/permissions',
         component: ManagePermissionsComponent,
@@ -126,9 +139,12 @@ export const routes: Routes = [
         canActivate: [RolesGuard],
         data: { roles: ['admin', 'financeiro'] },
       },
+
+      // Redirecionamento padrão
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
-  // A rota catch-all para o caso de o usuário não estar logado
+
+  // Rota catch-all
   { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];
