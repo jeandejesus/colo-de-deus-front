@@ -3,7 +3,6 @@
 :host {
   display: block;
   min-height: 100vh;
-  background: linear-gradient(135deg, #f7f9ff, #e9f1ff);
   font-family: "Inter", sans-serif;
   color: #333;
 }
@@ -23,7 +22,6 @@
   background: #fff;
   border-radius: 20px;
   padding: 40px 30px;
-  width: 320px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   animation: popIn 0.8s ease forwards;
 }
