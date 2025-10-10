@@ -43,7 +43,7 @@ export class EventCheckinComponent {
         this.checkinValidado = true;
       },
       error: (err) => {
-        this.checkinMessage = err.error?.message || 'Falha ao validar QR Code';
+        this.checkinMessage = err.error?.messages || 'Falha ao validar QR Code';
         this.loading = false;
       },
     });
