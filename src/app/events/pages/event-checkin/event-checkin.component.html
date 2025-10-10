@@ -1,19 +1,46 @@
 <div class="checkin-container">
-  <h2>Leitor de QR Code - Check-in</h2>
+  <h2>Scan a QR Code</h2>
 
-  <zxing-scanner
-    [formats]="allowedFormats"
-    (scanSuccess)="onCodeResult($event)"
-  >
-  </zxing-scanner>
+  <div class="qr-box">
+    <h3>Scan your QR</h3>
 
-  <div class="result" *ngIf="qrResult">
-    <p><strong>QR Capturado:</strong> {{ qrResult }}</p>
+    <div class="qr-frame">
+      <zxing-scanner
+        [formats]="allowedFormats"
+        (scanSuccess)="onCodeResult($event)"
+      ></zxing-scanner>
+
+      <!-- Moldura animada -->
+      <div class="corner top-left"></div>
+      <div class="corner top-right"></div>
+      <div class="corner bottom-left"></div>
+      <div class="corner bottom-right"></div>
+    </div>
   </div>
 
-  <div class="status" *ngIf="checkinMessage">
+  <div class="instruction">
+    <p>
+      Please, align QR Code within the frame to make scanning easily detectable.
+    </p>
+  </div>
+
+  <div class="result" *ngIf="qrResult" [@fadeIn]>
+    <p><strong>✅ QR Capturado:</strong> {{ qrResult }}</p>
+  </div>
+
+  <div
+    class="status"
+    *ngIf="checkinMessage"
+    [ngClass]="{
+      success: checkinMessage.includes('sucesso'),
+      error: checkinMessage.includes('erro'),
+      info:
+        !checkinMessage.includes('sucesso') && !checkinMessage.includes('erro')
+    }"
+    [@fadeInUp]
+  >
     <p>{{ checkinMessage }}</p>
   </div>
 
-  <div *ngIf="loading">Validando...</div>
+  <div *ngIf="loading" class="loading">Validando...</div>
 </div>

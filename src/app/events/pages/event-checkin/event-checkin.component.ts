@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { EventService } from '../../../services/event.service';
@@ -12,7 +12,10 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './event-checkin.component.html',
   styleUrls: ['./event-checkin.component.scss'],
 })
-export class EventCheckinComponent {
+export class EventCheckinComponent implements OnInit {
+  ngOnInit(): void {
+    this.checkin('a31626e6-db6c-4580-ab09-412e0630934b');
+  }
   private eventService = inject(EventService);
   private route = inject(ActivatedRoute);
 
