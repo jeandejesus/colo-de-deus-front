@@ -205,3 +205,54 @@ zxing-scanner {
     transform: translateY(0);
   }
 }
+
+.scanner-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+}
+
+.scanner-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Overlay central com logo */
+.scanner-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* não bloqueia o scanner */
+  z-index: 10;
+}
+
+/* Estilo da logo */
+.scanner-logo {
+  width: 90px;
+  opacity: 0.15; /* leve transparência para não interferir na leitura */
+  filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.3));
+  animation: pulseLogo 3s infinite ease-in-out;
+}
+
+/* Animação suave de pulsar */
+@keyframes pulseLogo {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.15;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.25;
+  }
+}
