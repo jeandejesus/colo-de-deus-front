@@ -1,10 +1,112 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap");
+
+:host {
+  display: block;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f7f9ff, #e9f1ff);
+  font-family: "Inter", sans-serif;
+  color: #333;
+}
+
+/* Container centralizado */
 .qr-page {
   display: flex;
-  justify-content: center;
   align-items: center;
-  flex-direction: column;
-  background: white;
-  margin: 27px;
-  padding: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  animation: fadeIn 0.6s ease forwards;
+}
+
+/* Cartão do QR */
+.qr-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px 30px;
+  width: 320px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  animation: popIn 0.8s ease forwards;
+}
+
+/* Título */
+.event-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #1e3a8a;
+}
+
+/* Texto explicativo */
+.qr-instruction {
+  color: #475569;
+  font-size: 0.95rem;
+  margin-bottom: 25px;
+}
+
+/* QR Code centralizado com moldura */
+.qr-container {
+  background: #f9fbff;
+  border-radius: 16px;
+  padding: 16px;
+  border: 2px solid #3b82f6;
+  display: inline-block;
+  box-shadow: 0 4px 10px rgba(59, 130, 246, 0.15);
+  animation: glow 2s infinite ease-in-out;
+}
+
+/* Rodapé */
+.qr-footer {
+  margin-top: 25px;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+/* Caso de erro */
+.qr-error {
+  background: #fff0f0;
+  border: 2px solid #ef4444;
+  color: #b91c1c;
+  font-weight: 500;
+  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.1);
+}
+
+/* Animações */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 14px rgba(59, 130, 246, 0.6);
+  }
+}
+
+/* Responsividade */
+@media (max-width: 400px) {
+  .qr-card {
+    width: 90%;
+    padding: 30px 20px;
+  }
 }

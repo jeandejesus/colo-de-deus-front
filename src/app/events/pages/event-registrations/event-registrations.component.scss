@@ -1,64 +1,154 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap");
+
+:host {
+  display: block;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f7f9ff, #e9f1ff);
+  font-family: "Inter", sans-serif;
+  color: #333;
+}
+
+/* Container geral */
 .registrations-container {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 1rem;
-  background: #f7f8fa;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  text-align: center;
+  animation: fadeIn 0.5s ease forwards;
+}
 
-  h2 {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    color: #333;
+/* Título */
+.registrations-container h2 {
+  font-size: 1.5rem;
+  color: #1e3a8a;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+/* Texto vazio */
+.empty {
+  background: #f4f7ff;
+  border-radius: 16px;
+  padding: 20px;
+  color: #64748b;
+  font-size: 0.95rem;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+  animation: popIn 0.6s ease forwards;
+}
+
+/* Lista de participantes */
+.participant-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+/* Cartão individual */
+.participant-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: default;
+  animation: fadeSlideIn 0.5s ease forwards;
+}
+
+.participant-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 18px rgba(59, 130, 246, 0.15);
+}
+
+/* Nome */
+.name {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 1rem;
+}
+
+/* Status base */
+.status {
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 12px;
+  padding: 4px 10px;
+  display: inline-block;
+}
+
+/* Status - Presente */
+.participant-card.checked .status {
+  color: #0f7b1b;
+  background: #e7ffe9;
+  border: 1px solid #22c55e;
+}
+
+/* Status - Pendente */
+.participant-card.pending .status {
+  color: #b45309;
+  background: #fff7ed;
+  border: 1px solid #f59e0b;
+}
+
+.info {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/* Animações */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+  .registrations-container {
+    padding: 30px 15px;
   }
 
-  .empty {
-    text-align: center;
-    color: #777;
-    font-style: italic;
+  .participant-card {
+    padding: 12px 16px;
   }
 
-  .participant-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
+  .name {
+    font-size: 0.95rem;
+  }
 
-    .participant-card {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.8rem 1rem;
-      border-radius: 8px;
-      background: #fff;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-      transition: all 0.3s ease;
-
-      &.checked {
-        border-left: 5px solid #4caf50;
-        background: #e8f5e9;
-      }
-
-      &.pending {
-        border-left: 5px solid #ff9800;
-        background: #fff8e1;
-      }
-
-      .name {
-        font-weight: 600;
-        color: #333;
-      }
-
-      .status {
-        font-weight: 500;
-        font-size: 0.9rem;
-        color: #555;
-      }
-
-      .qr {
-        font-family: monospace;
-        font-size: 0.8rem;
-        color: #888;
-      }
-    }
+  .status {
+    font-size: 0.85rem;
   }
 }

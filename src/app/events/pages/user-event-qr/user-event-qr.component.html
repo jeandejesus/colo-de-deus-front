@@ -1,10 +1,24 @@
 <div class="qr-page" *ngIf="qrCode">
-  <h2>{{ eventTitle }}</h2>
-  <p>Mostre este QR Code na entrada do evento:</p>
+  <div class="qr-card">
+    <h2 class="event-title">{{ eventTitle }}</h2>
+    <p class="qr-instruction">Mostre este QR Code na entrada do evento:</p>
 
-  <qrcode [qrdata]="qrCode" [width]="250" [errorCorrectionLevel]="'M'"></qrcode>
+    <div class="qr-container">
+      <qrcode
+        [qrdata]="qrCode"
+        [width]="250"
+        [errorCorrectionLevel]="'M'"
+      ></qrcode>
+    </div>
+
+    <p class="qr-footer">
+      Mantenha o brilho da tela alto para facilitar a leitura.
+    </p>
+  </div>
 </div>
 
-<div *ngIf="!qrCode">
-  <p>QR Code não disponível.</p>
+<div class="qr-page" *ngIf="!qrCode">
+  <div class="qr-card qr-error">
+    <p>🚫 QR Code não disponível.</p>
+  </div>
 </div>
