@@ -9,7 +9,16 @@
       <p [innerHTML]="e.description"></p>
       <p><b>Início:</b> {{ e.startDate | date : "short" }}</p>
       <p><b>Fim:</b> {{ e.endDate | date : "short" }}</p>
-      <p><b>Local:</b> {{ e.location }}</p>
+      <p>
+        <b>Local:</b>
+        <a
+          [href]="getMapsLink(e.location)"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {{ e.location }}
+        </a>
+      </p>
 
       <div class="button">
         <!-- Se não inscrito -->
