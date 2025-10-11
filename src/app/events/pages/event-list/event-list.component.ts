@@ -35,7 +35,12 @@ export class EventListComponent implements OnInit {
 
   loadEvents() {
     this.eventService.getEvents().subscribe({
-      next: (res) => (this.events = res),
+      next: (res) => {
+        res.forEach((event) => {
+          event.description = event.description?.replace(/\n/g, '<br>') || '';
+        });
+        this.events = res;
+      },
       error: (err) => {
         console.error(err);
         alert('Erro ao carregar eventos.');

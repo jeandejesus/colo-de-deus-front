@@ -56,6 +56,9 @@ export class UserEventListComponent implements OnInit {
     this.eventService.getEvents().subscribe({
       next: (res) => {
         const now = new Date();
+        res.forEach((event) => {
+          event.description = event.description?.replace(/\n/g, '<br>') || '';
+        });
         this.events = res.filter((e) => new Date(e.endDate) >= now); // apenas eventos ativos
       },
       error: (err) => {

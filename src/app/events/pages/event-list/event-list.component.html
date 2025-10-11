@@ -3,7 +3,7 @@
 
   <div *ngFor="let e of events" class="event-card">
     <h3>{{ e.title }}</h3>
-    <p>{{ e.description }}</p>
+    <p [innerHTML]="e.description"></p>
     <p><b>Início:</b> {{ e.startDate | date : "short" }}</p>
     <p><b>Fim:</b> {{ e.endDate | date : "short" }}</p>
     <p><b>Local:</b> {{ e.location }}</p>
