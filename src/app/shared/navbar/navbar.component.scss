@@ -3,7 +3,7 @@ $primary-color: #030303;
 $accent-color: #ecf0f1;
 $logout-color: #c0392b;
 .main-container {
-  height: 100%;
+  overflow: hidden;
 }
 .navbar {
   background-color: $primary-color;
@@ -12,7 +12,7 @@ $logout-color: #c0392b;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
+  position: fixed;
   z-index: 1000;
 }
 
@@ -113,6 +113,7 @@ a:focus::before {
     width: 100%;
     display: flex;
     justify-content: center;
+    padding-top: 64px;
   }
 
   .nav-links {
