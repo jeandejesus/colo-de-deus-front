@@ -4,6 +4,7 @@ $accent-color: #ecf0f1;
 $logout-color: #c0392b;
 .main-container {
   overflow: hidden;
+  height: 100%;
 }
 .navbar {
   background-color: $primary-color;
@@ -22,9 +23,6 @@ $logout-color: #c0392b;
 
 .mat-icon {
   color: white;
-}
-.nav-links {
-  height: 93%;
 }
 
 .nav-brand {
