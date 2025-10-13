@@ -13,12 +13,13 @@ $logout-color: #c0392b;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
+  position: relative;
   z-index: 1000;
 }
 
 .sidenav-content {
-  padding-top: 56px;
+  padding-top: 62px;
+  bottom: 64px;
 }
 
 .mat-icon {
@@ -115,7 +116,8 @@ a:focus::before {
     width: 100%;
     display: flex;
     justify-content: center;
-    padding-top: 64px;
+    padding-top: 62px;
+    bottom: 64px;
   }
 
   .nav-links {
