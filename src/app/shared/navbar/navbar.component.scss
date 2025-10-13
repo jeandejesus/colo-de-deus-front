@@ -13,13 +13,13 @@ $logout-color: #c0392b;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
+  position: fixed;
   z-index: 1000;
 }
 
 .sidenav-content {
   padding-top: 62px;
-  bottom: 64px;
+  // bottom: 64px;
 }
 
 .mat-icon {
@@ -46,10 +46,6 @@ $logout-color: #c0392b;
     margin: 5px 0;
     transition: all 0.3s ease;
   }
-}
-
-.nav-links {
-  background-color: $primary-color;
 }
 
 .nav-item {
@@ -117,7 +113,7 @@ a:focus::before {
     display: flex;
     justify-content: center;
     padding-top: 62px;
-    bottom: 64px;
+    // bottom: 64px;
   }
 
   .nav-links {
