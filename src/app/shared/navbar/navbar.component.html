@@ -28,6 +28,13 @@
 
         <a mat-list-item routerLink="/agenda" class="active-link">Agenda</a>
         <a mat-list-item routerLink="/pix" class="active-link">Pix</a>
+        <a
+          mat-list-item
+          routerLink="/mapa-missionarios"
+          class="active-link"
+          *appPermission="['agenda', 'admin', 'lideranca']"
+          >Mapa missionário</a
+        >
 
         <!-- ROTAS DE EVENTOS -->
 

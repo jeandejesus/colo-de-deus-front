@@ -1,0 +1,52 @@
+<div class="map-page">
+  <div class="search-bar">
+    <input
+      type="text"
+      [(ngModel)]="addressSearch"
+      placeholder="Digite um endereço para buscar missionários"
+    />
+    <button (click)="searchAndCenter()" [disabled]="loading">
+      <span *ngIf="!loading">Buscar Próximos</span>
+      <span *ngIf="loading">Buscando...</span>
+    </button>
+    <button (click)="loadAllMissionaries()" [disabled]="loading">
+      Mostrar Todos
+    </button>
+  </div>
+
+  <div class="message" *ngIf="message">{{ message }}</div>
+
+  <google-map
+    height="70vh"
+    width="100%"
+    [center]="center"
+    [zoom]="zoom"
+    [options]="{ fullscreenControl: true }"
+    class="google-map-container"
+  >
+    <map-marker
+      *ngFor="let m of markers"
+      [position]="m.position"
+      [title]="m.title"
+      [options]="m.options"
+      (mapClick)="openInfo(marker, m)"
+      #marker
+    >
+    </map-marker>
+
+    <map-info-window>
+      <div
+        *ngIf="selectedMarker"
+        class="info-window"
+        [innerHTML]="selectedMarker.info"
+      ></div>
+    </map-info-window>
+  </google-map>
+
+  <div class="search-bar" *appPermission="['admin']">
+    <button (click)="updateCoordinatesManually()" [disabled]="updating">
+      {{ updating ? "Atualizando..." : "Atualizar coordenadas manualmente" }}
+    </button>
+    <p *ngIf="updateMessage">{{ updateMessage }}</p>
+  </div>
+</div>
