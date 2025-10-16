@@ -78,6 +78,47 @@
   }
 }
 
+/* InfoWindow moderno */
+.info-window {
+  max-width: 250px;
+  padding: 0.8rem 1rem;
+  background-color: #ffffff; /* branco limpo */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  font-family: "Roboto", sans-serif;
+  font-size: 0.9rem;
+  color: #333;
+  line-height: 1.3;
+  text-align: left;
+  word-break: break-word;
+  transition: all 0.3s;
+}
+
+/* Título em destaque */
+.info-window strong {
+  font-size: 1rem;
+  color: #007bff;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+/* Detalhes menores */
+.info-window small {
+  display: block;
+  color: #666;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+}
+
+/* Adaptação mobile */
+@media (max-width: 600px) {
+  .info-window {
+    max-width: 200px;
+    font-size: 0.85rem;
+    padding: 0.6rem 0.8rem;
+  }
+}
+
 /* Mobile tweaks */
 @media (max-width: 600px) {
   .search-bar {

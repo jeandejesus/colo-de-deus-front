@@ -33,10 +33,11 @@ interface Marker {
   styleUrls: ['./missionaries-map.component.scss'],
 })
 export class MissionariesMapComponent implements OnInit {
-  @ViewChild(MapInfoWindow) infoWindow!: MapInfoWindow;
+  @ViewChild(GoogleMap, { static: false }) map!: GoogleMap;
+  infoWindow!: google.maps.InfoWindow;
+
   updating = false;
   updateMessage = '';
-
   // mapa
   center: google.maps.LatLngLiteral = { lat: -25.4278, lng: -49.2733 }; // centro inicial (Curitiba)
   zoom = 6;
@@ -108,9 +109,19 @@ export class MissionariesMapComponent implements OnInit {
   }
 
   // clicar no marcador
-  openInfo(marker: any, data: any) {
-    this.selectedMarker = data;
-    this.infoWindow.open(marker);
+  openInfo(event: any, markerData: any) {
+    this.selectedMarker = markerData;
+    console.log('Marker clicked:', markerData);
+
+    // Se não tiver criado o InfoWindow, cria
+    if (!this.infoWindow) {
+      this.infoWindow = new google.maps.InfoWindow();
+    }
+
+    // Seta o conteúdo e abre
+    this.infoWindow.setContent(markerData.info);
+    this.infoWindow.setPosition(markerData.position);
+    this.infoWindow.open(this.map.googleMap); // 'map' é a referência ao <google-map>
   }
 
   // busca por endereço e usa endpoint backend /location/near se existir
