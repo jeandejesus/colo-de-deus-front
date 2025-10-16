@@ -24,6 +24,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { EventFormComponent } from './event-form/event-form.component';
 import { PixComponent } from './pix/pix.component';
 import { EVENT_ROUTES } from './events/event.routes';
+import { MissionariesMapComponent } from './pages/missionaries-map.component';
 
 export const routes: Routes = [
   // Rotas públicas
@@ -41,7 +42,10 @@ export const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'perfil', component: PerfilComponent },
       { path: 'pix', component: PixComponent },
-
+      {
+        path: 'mapa-missionarios',
+        component: MissionariesMapComponent,
+      },
       // Agenda / Eventos
       { path: 'agenda', component: CalendarComponent },
       {

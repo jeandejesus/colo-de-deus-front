@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { EventListComponent } from './pages/event-list/event-list.component';
-import { EventDetailComponent } from './pages/event-detail/event-detail.component';
 import { EventFormComponent } from './pages/event-form/event-form.component';
 import { UserEventListComponent } from './pages/user-event-list/user-event-list.component';
 import { UserEventQRCodeComponent } from './pages/user-event-qr/user-event-qr.component';
@@ -31,5 +30,4 @@ export const EVENT_ROUTES: Routes = [
     canActivate: [RolesGuard],
     data: { roles: ['admin', 'eventos'] },
   },
-  { path: ':id', component: EventDetailComponent }, // genérica SEMPRE por último
 ];
