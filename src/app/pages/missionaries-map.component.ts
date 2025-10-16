@@ -67,8 +67,11 @@ export class MissionariesMapComponent implements OnInit {
   loadAllMissionaries(): void {
     this.message = '';
     this.loading = true;
+
     this.missionaryService.getAllWithLocation().subscribe({
       next: (list) => {
+        const markersMap = new Map<string, number>();
+
         this.markers = list
           .filter(
             (m) =>
@@ -76,28 +79,38 @@ export class MissionariesMapComponent implements OnInit {
               m.address.location.coordinates.length === 2
           )
           .map((m) => {
-            if (m.address?.location?.coordinates) {
-              const [lon, lat] = m.address.location.coordinates;
-              return {
-                position: { lat, lng: lon },
-                title: m.name,
-                id: m._id,
-                info: `${m.name}<br/>${m.address.street}, ${m.address.city} - ${m.address.state}`,
-                options: {},
-              };
-            }
-            return undefined;
-          })
-          .filter(
-            (marker): marker is NonNullable<typeof marker> =>
-              marker !== undefined
-          );
+            const [lon, lat] = m.address.location?.coordinates || [0, 0];
+            const key = `${lat.toFixed(5)},${lon.toFixed(5)}`;
+
+            // Conta quantos já existem na mesma coordenada
+            const count = (markersMap.get(key) || 0) + 1;
+            markersMap.set(key, count);
+
+            // Pequeno deslocamento se houver duplicados
+            const offset = count > 1 ? (count - 1) * 0.00005 : 0; // ~5 metros
+            const adjustedLat = lat + offset;
+            const adjustedLng = lon + offset;
+
+            return {
+              position: { lat: adjustedLat, lng: adjustedLng },
+              title: m.name,
+              id: m._id,
+              info: `
+              <div class="info-window">
+                <strong>${m.name}</strong><br/>
+                ${m.address.street}, ${m.address.city} - ${m.address.state}
+              </div>
+              `,
+
+              options: {},
+            };
+          });
 
         if (this.markers.length) {
-          // centraliza no primeiro
           this.center = this.markers[0].position;
           this.zoom = 10;
         }
+
         this.loading = false;
       },
       error: (err) => {
@@ -111,7 +124,6 @@ export class MissionariesMapComponent implements OnInit {
   // clicar no marcador
   openInfo(event: any, markerData: any) {
     this.selectedMarker = markerData;
-    console.log('Marker clicked:', markerData);
 
     // Se não tiver criado o InfoWindow, cria
     if (!this.infoWindow) {

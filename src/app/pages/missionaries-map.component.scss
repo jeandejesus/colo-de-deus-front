@@ -78,45 +78,28 @@
   }
 }
 
-/* InfoWindow moderno */
-.info-window {
-  max-width: 250px;
-  padding: 0.8rem 1rem;
-  background-color: #ffffff; /* branco limpo */
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  font-family: "Roboto", sans-serif;
-  font-size: 0.9rem;
+::ng-deep .gm-style .custom-infowindow {
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px 15px;
+  font-family: "Poppins", sans-serif;
   color: #333;
-  line-height: 1.3;
-  text-align: left;
-  word-break: break-word;
-  transition: all 0.3s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
-
-/* Título em destaque */
-.info-window strong {
-  font-size: 1rem;
-  color: #007bff;
-  display: block;
-  margin-bottom: 0.2rem;
+::ng-deep .gm-style .custom-infowindow h4 {
+  margin: 0 0 5px;
+  color: #1976d2;
+  font-size: 15px;
 }
-
-/* Detalhes menores */
-.info-window small {
-  display: block;
-  color: #666;
-  font-size: 0.8rem;
-  margin-top: 0.2rem;
+::ng-deep .gm-style .custom-infowindow ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
-
-/* Adaptação mobile */
-@media (max-width: 600px) {
-  .info-window {
-    max-width: 200px;
-    font-size: 0.85rem;
-    padding: 0.6rem 0.8rem;
-  }
+::ng-deep .gm-style .custom-infowindow li {
+  font-size: 13px;
+  border-bottom: 1px solid #eee;
+  padding: 2px 0;
 }
 
 /* Mobile tweaks */
