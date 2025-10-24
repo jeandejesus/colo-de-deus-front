@@ -1,0 +1,44 @@
+<app-loading-screen *ngIf="loading"></app-loading-screen>
+
+<div class="container" *ngIf="!loading">
+  <mat-card *ngIf="liturgia">
+    <mat-card-header>
+      <mat-card-title>Liturgia do Dia </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="leitura" *ngIf="liturgia.primeira_leitura">
+        <h3>1ª Leitura</h3>
+        <p [innerHTML]="liturgia.primeira_leitura"></p>
+      </div>
+
+      <div class="leitura salmo" *ngIf="liturgia.salmo">
+        <h3>Salmo</h3>
+        <p [innerHTML]="liturgia.salmo"></p>
+      </div>
+
+      <div class="leitura" *ngIf="liturgia.segunda_leitura">
+        <h3>2ª Leitura</h3>
+        <p [innerHTML]="liturgia.segunda_leitura"></p>
+      </div>
+
+      <div class="leitura" *ngIf="liturgia.evangelho">
+        <h3>Evangelho</h3>
+        <p [innerHTML]="liturgia.evangelho"></p>
+      </div>
+    </mat-card-content>
+
+    <mat-accordion class="reflexao-accordion" *ngIf="liturgia?.reflexao">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon class="icon">auto_stories</mat-icon>
+            <span>Reflexão do Dia</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="reflexao-content" [innerHTML]="liturgia?.reflexao"></div>
+        <p>Fonte: https://www.hablarcondios.org/pt/meditacaodiaria.aspx</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-card>
+</div>
