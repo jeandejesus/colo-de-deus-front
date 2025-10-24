@@ -2,10 +2,15 @@
 // src/app/core/services/user.service.ts
 
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { User } from '../models/user';
 
+export interface PagedResult<T> {
+  data: T[];
+  total: number;
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -31,5 +36,19 @@ export class UserService {
   updateUser(updatedUser: any): Observable<any> {
     const url = `${this.apiUrl}/me`;
     return this.http.patch(url, updatedUser);
+  }
+
+  getUsersPaginate(page = 1, limit = 10): Observable<PagedResult<User>> {
+    const params = new HttpParams()
+      .set('page', String(page))
+      .set('limit', String(limit));
+
+    return this.http.get<PagedResult<User>>(`${this.apiUrl}/paginate`, {
+      params,
+    });
+  }
+
+  deleteUser(id: string) {
+    return this.http.delete<{ message: string }>(`${this.apiUrl}/${id}`);
   }
 }
