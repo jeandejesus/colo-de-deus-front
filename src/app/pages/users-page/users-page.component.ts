@@ -36,7 +36,13 @@ import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dial
   styleUrls: ['./users-page.component.scss'],
 })
 export default class UsersPageComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'trainer', 'vocationalYear', 'actions'];
+  displayedColumns: string[] = [
+    'name',
+    'trainer',
+    'email',
+    'vocationalYear',
+    'actions',
+  ];
   dataSource: User[] = [];
   total = 0;
   page = 1;
