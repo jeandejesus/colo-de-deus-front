@@ -96,10 +96,16 @@ export class MissionariesMapComponent implements OnInit {
               title: m.name,
               id: m._id,
               info: `
-              <div class="info-window">
-                <strong>${m.name}</strong><br/>
-                ${m.address.street}, ${m.address.city} - ${m.address.state}
-              </div>
+                <div class="info-window">
+                  <strong>${m.name}</strong><br/>
+                  <a href="https://www.google.com/maps?q=${encodeURIComponent(
+                    `${m.address.street}, ${m.address.city} - ${m.address.state}`
+                  )}"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    ${m.address.street}, ${m.address.city} - ${m.address.state}
+                  </a>
+                </div>
               `,
 
               options: {},
