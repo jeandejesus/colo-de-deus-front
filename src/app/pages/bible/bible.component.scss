@@ -12,6 +12,12 @@
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
+
+  position: sticky;
+  top: 0; /* distância do topo da tela */
+  background-color: #1f2937; /* mesma cor do container dark */
+  padding: 10px 0;
+  z-index: 10; /* garante que fique acima dos versos */
 }
 
 select {
