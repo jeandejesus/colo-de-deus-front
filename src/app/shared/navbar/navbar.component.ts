@@ -57,6 +57,10 @@ export class NavbarComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     const registration = await navigator.serviceWorker.ready;
 
+    const token = this.authService.getToken();
+    if (!token) {
+      this.showNavigation = false;
+    }
     // Verifica se o usuário já permitiu notificações
     if (Notification.permission === 'granted') {
       const subscription = await registration.pushManager.getSubscription();

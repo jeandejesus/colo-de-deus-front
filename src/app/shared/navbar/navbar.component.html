@@ -1,5 +1,9 @@
-<div class="main-container" *ngIf="showNavigation">
-  <mat-toolbar color="primary" class="app-toolbar navbar">
+<div class="main-container">
+  <mat-toolbar
+    color="primary"
+    class="app-toolbar navbar"
+    *ngIf="showNavigation"
+  >
     <button mat-icon-button (click)="sidenav.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
@@ -110,7 +114,10 @@
         <button mat-button class="btn-logout" (click)="onLogout()">Sair</button>
       </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content class="sidenav-content">
+    <mat-sidenav-content
+      class="sidenav-content"
+      [ngClass]="{ public: !showNavigation }"
+    >
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>

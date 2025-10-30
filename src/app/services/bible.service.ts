@@ -18,9 +18,7 @@ export class BibleService {
   }
 
   getBook(bookName: string): Observable<any> {
-    console.log(`Buscando livro: ${bookName}`);
     const key = this.normalizeName(bookName);
-    console.log(`Chave normalizada: ${key}`);
     // se já existe um observable no cache, retorna ele (shareReplay garante reutilização)
     if (this.bookObservables.has(key)) {
       return this.bookObservables.get(key)!;

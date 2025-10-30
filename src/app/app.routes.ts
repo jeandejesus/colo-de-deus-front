@@ -35,6 +35,7 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'reset', component: ResetPasswordComponent },
   { path: 'reset-password', component: RequestResetComponent },
+  { path: 'biblia', component: BibleComponent },
 
   // Rotas autenticadas
   {
@@ -45,7 +46,6 @@ export const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'perfil', component: PerfilComponent },
       { path: 'pix', component: PixComponent },
-      { path: 'biblia', component: BibleComponent },
 
       {
         path: 'mapa-missionarios',
