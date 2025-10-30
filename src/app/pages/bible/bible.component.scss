@@ -1,0 +1,69 @@
+.bible-container {
+  padding: 20px;
+  color: #e3e3e3;
+  background-color: #111827;
+  min-height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+select {
+  background-color: #1f2937;
+  color: #e5e7eb;
+  border: 1px solid #374151;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.chapter h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.verse {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 6px 0;
+  border-radius: 6px;
+}
+
+.verse:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.verse-number {
+  background-color: #2563eb;
+  color: white;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.verse-text {
+  line-height: 1.6;
+  white-space: normal; /* permite quebra de linha */
+  word-wrap: break-word; /* quebra palavras longas */
+  overflow-wrap: break-word; /* suporte moderno */
+}
+
+@media (min-width: 1024px) {
+  .bible-container {
+    width: 900px; /* largura fixa */
+    margin: 0 auto; /* centraliza horizontalmente */
+    border-radius: 12px; /* opcional: bordas arredondadas */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* opcional: sombra leve */
+  }
+}

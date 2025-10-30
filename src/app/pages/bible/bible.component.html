@@ -1,0 +1,23 @@
+<div class="bible-container">
+  <div class="controls">
+    <select [(ngModel)]="selectedBook" (change)="loadBook(selectedBook)">
+      <option *ngFor="let b of books" [value]="b">{{ b }}</option>
+    </select>
+
+    <select
+      [(ngModel)]="selectedChapter"
+      (change)="loadChapter(selectedChapter)"
+    >
+      <option *ngFor="let c of chapters" [value]="c">Capítulo {{ c }}</option>
+    </select>
+  </div>
+
+  <div class="chapter" *ngIf="verses.length > 0">
+    <h2>{{ selectedBook }} {{ selectedChapter }}</h2>
+
+    <div *ngFor="let v of verses" class="verse">
+      <span class="verse-number">{{ v.versiculo }}</span>
+      <span class="verse-text">{{ v.texto }}</span>
+    </div>
+  </div>
+</div>

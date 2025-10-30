@@ -27,6 +27,7 @@ import { EVENT_ROUTES } from './events/event.routes';
 import { MissionariesMapComponent } from './pages/missionaries-map.component';
 import { LiturgiaComponent } from './liturgia/liturgia.component';
 import UsersPageComponent from './pages/users-page/users-page.component';
+import { BibleComponent } from './pages/bible/bible.component';
 
 export const routes: Routes = [
   // Rotas públicas
@@ -44,6 +45,8 @@ export const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'perfil', component: PerfilComponent },
       { path: 'pix', component: PixComponent },
+      { path: 'biblia', component: BibleComponent },
+
       {
         path: 'mapa-missionarios',
         component: MissionariesMapComponent,
