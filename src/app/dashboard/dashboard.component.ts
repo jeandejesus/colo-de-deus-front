@@ -19,6 +19,7 @@ import {
 } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { PermissionDirective } from '../directives/permission.directive';
+import { UserService } from '../services/users.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -47,6 +48,8 @@ export class DashboardComponent implements OnInit {
   totalExpenses: number = 0;
   balance: number = 0;
   generalBalance: number = 0;
+  progress: any | null = null;
+  loading = true;
 
   // Propriedades para o gráfico de pizza (despesas)
   expenseChartData: any[] = [];
@@ -87,7 +90,8 @@ export class DashboardComponent implements OnInit {
   constructor(
     private incomesService: IncomesService,
     private expensesService: ExpensesService,
-    private balanceService: BalanceService
+    private balanceService: BalanceService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -124,6 +128,8 @@ export class DashboardComponent implements OnInit {
         console.error('Erro ao carregar o dashboard:', err);
       },
     });
+
+    this.loadProgress();
   }
 
   onRoleChange(): void {
@@ -197,5 +203,25 @@ export class DashboardComponent implements OnInit {
 
   toggleValues(): void {
     this.showValues = !this.showValues;
+  }
+
+  loadProgress() {
+    this.userService.getMonthlyProgress().subscribe({
+      next: (data) => {
+        this.progress = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Erro ao carregar progresso mensal:', err);
+        this.loading = false;
+      },
+    });
+  }
+
+  getProgressColor(): string {
+    if (!this.progress) return '#333';
+    if (this.progress.paidPercentage >= 80) return '#22c55e'; // verde
+    if (this.progress.paidPercentage >= 50) return '#eab308'; // amarelo
+    return '#ef4444'; // vermelho
   }
 }

@@ -51,4 +51,13 @@ export class UserService {
   deleteUser(id: string) {
     return this.http.delete<{ message: string }>(`${this.apiUrl}/${id}`);
   }
+
+  // users.service.ts (Angular)
+  getMonthlyProgress() {
+    return this.http.get<{
+      totalUsers: number;
+      paidPercentage: number;
+      remainingPercentage: number;
+    }>(`${environment.apiUrl}/users/monthly-contribution-progress`);
+  }
 }

@@ -52,6 +52,22 @@
     </mat-card-actions>
   </mat-card>
 
+  <div class="progress-container" *ngIf="!loading && progress">
+    <h3>💰 Contribuição Mensal</h3>
+    <p>
+      Recebido: <strong>{{ progress.paidPercentage }}%</strong><br />
+      Faltam: <strong>{{ progress.remainingPercentage }}%</strong>
+    </p>
+
+    <div class="progress-bar">
+      <div
+        class="progress-fill"
+        [style.width.%]="progress.paidPercentage"
+        [style.background]="getProgressColor()"
+      ></div>
+    </div>
+  </div>
+
   <div class="charts-container">
     <div class="chart-card" *ngIf="expenseChartData.length > 0">
       <h3>Despesas por Categoria</h3>
