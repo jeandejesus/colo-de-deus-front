@@ -206,7 +206,15 @@ export class DashboardComponent implements OnInit {
   }
 
   loadProgress() {
-    this.userService.getMonthlyProgress().subscribe({
+    const now = new Date();
+    const startOfMonth = new Date(now.getFullYear(), this.selectedMonth, 1)
+      .toISOString()
+      .substring(0, 10);
+    const endOfMonth = new Date(now.getFullYear(), this.selectedMonth + 1, 0)
+      .toISOString()
+      .substring(0, 10);
+
+    this.userService.getMonthlyProgress(startOfMonth, endOfMonth).subscribe({
       next: (data) => {
         this.progress = data;
         this.loading = false;

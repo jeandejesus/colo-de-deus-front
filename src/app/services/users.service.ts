@@ -53,11 +53,9 @@ export class UserService {
   }
 
   // users.service.ts (Angular)
-  getMonthlyProgress() {
-    return this.http.get<{
-      totalUsers: number;
-      paidPercentage: number;
-      remainingPercentage: number;
-    }>(`${environment.apiUrl}/users/monthly-contribution-progress`);
+  getMonthlyProgress(start: string, end: string): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl}/monthly-contribution-progress?start=${start}&end=${end}`
+    );
   }
 }
